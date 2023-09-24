@@ -1,9 +1,10 @@
 // import { useNuxtApp } from 'nuxt/app'
 
-import { EntityType, useService } from '~/server/data/db'
+import { useService } from '~/server/data/db'
+import { EntityType } from '~/types'
 
 export default defineEventHandler(async () => {
     // const app = useNuxtApp()
-    const { getAll } = useService(EntityType.Game)
+    const { getAll } = useService(EntityType.Drink)
     return getAll()
 })
