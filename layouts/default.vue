@@ -6,6 +6,9 @@
             <span>Logged in as {{ name }}</span>
             <button @click="logout">Logout</button>
         </nav>
+        <CircleImageButton
+            :imageURL="'../assets/img/drinks.svg'"
+        ></CircleImageButton>
         <slot></slot>
     </div>
 </template>
@@ -24,7 +27,6 @@ const logout = () => {
 </script>
 <style>
 .body {
-    background-color: #f5f5f5;
     height: 100vh;
     width: 100vw;
     display: flex;
