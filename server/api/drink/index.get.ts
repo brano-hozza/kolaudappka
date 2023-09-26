@@ -6,5 +6,5 @@ import { EntityType } from '~/types'
 export default defineEventHandler(async () => {
     // const app = useNuxtApp()
     const { getAll } = useService(EntityType.Drink)
-    return getAll()
+    return await getAll()
 })

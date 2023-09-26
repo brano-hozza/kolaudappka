@@ -1,10 +1,5 @@
-import { Drink, Entity, EntityType, Game, Snack } from "~/types"
-
-const drinks: Drink[] = []
-
-const snacks: Snack[] = []
-
-const games: Game[] = []
+import { kv } from '@vercel/kv'
+import { Drink, Entity, EntityType, Game, Snack } from '~/types'
 
 interface EntityLookup {
     [EntityType.Game]: Game
@@ -12,34 +7,37 @@ interface EntityLookup {
     [EntityType.Drink]: Drink
 }
 
+interface EntityStorage {
+    entities: Entity[]
+    [key: string]: unknown
+}
+
 export function useService<T extends EntityType>(entityType: T) {
-    const _getAll = (storage: Entity[]): Entity[] => storage
-
-    const _getById = (storage: Entity[], id: number): Entity | undefined =>
-        storage.find((entity) => entity.id === id)
-
-    const _create = (storage: Entity[], entity: Entity): Entity => {
-        storage.push(entity)
-        return entity
+    const getAll = async (): Promise<EntityLookup[T][]> => {
+        return (await kv.get(entityType)) ?? []
+    }
+    const getById = async (
+        id: number
+    ): Promise<EntityLookup[T] | undefined> => {
+        return ((await kv.get(entityType)) as EntityLookup[T][])?.find(
+            (entity) => entity.id === id
+        )
     }
 
-    let _storage: Entity[]
-    switch (entityType) {
-        case EntityType.Drink:
-            _storage = drinks
-            break
-        case EntityType.Snack:
-            _storage = snacks
-            break
-        case EntityType.Game:
-            _storage = games
-            break
+    const create = async (
+        entity: Omit<EntityLookup[T], 'id'>
+    ): Promise<EntityLookup[T]> => {
+        const entities = ((await kv.get(entityType)) as EntityLookup[T][]) ?? []
+        let lastId = (await kv.get<number>('id')) ?? 0
+        const newEntity = { ...entity, id: ++lastId } as EntityLookup[T]
+        await kv.set('id', ++lastId)
+        await kv.set(entityType, [...entities, newEntity])
+        return newEntity
     }
 
     return {
-        getAll: () => _getAll(_storage) as EntityLookup[T][],
-        getById: (id: number) => _getById(_storage, id) as EntityLookup[T],
-        create: (entity: Omit<EntityLookup[T], 'entityType'>) =>
-            _create(_storage, { ...entity, entityType }) as EntityLookup[T],
+        getAll,
+        getById,
+        create,
     }
 }

@@ -3,8 +3,6 @@
 import { useService } from '~/server/data/db'
 import { EntityType } from '~/types'
 
-let id_counter = 0
-
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
@@ -16,9 +14,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const { create } = useService(EntityType.Drink)
-    const id = id_counter++
-    return create({
-        id,
+    await create({
         drinkType: body.drinkType,
         name: body.name,
     })

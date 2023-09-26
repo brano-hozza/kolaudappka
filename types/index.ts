@@ -6,22 +6,16 @@ export enum EntityType {
 
 export interface Entity {
     id: number
-    entityType: EntityType
 }
 
 export interface Drink extends Entity {
-    entityType: EntityType.Drink
     drinkType: DrinkType
     name: string
 }
 
-export interface Snack extends Entity {
-    entityType: EntityType.Snack
-}
+export interface Snack extends Entity {}
 
-export interface Game extends Entity {
-    entityType: EntityType.Game
-}
+export interface Game extends Entity {}
 
 export enum DrinkType {
     AperolSpritz = 'Aperol Spritz',
