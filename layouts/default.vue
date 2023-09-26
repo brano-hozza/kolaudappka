@@ -6,9 +6,7 @@
             <span>Logged in as {{ name }}</span>
             <button @click="logout">Logout</button>
         </nav>
-        <CircleImageButton
-            :imageURL="'../assets/img/drinks.svg'"
-        ></CircleImageButton>
+        <CircleImageButton :imageURL="'/img/drinks.svg'" />
         <slot></slot>
     </div>
 </template>
