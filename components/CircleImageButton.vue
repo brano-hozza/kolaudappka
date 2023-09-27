@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <div class="circle-image-button">
-            <img :src="imageURL" alt="image" />
-        </div>
+    <div class="circle-image-button">
+        <img :src="imageURL" alt="image" />
     </div>
 </template>
 
@@ -22,7 +20,7 @@ export default {
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #000000;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
