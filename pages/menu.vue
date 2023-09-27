@@ -1,13 +1,29 @@
+import Games from './games.vue';
 <template>
     <div class="container">
         <div class="row">
-            <CircleImageButton :imageURL="'/img/drinks.svg'" />
-            <CircleImageButton :imageURL="'/img/games.svg'" />
-            <CircleImageButton :imageURL="'/img/snacks.svg'" />
+            <CircleImageButton
+                :image-url="'/img/drinks.svg'"
+                :path-url="'/drinks'"
+            />
+            <CircleImageButton
+                :image-url="'/img/games.svg'"
+                :path-url="'/games'"
+            />
+            <CircleImageButton
+                :image-url="'/img/snacks.svg'"
+                :path-url="'/snacks'"
+            />
         </div>
         <div class="row">
-            <CircleImageButton :imageURL="'/img/music.svg'" />
-            <CircleImageButton :imageURL="'/img/rating.svg'" />
+            <CircleImageButton
+                :image-url="'/img/music.svg'"
+                :path-url="'/music'"
+            />
+            <CircleImageButton
+                :image-url="'/img/rating.svg'"
+                :path-url="'/rating'"
+            />
         </div>
     </div>
     <NuxtLink to="/drinks">Drinks</NuxtLink>
@@ -22,7 +38,7 @@
     justify-content: space-evenly;
     .row {
         display: flex;
-        justify-content: space-evenly;
+        gap: 10rem;
         align-items: center;
     }
 }
