@@ -1,16 +1,18 @@
 <template>
-    <div class="body">
-        <nav>
+    <div class="h-fit w-full flex flex-col items-center">
+        <nav
+            class="w-full flex justify-evenly items-center px-0 py-1 bg-white shadow-md"
+        >
             <NuxtLink to="/">Home</NuxtLink>
             <NuxtLink to="/menu">Menu</NuxtLink>
             <span>Logged in as {{ name }}</span>
             <button @click="logout">Logout</button>
         </nav>
-        <CircleImageButton :imageURL="'/img/drinks.svg'" />
+        <CircleImageButton :image-url="'/img/drinks.svg'" />
         <slot></slot>
     </div>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
 const name = ref('')
 const router = useRouter()
 onMounted(() => {
@@ -23,22 +25,3 @@ const logout = () => {
     router.push('/')
 }
 </script>
-<style>
-.body {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    background-color: #fff;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-}
-</style>

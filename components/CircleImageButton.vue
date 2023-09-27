@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="circle-image-button">
-            <img :src="imageURL" alt="image" />
+            <img :src="imageUrl" alt="image" />
         </div>
     </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 export default {
     props: {
-        imageURL: {
+        imageUrl: {
             type: String,
             required: true,
             default: '',
@@ -17,7 +17,7 @@ export default {
     },
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .circle-image-button {
     width: 10rem;
     height: 10rem;
@@ -28,6 +28,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 1rem;
+
     img {
         width: 150%;
         height: 150%;

@@ -1,9 +1,9 @@
 <template>
     <input v-model="name" placeholder="Zadaj meno" />
-    <button @click="continueToMenu" :disabled="canContinue">Continue</button>
+    <button :disabled="canContinue" @click="continueToMenu">Continue</button>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 definePageMeta({
     layout: false,
 })

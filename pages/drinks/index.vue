@@ -9,11 +9,10 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { DrinkType } from '@/types'
 
 const addDrink = (drinkType: DrinkType) => {
-    console.log(drinkType)
     useFetch('/api/drink', {
         method: 'POST',
         body: {

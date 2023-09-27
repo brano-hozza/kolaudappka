@@ -11,13 +11,21 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "nuxt": "^3.7.3",
+    "prettier": "^3.0.3",
     "sass": "^1.68.0",
-    "sass-loader": "^13.3.2"
+    "sass-loader": "^13.3.2",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@nuxtjs/eslint-module": "^4.1.0",
     "@vercel/kv": "^0.2.3",
-    "prettier": "^3.0.3",
     "slonik": "^34.1.1"
   }
 }

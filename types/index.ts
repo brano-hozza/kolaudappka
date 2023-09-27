@@ -6,6 +6,15 @@ export enum EntityType {
 
 export interface Entity {
     id: number
+    resolved: boolean
+}
+
+export enum DrinkType {
+    AperolSpritz = 'Aperol Spritz',
+    Mojito = 'Mojito',
+    Daiquiri = 'Daiquiri',
+    HugoSpritz = 'Hugo Spritz',
+    GinTonic = 'Gin Tonic',
 }
 
 export interface Drink extends Entity {
@@ -16,11 +25,3 @@ export interface Drink extends Entity {
 export interface Snack extends Entity {}
 
 export interface Game extends Entity {}
-
-export enum DrinkType {
-    AperolSpritz = 'Aperol Spritz',
-    Mojito = 'Mojito',
-    Daiquiri = 'Daiquiri',
-    HugoSpritz = 'Hugo Spritz',
-    GinTonic = 'Gin Tonic',
-}
