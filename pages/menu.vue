@@ -28,7 +28,6 @@ import Games from './games.vue';
     </div>
     <NuxtLink to="/drinks">Drinks</NuxtLink>
 </template>
-
 <style scoped lang="scss">
 .container {
     display: flex;
