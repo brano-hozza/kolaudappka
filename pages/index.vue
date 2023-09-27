@@ -1,6 +1,22 @@
 <template>
-    <input v-model="name" placeholder="Zadaj meno" />
-    <button :disabled="canContinue" @click="continueToMenu">Continue</button>
+    <div class="w-full h-full flex flex-col justify-center items-center">
+        <div
+            class="bg-opacity-20 bg-white w-1/2 h-1/2 flex flex-col justify-center items-center p-2"
+        >
+            <input
+                v-model="name"
+                class="w-1/2 rounded p-1"
+                placeholder="Zadaj meno"
+            />
+            <button
+                class="w-1/2 p-2 bg-white m-2 cursor-pointer rounded"
+                :disabled="canContinue"
+                @click="continueToMenu"
+            >
+                Pokračovať
+            </button>
+        </div>
+    </div>
 </template>
 
 <script lang="ts" setup>
