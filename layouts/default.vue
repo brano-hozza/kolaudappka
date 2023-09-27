@@ -8,7 +8,6 @@
             <span>Logged in as {{ name }}</span>
             <button @click="logout">Logout</button>
         </nav>
-        <CircleImageButton :image-url="'/img/drinks.svg'" />
         <slot></slot>
     </div>
 </template>
