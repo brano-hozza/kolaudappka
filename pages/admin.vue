@@ -64,14 +64,14 @@
                     :key="key"
                     class="text-white border-white border-opacity-20 border-t-2"
                 >
-                    {{ key }} [{{ value }}]
+                    {{ getGameName(key) }} [{{ value }} votes]
                 </li>
             </ul>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
-import { EntityType } from '~/types'
+import { EntityType, GameType } from '~/types'
 
 // Load drinks
 const { data: drinks, refresh: refreshDrinks } = await useFetch('/api/drink', {
@@ -103,7 +103,7 @@ const countedGameVotes = computed(
                 }
                 return acc
             },
-            {} as Record<string, number>
+            {} as Record<GameType, number>
         )
 )
 
@@ -116,6 +116,29 @@ const resolveOrder = async (entityType: EntityType, id: number) => {
         method: 'DELETE',
     })
     await refresh()
+}
+
+const getGameName = (gameType: GameType) => {
+    switch (gameType) {
+        case GameType.Bang:
+            return 'Bang'
+        case GameType.CardsAgainstHumanity:
+            return 'Cards Against Humanity'
+        case GameType.DoodleDungeon:
+            return 'Doodle Dungeon'
+        case GameType.Kotatka:
+            return 'Kotatka'
+        case GameType.KrycieMena:
+            return 'Krycie mena'
+        case GameType.Piskvorky:
+            return 'Piškvorky'
+        case GameType.Savana:
+            return 'Savana'
+        case GameType.ShitHappens:
+            return 'Shit happens'
+        case GameType.UnoFlip:
+            return 'Uno Flip'
+    }
 }
 
 const clearAll = async (entityType: EntityType) => {
