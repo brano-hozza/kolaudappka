@@ -15,6 +15,8 @@ export enum DrinkType {
     Daiquiri = 'Daiquiri',
     HugoSpritz = 'Hugo Spritz',
     GinTonic = 'Gin Tonic',
+    RedWine = 'Red Wine',
+    WhiteWine = 'White Wine',
 }
 
 export interface Drink extends Entity {
