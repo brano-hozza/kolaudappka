@@ -54,7 +54,7 @@
             <h2 class="text-white text-center">Games</h2>
             <button
                 class="text-white border-white border-2"
-                @click="clearAll(EntityType.GameVote)"
+                @click="finishVoting"
             >
                 Finish voting
             </button>
@@ -143,6 +143,13 @@ const getGameName = (gameType: GameType) => {
         default:
             return 'Unknown game'
     }
+}
+
+const finishVoting = async () => {
+    await useFetch(`/api/game`, {
+        method: 'DELETE',
+    })
+    gameVotes.value = []
 }
 
 const clearAll = async (entityType: EntityType) => {
