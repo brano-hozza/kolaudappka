@@ -1,6 +1,6 @@
-import { useDrinkService } from '~/server/services/drink.service'
+import { useGameService } from '~/server/services/game.service'
 
 export default defineEventHandler(async () => {
-    const { clearDrinks } = useDrinkService()
-    return await clearDrinks()
+    const { finishVoting } = useGameService()
+    return await finishVoting()
 })

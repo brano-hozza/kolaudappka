@@ -1,9 +1,9 @@
 import { kv } from '@vercel/kv'
-import { Drink, Game, Snack } from '../models'
+import { Drink, GameVote, Snack } from '../models'
 import { EntityType } from '~/types'
 
 interface EntityLookup {
-    [EntityType.Game]: Game
+    [EntityType.GameVote]: GameVote
     [EntityType.Snack]: Snack
     [EntityType.Drink]: Drink
 }
@@ -15,6 +15,15 @@ export function useRepository<T extends EntityType>(entityType: T) {
     const get = async (id: number): Promise<EntityLookup[T] | undefined> => {
         return ((await kv.get(entityType)) as EntityLookup[T][])?.find(
             (entity) => entity.id === id
+        )
+    }
+
+    const getByProperty = async <K extends keyof EntityLookup[T]>(
+        key: K,
+        value: EntityLookup[T][K]
+    ) => {
+        return ((await kv.get(entityType)) as EntityLookup[T][])?.find(
+            (entity) => entity[key] === value
         )
     }
 
@@ -50,6 +59,7 @@ export function useRepository<T extends EntityType>(entityType: T) {
     return {
         getAll,
         get,
+        getByProperty,
         create,
         update,
         deleteAll,

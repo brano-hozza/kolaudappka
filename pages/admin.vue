@@ -54,17 +54,17 @@
             <h2 class="text-white text-center">Games</h2>
             <button
                 class="text-white border-white border-2"
-                @click="clearAll(EntityType.Game)"
+                @click="clearAll(EntityType.GameVote)"
             >
-                Clear all
+                Finish voting
             </button>
             <ul>
                 <li
-                    v-for="game in games"
-                    :key="game.id"
+                    v-for="(value, key) in countedGameVotes"
+                    :key="key"
                     class="text-white border-white border-opacity-20 border-t-2"
                 >
-                    Game [{{ game.user }}]
+                    {{ key }} [{{ value }}]
                 </li>
             </ul>
         </div>
@@ -83,14 +83,32 @@ const { data: snacks, refresh: refreshSnacks } = await useFetch('/api/snack', {
     lazy: true,
     server: false,
 })
-// Load games
-const { data: games, refresh: refreshGames } = await useFetch('/api/game', {
-    lazy: true,
-    server: false,
-})
+// Load game votes
+const { data: gameVotes, refresh: refreshGameVotes } = await useFetch(
+    '/api/game',
+    {
+        lazy: true,
+        server: false,
+    }
+)
+
+const countedGameVotes = computed(
+    () =>
+        gameVotes.value?.reduce(
+            (acc, curr) => {
+                if (acc[curr.gameType]) {
+                    acc[curr.gameType]++
+                } else {
+                    acc[curr.gameType] = 1
+                }
+                return acc
+            },
+            {} as Record<string, number>
+        )
+)
 
 const refresh = async () => {
-    await Promise.all([refreshDrinks, refreshSnacks, refreshGames])
+    await Promise.all([refreshDrinks, refreshSnacks, refreshGameVotes])
 }
 
 const resolveOrder = async (entityType: EntityType, id: number) => {
