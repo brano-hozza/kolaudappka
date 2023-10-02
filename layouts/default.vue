@@ -24,3 +24,8 @@ const logout = () => {
     router.push('/')
 }
 </script>
+<style scoped>
+* {
+    color: black;
+}
+</style>
