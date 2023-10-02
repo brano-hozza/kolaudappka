@@ -6,6 +6,7 @@ export enum DrinkType {
     GinTonic,
     RedWine,
     WhiteWine,
+    Random,
 }
 
 export enum EntityType {
