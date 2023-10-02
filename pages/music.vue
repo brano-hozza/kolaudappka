@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img src="img/spotify.png" @click="openJam" />
+        <img src="/img/spotify.png" @click="openJam" />
     </div>
 </template>
 
