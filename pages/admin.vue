@@ -13,7 +13,7 @@
             </button>
             <ul>
                 <li
-                    v-for="drink in drinks?.sort((a) => (a.resolved ? 1 : -1))"
+                    v-for="drink in drinks"
                     :key="drink.id"
                     :class="{ 'line-through': drink.resolved }"
                     class="text-white border-white border-opacity-20 border-t-2"
@@ -64,7 +64,7 @@
                     :key="key"
                     class="text-white border-white border-opacity-20 border-t-2"
                 >
-                    {{ getGameName(key) }} [{{ value }} votes]
+                    {{ getGameName(Number(key)) }} [{{ value }} votes]
                 </li>
             </ul>
         </div>
@@ -78,6 +78,8 @@ const { data: drinks, refresh: refreshDrinks } = await useFetch('/api/drink', {
     lazy: true,
     server: false,
 })
+
+drinks.value?.sort((a) => (a.resolved ? 1 : -1))
 // Load snacks
 const { data: snacks, refresh: refreshSnacks } = await useFetch('/api/snack', {
     lazy: true,
@@ -138,6 +140,8 @@ const getGameName = (gameType: GameType) => {
             return 'Shit happens'
         case GameType.UnoFlip:
             return 'Uno Flip'
+        default:
+            return 'Unknown game'
     }
 }
 
