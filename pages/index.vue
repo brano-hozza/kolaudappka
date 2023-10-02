@@ -1,11 +1,12 @@
 <template>
-    <div class="w-full h-full flex flex-col justify-center items-center">
+    <div class="w-full h-screen flex flex-col justify-center items-center">
         <div
-            class="bg-opacity-20 bg-white w-full md:w-1/2 h-1/2 flex flex-col justify-center items-center p-2"
+            class="bg-opacity-20 bg-white w-full md:w-1/2 h-1/2 flex flex-col justify-center items-center p-2 rounded-md"
         >
+            <h1 class="text-4xl text-white mb-4">Hello</h1>
             <pretty-input @change="name = $event" />
             <button
-                class="w-full md:w-1/2 p-2 bg-white m-2 cursor-pointer rounded"
+                class="w-full md:w-1/2 p-2 bg-white m-4 cursor-pointer rounded"
                 :disabled="canContinue"
                 @click="continueToMenu"
             >

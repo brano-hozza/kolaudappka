@@ -1,5 +1,6 @@
 import { kv } from '@vercel/kv'
-import { Drink, EntityType, Game, Snack } from '~/types'
+import { Drink, Game, Snack } from '../models'
+import { EntityType } from '~/types'
 
 interface EntityLookup {
     [EntityType.Game]: Game
@@ -7,38 +8,35 @@ interface EntityLookup {
     [EntityType.Drink]: Drink
 }
 
-export function useService<T extends EntityType>(entityType: T) {
+export function useRepository<T extends EntityType>(entityType: T) {
     const getAll = async (): Promise<EntityLookup[T][]> => {
         return (await kv.get(entityType)) ?? []
     }
-    const getById = async (
-        id: number
-    ): Promise<EntityLookup[T] | undefined> => {
+    const get = async (id: number): Promise<EntityLookup[T] | undefined> => {
         return ((await kv.get(entityType)) as EntityLookup[T][])?.find(
             (entity) => entity.id === id
         )
     }
 
     const create = async (
-        entity: Omit<EntityLookup[T], 'id' | 'resolved'>
+        entity: Omit<EntityLookup[T], 'id'>
     ): Promise<EntityLookup[T]> => {
         const entities = ((await kv.get(entityType)) as EntityLookup[T][]) ?? []
         let lastId = (await kv.get<number>('id')) ?? 0
         const newEntity = {
             ...entity,
             id: ++lastId,
-            resolved: false,
         } as EntityLookup[T]
         await kv.set('id', ++lastId)
         await kv.set(entityType, [...entities, newEntity])
         return newEntity
     }
 
-    const resolve = async (id: number) => {
+    const update = async (id: number, entity: Omit<EntityLookup[T], 'id'>) => {
         const entities = (await kv.get(entityType)) as EntityLookup[T][]
         const newEntities = entities.map((e) => {
             if (e.id === id) {
-                e.resolved = true
+                return entity
             }
             return e
         })
@@ -51,9 +49,9 @@ export function useService<T extends EntityType>(entityType: T) {
 
     return {
         getAll,
-        getById,
+        get,
         create,
-        resolve,
+        update,
         deleteAll,
     }
 }

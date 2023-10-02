@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full md:w-1/2 rounded p-1 bg-white flex flex-row justify-center"
+        class="w-full md:w-1/2 rounded p-1 bg-white flex flex-row justify-center outline-blue-500"
         placeholder="Zadaj svoje meno"
         contenteditable
         @input="handleInput"
@@ -29,7 +29,7 @@ const handleInput = (event: Event) => {
     const sel = window.getSelection()!
     sel.selectAllChildren(element)
     sel.collapseToEnd()
-    emit('change', text)
+    emit('change', text.replace(/\n/g, ''))
 }
 </script>
 
