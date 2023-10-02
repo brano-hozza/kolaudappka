@@ -22,7 +22,7 @@ const props = defineProps({
         required: true,
     },
 })
-const backgroundColor = computed(() => {
-    return props.imageUrl === '/img/drinks/random.png' ? 'bg-white' : 'bg-black'
-})
+const backgroundColor = computed(() =>
+    props.imageUrl === '/img/drinks/random.png' ? 'bg-white' : 'bg-black'
+)
 </script>

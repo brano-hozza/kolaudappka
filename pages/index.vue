@@ -1,12 +1,13 @@
 <template>
     <div class="w-full h-screen flex flex-col justify-center items-center">
+        <img src="/img/titles/kolaudappka.png" />
         <div
-            class="bg-opacity-20 bg-white w-full md:w-1/2 h-1/2 flex flex-col justify-center items-center p-2 rounded-md"
+            class="w-3/4 md: md:w-1/2 flex flex-col justify-center items-center p-2"
         >
-            <h1 class="text-4xl text-white mb-4">Hello</h1>
             <pretty-input @change="name = $event" />
             <button
-                class="w-full md:w-1/2 p-2 bg-white m-4 cursor-pointer rounded"
+                class="w-full md:w-1/2 rounded p-1 m-4"
+                :class="buttonBorderColor"
                 :disabled="canContinue"
                 @click="continueToMenu"
             >
@@ -28,6 +29,11 @@ onMounted(() => {
 })
 
 const canContinue = computed(() => name.value.length < 3)
+const buttonBorderColor = computed(() =>
+    canContinue.value
+        ? 'border-2 border-black bg-gray-500 opacity-30 cursor-not-allowed'
+        : 'border-2 border-[#F752E0] bg-black cursor-pointer'
+)
 const router = useRouter()
 const continueToMenu = () => {
     if (canContinue.value) return
