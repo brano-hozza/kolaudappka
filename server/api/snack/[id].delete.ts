@@ -1,4 +1,4 @@
-import { useDrinkService } from '~/server/services/drink.service'
+import { useSnackService } from '~/server/services/snack.service'
 
 export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, 'id')
@@ -8,6 +8,6 @@ export default defineEventHandler(async (event) => {
             statusCode: 400,
         })
     }
-    const { finishOrder } = useDrinkService()
+    const { finishOrder } = useSnackService()
     return await finishOrder(Number(id))
 })

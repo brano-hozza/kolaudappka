@@ -9,10 +9,18 @@ export enum DrinkType {
     Random,
 }
 
+export enum SnackType {
+    Chips,
+    Nachos,
+    Peanuts,
+    Random,
+}
+
 export enum EntityType {
     DrinkOrder = 'drink',
     DrinkStatus = 'drink-status',
-    Snack = 'snack',
+    SnackOrder = 'snack',
+    SnackStatus = 'snack-status',
     GameVote = 'game',
 }
 

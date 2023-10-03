@@ -1,11 +1,11 @@
 import { EntityType } from '@/types'
-import { CreateDrinkOrderDTO } from '@/types/dtos'
 import { useRepository } from '~/server/data/db'
+import { CreateSnackOrderDTO } from '~/types/dtos'
 
-export const useDrinkService = () => {
-    const ordersRepository = useRepository(EntityType.DrinkOrder)
-    const drinkStatusRepository = useRepository(EntityType.DrinkStatus)
-    const createOrder = async (dto: CreateDrinkOrderDTO) => {
+export const useSnackService = () => {
+    const ordersRepository = useRepository(EntityType.SnackOrder)
+    const snackStatusRepository = useRepository(EntityType.SnackStatus)
+    const createOrder = async (dto: CreateSnackOrderDTO) => {
         const order = await ordersRepository.getByProperty('user', dto.user)
         if (order) {
             throw createError({
@@ -14,17 +14,17 @@ export const useDrinkService = () => {
             })
         }
         await ordersRepository.create({
-            drinkType: dto.type,
+            snackType: dto.type,
             user: dto.user,
         })
     }
 
-    const getAllDrinks = async () => {
-        return await drinkStatusRepository.getAll()
+    const getAllSnacks = async () => {
+        return await snackStatusRepository.getAll()
     }
 
-    const updateDrinkStatus = async (id: number) => {
-        const drinkStatus = await drinkStatusRepository.get(id)
+    const updateSnackStatus = async (id: number) => {
+        const drinkStatus = await snackStatusRepository.get(id)
         if (!drinkStatus) {
             throw createError({
                 statusCode: 400,
@@ -32,10 +32,10 @@ export const useDrinkService = () => {
             })
         }
         drinkStatus.available = false
-        await drinkStatusRepository.update(id, drinkStatus)
+        await snackStatusRepository.update(id, drinkStatus)
     }
 
-    const getAllDrinkOrders = async () => {
+    const getAllSnackOrders = async () => {
         return await ordersRepository.getAll()
     }
 
@@ -56,10 +56,10 @@ export const useDrinkService = () => {
 
     return {
         createOrder,
-        getAllDrinkOrders,
+        getAllSnackOrders,
         finishOrder,
         clearOrders,
-        getAllDrinks,
-        updateDrinkStatus,
+        getAllSnacks,
+        updateSnackStatus,
     }
 }

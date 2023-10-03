@@ -1,10 +1,17 @@
 import { kv } from '@vercel/kv'
-import { DrinkOrder, DrinkStatus, GameVote, Snack } from '~/server/models'
+import {
+    DrinkOrder,
+    DrinkStatus,
+    GameVote,
+    SnackOrder,
+    SnackStatus,
+} from '~/server/models'
 import { EntityType } from '~/types'
 
 interface EntityLookup {
     [EntityType.GameVote]: GameVote
-    [EntityType.Snack]: Snack
+    [EntityType.SnackOrder]: SnackOrder
+    [EntityType.SnackStatus]: SnackStatus
     [EntityType.DrinkOrder]: DrinkOrder
     [EntityType.DrinkStatus]: DrinkStatus
 }

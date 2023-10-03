@@ -107,7 +107,7 @@ const orderDrink = async (drinkType: DrinkType) => {
     const { error } = await useFetch('/api/drink', {
         method: 'POST',
         body: {
-            drinkType: drink,
+            type: drink,
             name: localStorage.getItem('name'),
         },
     })

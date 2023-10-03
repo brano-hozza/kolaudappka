@@ -1,4 +1,4 @@
-import { DrinkType, GameType } from '~/types'
+import { DrinkType, GameType, SnackType } from '~/types'
 
 export interface Entity {
     id: number
@@ -7,7 +7,6 @@ export interface Entity {
 
 export interface DrinkOrder extends Entity {
     drinkType: DrinkType
-    resolved: boolean
 }
 
 export interface DrinkStatus extends Entity {
@@ -15,7 +14,14 @@ export interface DrinkStatus extends Entity {
     available: boolean
 }
 
-export interface Snack extends Entity {}
+export interface SnackOrder extends Entity {
+    snackType: SnackType
+}
+
+export interface SnackStatus extends Entity {
+    snackType: SnackType
+    available: boolean
+}
 
 export interface GameVote extends Entity {
     gameType: GameType

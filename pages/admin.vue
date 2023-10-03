@@ -6,7 +6,7 @@
         >
             <h2 class="text-white text-center">Drinks</h2>
             <button
-                class="text-white border-white border-2"
+                class="text-red-500 border-red-500 border-2"
                 @click="clearAll(EntityType.DrinkOrder)"
             >
                 Clear all
@@ -15,17 +15,16 @@
                 <li
                     v-for="drink in drinks"
                     :key="drink.id"
-                    :class="{ 'line-through': drink.resolved }"
-                    class="text-white border-white border-opacity-20 border-t-2"
+                    class="flex justify-between text-white border-white border-opacity-20 border-t-2 p-2"
                 >
-                    {{ drink.drinkType }} [{{ drink.user }}]
+                    {{ DrinkType[drink.drinkType] }} [{{ drink.user }}]
                     <button
-                        v-if="!drink.resolved"
+                        class="text-green-500 border-green-500 border-2"
                         @click="
                             () => resolveOrder(EntityType.DrinkOrder, drink.id)
                         "
                     >
-                        x
+                        Finish order
                     </button>
                 </li>
             </ul>
@@ -35,8 +34,8 @@
         >
             <h2 class="text-white text-center">Snacks</h2>
             <button
-                class="text-white border-white border-2"
-                @click="clearAll(EntityType.Snack)"
+                class="text-red-500 border-red-500 border-2"
+                @click="clearAll(EntityType.SnackOrder)"
             >
                 Clear all
             </button>
@@ -44,9 +43,17 @@
                 <li
                     v-for="snack in snacks"
                     :key="snack.id"
-                    class="text-white border-white border-opacity-20 border-t-2"
+                    class="flex justify-between text-white border-white border-opacity-20 border-t-2 p-2"
                 >
-                    Snack [{{ snack.user }}]
+                    {{ SnackType[snack.snackType] }} [{{ snack.user }}]
+                    <button
+                        class="text-green-500 border-green-500 border-2"
+                        @click="
+                            () => resolveOrder(EntityType.SnackOrder, snack.id)
+                        "
+                    >
+                        Finish order
+                    </button>
                 </li>
             </ul>
         </div>
@@ -55,7 +62,7 @@
         >
             <h2 class="text-white text-center">Games</h2>
             <button
-                class="text-white border-white border-2"
+                class="text-yellow-500 border-yellow-500 border-2"
                 @click="finishVoting"
             >
                 Finish voting
@@ -73,7 +80,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { EntityType, GameType } from '~/types'
+import { DrinkType, EntityType, GameType, SnackType } from '~/types'
 
 // Load drinks
 const { data: drinks, refresh: refreshDrinks } = await useFetch('/api/drink', {
@@ -81,12 +88,12 @@ const { data: drinks, refresh: refreshDrinks } = await useFetch('/api/drink', {
     server: false,
 })
 
-drinks.value?.sort((a) => (a.resolved ? 1 : -1))
 // Load snacks
 const { data: snacks, refresh: refreshSnacks } = await useFetch('/api/snack', {
     lazy: true,
     server: false,
 })
+
 // Load game votes
 const { data: gameVotes, refresh: refreshGameVotes } = await useFetch(
     '/api/game',
@@ -154,7 +161,7 @@ const clearAll = async (entityType: EntityType) => {
     await useFetch(`/api/${entityType}`, {
         method: 'DELETE',
     })
-    if (entityType === EntityType.Snack) await refreshSnacks()
+    if (entityType === EntityType.SnackOrder) await refreshSnacks()
     if (entityType === EntityType.DrinkOrder) await refreshDrinks()
 }
 </script>
