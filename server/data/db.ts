@@ -1,11 +1,12 @@
 import { kv } from '@vercel/kv'
-import { Drink, GameVote, Snack } from '../models'
+import { DrinkOrder, DrinkStatus, GameVote, Snack } from '~/server/models'
 import { EntityType } from '~/types'
 
 interface EntityLookup {
     [EntityType.GameVote]: GameVote
     [EntityType.Snack]: Snack
-    [EntityType.Drink]: Drink
+    [EntityType.DrinkOrder]: DrinkOrder
+    [EntityType.DrinkStatus]: DrinkStatus
 }
 
 export function useRepository<T extends EntityType>(entityType: T) {
@@ -56,6 +57,12 @@ export function useRepository<T extends EntityType>(entityType: T) {
         await kv.del(entityType)
     }
 
+    const deleteById = async (id: number) => {
+        const entities = (await kv.get(entityType)) as EntityLookup[T][]
+        const newEntities = entities.filter((e) => e.id !== id)
+        await kv.set(entityType, newEntities)
+    }
+
     return {
         getAll,
         get,
@@ -63,5 +70,6 @@ export function useRepository<T extends EntityType>(entityType: T) {
         create,
         update,
         deleteAll,
+        deleteById,
     }
 }

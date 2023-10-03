@@ -7,7 +7,7 @@
             <h2 class="text-white text-center">Drinks</h2>
             <button
                 class="text-white border-white border-2"
-                @click="clearAll(EntityType.Drink)"
+                @click="clearAll(EntityType.DrinkOrder)"
             >
                 Clear all
             </button>
@@ -21,7 +21,9 @@
                     {{ drink.drinkType }} [{{ drink.user }}]
                     <button
                         v-if="!drink.resolved"
-                        @click="() => resolveOrder(EntityType.Drink, drink.id)"
+                        @click="
+                            () => resolveOrder(EntityType.DrinkOrder, drink.id)
+                        "
                     >
                         x
                     </button>
@@ -109,15 +111,11 @@ const countedGameVotes = computed(
         )
 )
 
-const refresh = async () => {
-    await Promise.all([refreshDrinks, refreshSnacks, refreshGameVotes])
-}
-
 const resolveOrder = async (entityType: EntityType, id: number) => {
     await useFetch(`/api/${entityType}/${id}`, {
         method: 'DELETE',
     })
-    await refresh()
+    await refreshDrinks()
 }
 
 const getGameName = (gameType: GameType) => {
@@ -149,13 +147,14 @@ const finishVoting = async () => {
     await useFetch(`/api/game`, {
         method: 'DELETE',
     })
-    gameVotes.value = []
+    await refreshGameVotes()
 }
 
 const clearAll = async (entityType: EntityType) => {
     await useFetch(`/api/${entityType}`, {
         method: 'DELETE',
     })
-    await refresh()
+    if (entityType === EntityType.Snack) await refreshSnacks()
+    if (entityType === EntityType.DrinkOrder) await refreshDrinks()
 }
 </script>

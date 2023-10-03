@@ -1,3 +1,18 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "cSpell.words": [
+        "Aperol",
+        "dtos",
+        "gintonic",
+        "hugospritz",
+        "Kotatka",
+        "Krycie",
+        "Mena",
+        "Mojito",
+        "Piskvorky",
+        "Piškvorky",
+        "redwine",
+        "Savana",
+        "whitewine"
+    ]
 }

@@ -4,12 +4,17 @@
             v-for="drink in drinks"
             :key="drink.type"
             class="flex flex-col items-center justify-between"
+            :class="{
+                'grayscale cursor-not-allowed':
+                    !drink.available || loading || (hasOrder && !drink.ordered),
+            }"
         >
             <img :src="drink.title" />
             <CircleImageButton
                 :image-url="drink.image"
                 :background-color="drink.backgroundColor"
-                @click="addDrink(drink.type)"
+                :selected="drink.ordered"
+                @click="orderDrink(drink.type)"
             />
         </div>
     </div>
@@ -18,7 +23,32 @@
 <script lang="ts" setup>
 import { DrinkType } from '@/types'
 
-const drinks = [
+const { data: statuses } = await useFetch('/api/drink-status')
+const { data: orders } = await useFetch('/api/drink')
+
+const isAvailable = (drinkType: DrinkType) =>
+    statuses.value?.find((s) => s.drinkType === drinkType)?.available ?? true
+
+const isOrdered = (drinkType: DrinkType) =>
+    orders.value?.find((s) => s.drinkType === drinkType)?.user ===
+    localStorage.getItem('name')
+
+onMounted(() => {
+    drinks.value = drinks.value.map((drink) => {
+        drink.available = isAvailable(drink.type)
+        drink.ordered = isOrdered(drink.type)
+        return drink
+    })
+})
+type Drink = {
+    type: DrinkType
+    image: string
+    title: string
+    backgroundColor: string
+    available?: boolean
+    ordered?: boolean
+}
+const drinks = ref<Drink[]>([
     {
         type: DrinkType.AperolSpritz,
         image: '/img/drinks/aperol.png',
@@ -79,17 +109,42 @@ const drinks = [
         title: '/img/titles/random.png',
         backgroundColor: 'bg-white',
     },
-]
+])
 
-const addDrink = (drinkType: DrinkType) => {
-    const drink = drinkType === DrinkType.Random ? getRandomDrink() : drinkType
-    useFetch('/api/drink', {
+const loading = ref(false)
+
+const hasOrder = computed(() => {
+    return drinks.value.some((d) => d.ordered)
+})
+
+const orderDrink = async (drinkType: DrinkType) => {
+    if (loading.value) return
+    if (hasOrder.value) {
+        return confirm('Už máš objednaný nápoj. Musis pockat')
+    }
+    loading.value = true
+    const drink: DrinkType =
+        drinkType === DrinkType.Random ? getRandomDrink() : drinkType
+
+    const { error } = await useFetch('/api/drink', {
         method: 'POST',
         body: {
             drinkType: drink,
             name: localStorage.getItem('name'),
         },
     })
+    if (!error.value) {
+        drinks.value = [
+            ...drinks.value.map((d) => {
+                d.ordered = false
+                if (d.type === drink) {
+                    d.ordered = true
+                }
+                return d
+            }),
+        ]
+    }
+    loading.value = false
 }
 
 const getRandomDrink = () => {
