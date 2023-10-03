@@ -1,16 +1,15 @@
 <template>
-    <div class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4 mt-10">
+    <img src="/img/titles/vote.png" />
+    <div class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="game in games"
             :key="game.type"
             class="flex flex-col items-center justify-between"
-            :class="{
-                'border-green-500 border-4': gameVote?.gameType === game.type,
-            }"
         >
             <CircleImageButton
                 :image-url="game.image"
                 :background-color="game.backgroundColor"
+                :selected="gameVote?.gameType === game.type"
                 @click="vote(game.type)"
             />
         </div>

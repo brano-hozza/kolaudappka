@@ -4,7 +4,7 @@
             class="w-80 h-80 rounded-full flex justify-center items-center mb-4"
             :class="{
                 [backgroundColor]: true,
-                'border-4 border-green-500': props.selected,
+                'border-4 border-green-500': selected,
             }"
         >
             <img

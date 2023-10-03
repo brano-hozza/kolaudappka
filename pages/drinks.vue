@@ -1,5 +1,6 @@
 <template>
-    <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4 mt-10">
+    <img src="/img/titles/order.png" />
+    <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="drink in drinks"
             :key="drink.type"
