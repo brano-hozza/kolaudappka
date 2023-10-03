@@ -1,8 +1,8 @@
 <template>
     <h1 class="text-white text-xl my-2">Admin panel</h1>
-    <div class="flex flex-col md:flex-row justify-evenly w-1/2 md:w-full">
+    <div class="flex flex-col md:flex-row justify-evenly w-full px-2 md:px-0">
         <div
-            class="flex flex-col content-start w-full md:w-1/4 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Drinks</h2>
             <button
@@ -30,7 +30,7 @@
             </ul>
         </div>
         <div
-            class="flex flex-col content-start w-full md:w-1/4 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Snacks</h2>
             <button
@@ -58,7 +58,7 @@
             </ul>
         </div>
         <div
-            class="flex flex-col content-start w-full md:w-1/4 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Games</h2>
             <button
