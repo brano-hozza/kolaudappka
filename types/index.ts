@@ -12,10 +12,11 @@ export enum DrinkType {
 }
 
 export enum SnackType {
+    Sushi,
     Chips,
     Nachos,
     Peanuts,
-    Random,
+    Macarons,
 }
 
 export enum EntityType {
