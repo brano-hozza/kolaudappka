@@ -1,14 +1,20 @@
 <template>
-    <ul v-if="!loading">
-        <li v-for="game in games" :key="game.type">
-            <button
-                :class="{ selected: gameVote?.gameType === game.type }"
+    <div class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4 mt-10">
+        <div
+            v-for="game in games"
+            :key="game.type"
+            class="flex flex-col items-center justify-between"
+            :class="{
+                'border-green-500 border-4': gameVote?.gameType === game.type,
+            }"
+        >
+            <CircleImageButton
+                :image-url="game.image"
+                :background-color="game.backgroundColor"
                 @click="vote(game.type)"
-            >
-                {{ game.name }}
-            </button>
-        </li>
-    </ul>
+            />
+        </div>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -22,38 +28,56 @@ const games = [
     {
         name: 'Výbušné Koťátka',
         type: GameType.Kotatka,
+        image: '/img/games/kotatka.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Cards against humanity',
         type: GameType.CardsAgainstHumanity,
+        image: '/img/games/cards.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Bang',
         type: GameType.Bang,
+        image: '/img/games/bang.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Shit Happens',
         type: GameType.ShitHappens,
+        image: '/img/games/shithappens.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Uno Flip',
         type: GameType.UnoFlip,
+        image: '/img/games/unoflip.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Krycie Mená',
         type: GameType.KrycieMena,
+        image: '/img/games/kryciemena.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Piškvorky',
         type: GameType.Piskvorky,
+        image: '/img/games/piskvorky.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Savana',
         type: GameType.Savana,
+        image: '/img/games/savana.png',
+        backgroundColor: 'bg-white',
     },
     {
         name: 'Doodle Dungeon',
         type: GameType.DoodleDungeon,
+        image: '/img/games/doodle.png',
+        backgroundColor: 'bg-white',
     },
 ] as const
 onMounted(async () => {

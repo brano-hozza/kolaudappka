@@ -6,7 +6,7 @@
         >
             <img
                 class="mx-auto"
-                :src="props.imageUrl"
+                :src="imageUrl"
                 alt="image"
                 @click="$emit('click')"
             />
@@ -16,13 +16,14 @@
 
 <script setup lang="ts">
 defineEmits(['click'])
-const props = defineProps({
+defineProps({
     imageUrl: {
         type: String,
         required: true,
     },
+    backgroundColor: {
+        type: String,
+        required: true,
+    },
 })
-const backgroundColor = computed(() =>
-    props.imageUrl === '/img/drinks/random.png' ? 'bg-white' : 'bg-black'
-)
 </script>
