@@ -1,4 +1,4 @@
-import { useSnackService } from '~/server/services/snack.service'
+import { useSnackService } from '~/server/services'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)

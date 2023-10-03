@@ -1,4 +1,4 @@
-import { useDrinkService } from '~/server/services/drink.service'
+import { useDrinkService } from '~/server/services'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)

@@ -2,12 +2,14 @@ import { useSnackService } from '~/server/services'
 
 export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, 'id')
-    if (!id) {
+    if (!id || isNaN(Number(id))) {
         throw createError({
             statusText: 'Bad Request',
             statusCode: 400,
         })
     }
-    const { finishOrder } = useSnackService()
-    return await finishOrder(Number(id))
+
+    const { updateSnackStatus } = useSnackService()
+    await updateSnackStatus(Number(id))
+    return 'Ok'
 })

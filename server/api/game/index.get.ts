@@ -1,4 +1,4 @@
-import { useGameService } from '~/server/services/game.service'
+import { useGameService } from '~/server/services'
 
 export default defineEventHandler(async () => {
     const { getAllVotes } = useGameService()
