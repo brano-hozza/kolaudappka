@@ -10,7 +10,8 @@ export enum DrinkType {
 }
 
 export enum EntityType {
-    Drink = 'drink',
+    DrinkOrder = 'drink',
+    DrinkStatus = 'drink-status',
     Snack = 'snack',
     GameVote = 'game',
 }

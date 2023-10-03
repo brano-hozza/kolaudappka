@@ -1,13 +1,19 @@
 import { DrinkType } from '..'
 
-export interface CreateDrinkDTO {
+export interface CreateDrinkOrderDTO {
     type: DrinkType
     user: string
 }
 
-export interface DrinkDTO {
+export interface DrinkOrderDTO {
     id: number
     user: string
     resolved: boolean
     drinkType: DrinkType
+}
+
+export interface DrinkStatusDTO {
+    id: number
+    drinkType: DrinkType
+    available: boolean
 }

@@ -5,9 +5,14 @@ export interface Entity {
     user: string
 }
 
-export interface Drink extends Entity {
+export interface DrinkOrder extends Entity {
     drinkType: DrinkType
     resolved: boolean
+}
+
+export interface DrinkStatus extends Entity {
+    drinkType: DrinkType
+    available: boolean
 }
 
 export interface Snack extends Entity {}

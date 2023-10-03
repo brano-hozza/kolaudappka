@@ -10,8 +10,8 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const { createDrink } = useDrinkService()
-    await createDrink({
+    const { createOrder } = useDrinkService()
+    await createOrder({
         type: body.drinkType,
         user: body.name,
     })
