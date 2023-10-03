@@ -37,7 +37,7 @@
             <CircleImageButton
                 image-url="/img/menu/music.png"
                 background-color="bg-black"
-                @click="changeRoute('/music')"
+                @click="openJam"
             />
         </div>
 
@@ -56,5 +56,8 @@
 const router = useRouter()
 const changeRoute = (pathUrl: string) => {
     router.push(pathUrl)
+}
+const openJam = () => {
+    window.open('https://spotify.link/KoxTv1vGzDb', '_blank')
 }
 </script>
