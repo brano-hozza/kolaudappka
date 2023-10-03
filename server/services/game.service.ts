@@ -7,10 +7,16 @@ export const useGameService = () => {
     const voteForGame = async (dto: VoteForGameDTO) => {
         const vote = await repository.getByProperty('user', dto.user)
         if (!vote) {
-            await repository.create(dto)
+            await repository.create({
+                gameType: dto.type,
+                user: dto.user,
+            })
             return
         }
-        await repository.update(vote.id, dto)
+        await repository.update(vote.id, {
+            gameType: dto.type,
+            user: dto.user,
+        })
     }
 
     const getAllVotes = async () => {

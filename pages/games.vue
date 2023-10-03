@@ -19,6 +19,7 @@
 <script lang="ts" setup>
 import { GameVote } from '~/server/models'
 import { GameType } from '~/types'
+import { VoteForGameDTO } from '~/types/dtos'
 
 const name = ref('')
 const gameVote = ref<GameVote | null>(null)
@@ -90,7 +91,7 @@ const vote = async (type: GameType) => {
     gameVote.value = { ...gameVote.value!, gameType: type }
     await useFetch(`/api/game`, {
         method: 'POST',
-        body: JSON.stringify({ gameType: type, name: name.value }),
+        body: { type, user: name.value } as VoteForGameDTO,
     })
 }
 </script>

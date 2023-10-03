@@ -23,6 +23,7 @@
 
 <script lang="ts" setup>
 import { DrinkType } from '@/types'
+import { CreateDrinkOrderDTO } from '~/types/dtos'
 
 const { data: statuses } = await useFetch('/api/drink-status')
 const { data: orders } = await useFetch('/api/drink')
@@ -131,8 +132,8 @@ const orderDrink = async (drinkType: DrinkType) => {
         method: 'POST',
         body: {
             type: drink,
-            name: localStorage.getItem('name'),
-        },
+            user: localStorage.getItem('name'),
+        } as CreateDrinkOrderDTO,
     })
     if (!error.value) {
         drinks.value = [
