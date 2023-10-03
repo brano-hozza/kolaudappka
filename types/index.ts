@@ -6,6 +6,8 @@ export enum DrinkType {
     GinTonic,
     RedWine,
     WhiteWine,
+    LimoncelloProsecco,
+    Mimosa,
     Random,
 }
 

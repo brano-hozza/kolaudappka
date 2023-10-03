@@ -1,5 +1,6 @@
 <template>
-    <div class="grid gird-cols-1 md:gap-x-10 md:grid-cols-4 mt-10">
+    <img src="/img/titles/order.png" />
+    <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="drink in drinks"
             :key="drink.type"
@@ -12,6 +13,7 @@
             <img :src="drink.title" />
             <CircleImageButton
                 :image-url="drink.image"
+                :background-color="drink.backgroundColor"
                 :selected="drink.ordered"
                 @click="orderDrink(drink.type)"
             />
@@ -43,6 +45,7 @@ type Drink = {
     type: DrinkType
     image: string
     title: string
+    backgroundColor: string
     available?: boolean
     ordered?: boolean
 }
@@ -51,41 +54,61 @@ const drinks = ref<Drink[]>([
         type: DrinkType.AperolSpritz,
         image: '/img/drinks/aperol.png',
         title: '/img/titles/aperol.png',
+        backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.Mojito,
         image: '/img/drinks/mojito.png',
         title: '/img/titles/mojito.png',
+        backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.Daiquiri,
         image: '/img/drinks/daiquiri.png',
         title: '/img/titles/daiquiri.png',
+        backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.HugoSpritz,
         image: '/img/drinks/hugospritz.png',
         title: '/img/titles/hugo.png',
+        backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.GinTonic,
         image: '/img/drinks/gintonic.png',
         title: '/img/titles/gin.png',
+        backgroundColor: 'bg-black',
+    },
+    {
+        type: DrinkType.LimoncelloProsecco,
+        image: '/img/drinks/limoncelloprosecco.png',
+        title: '/img/titles/limoncelloprosecco.png',
+        backgroundColor: 'bg-black',
+    },
+    {
+        type: DrinkType.Mimosa,
+        image: '/img/drinks/mimosa.png',
+        title: '/img/titles/mimosa.png',
+        backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.WhiteWine,
         image: '/img/drinks/whitewine.png',
         title: '/img/titles/whitewine.png',
+        backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.RedWine,
         image: '/img/drinks/redwine.png',
         title: '/img/titles/redwine.png',
+        backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.Random,
         image: '/img/drinks/random.png',
         title: '/img/titles/random.png',
+        backgroundColor: 'bg-white',
     },
 ])
 

@@ -4,12 +4,12 @@
             class="w-80 h-80 rounded-full flex justify-center items-center mb-4"
             :class="{
                 [backgroundColor]: true,
-                'border-4 border-green-500': props.selected,
+                'border-4 border-green-500': selected,
             }"
         >
             <img
                 class="mx-auto"
-                :src="props.imageUrl"
+                :src="imageUrl"
                 alt="image"
                 @click="$emit('click')"
             />
@@ -19,8 +19,12 @@
 
 <script setup lang="ts">
 defineEmits(['click'])
-const props = defineProps({
+defineProps({
     imageUrl: {
+        type: String,
+        required: true,
+    },
+    backgroundColor: {
         type: String,
         required: true,
     },
@@ -29,7 +33,4 @@ const props = defineProps({
         default: false,
     },
 })
-const backgroundColor = computed(() =>
-    props.imageUrl === '/img/drinks/random.png' ? 'bg-white' : 'bg-black'
-)
 </script>

@@ -5,7 +5,8 @@
         <div class="flex flex-col items-center">
             <img src="/img/titles/drinks.png" />
             <CircleImageButton
-                :image-url="'/img/menu/drinks.png'"
+                image-url="/img/menu/drinks.png"
+                background-color="bg-black"
                 @click="changeRoute('/drinks')"
             />
         </div>
@@ -13,7 +14,8 @@
         <div class="flex flex-col items-center">
             <img src="/img/titles/games.png" />
             <CircleImageButton
-                :image-url="'/img/menu/games.png'"
+                image-url="/img/menu/games.png"
+                background-color="bg-black"
                 @click="changeRoute('/games')"
             />
         </div>
@@ -21,7 +23,8 @@
         <div class="flex flex-col items-center">
             <img src="/img/titles/snacks.png" />
             <CircleImageButton
-                :image-url="'/img/menu/snacks.png'"
+                image-url="/img/menu/snacks.png"
+                background-color="bg-black"
                 @click="changeRoute('/snacks')"
             />
         </div>
@@ -32,7 +35,8 @@
         <div class="flex flex-col items-center">
             <img src="/img/titles/music.png" />
             <CircleImageButton
-                :image-url="'/img/menu/music.png'"
+                image-url="/img/menu/music.png"
+                background-color="bg-black"
                 @click="changeRoute('/music')"
             />
         </div>
@@ -40,7 +44,8 @@
         <div class="flex flex-col items-center">
             <img src="/img/titles/rating.png" />
             <CircleImageButton
-                :image-url="'/img/menu/rating.png'"
+                image-url="/img/menu/rating.png"
+                background-color="bg-black"
                 @click="changeRoute('/rating')"
             />
         </div>
