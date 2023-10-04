@@ -7,6 +7,9 @@ export default {
                 pinky: '#F752E0',
             },
         },
+        fontFamily: {
+            basic: ['Nickainley'],
+        },
     },
     plugins: [],
     safelist: [

@@ -1,7 +1,8 @@
 <template>
-    <div class="flex justify-center items-center">
-        <img src="/img/titles/vote.png" />
-    </div>
+    <p class="font-basic font-glow-dark-purple text-7xl my-20 text-center">
+        Zahlasuj<br />
+        za hru!
+    </p>
     <loader-component v-if="loading" />
     <div v-else class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4">
         <div
