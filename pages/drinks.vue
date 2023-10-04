@@ -23,8 +23,6 @@
 </template>
 
 <script lang="ts" setup>
-import LoaderComponent from '~/components/LoaderComponent.vue'
-
 import { DrinkType } from '@/types'
 import { CreateDrinkOrderDTO } from '~/types/dtos'
 

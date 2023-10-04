@@ -1,6 +1,13 @@
-<template><span class="loader" /></template>
+<template><span :class="[long ? 'long-loader' : 'loader']" /></template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps({
+    long: {
+        type: Boolean,
+        default: false,
+    },
+})
+</script>
 
 <style scoped lang="scss">
 @keyframes pulse {
@@ -24,6 +31,36 @@
         content: '}';
         display: inline-block;
         animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
+    }
+}
+
+@keyframes hitZak {
+    0% {
+        left: 0;
+        transform: translateX(-1%);
+    }
+    100% {
+        left: 100%;
+        transform: translateX(-99%);
+    }
+}
+.long-loader {
+    width: 100%;
+    height: 4.8px;
+    display: inline-block;
+    position: relative;
+    background: rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+    &::after {
+        content: '';
+        width: 96px;
+        height: 4.8px;
+        background: #fff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-sizing: border-box;
+        animation: hitZak 1s linear infinite alternate;
     }
 }
 </style>

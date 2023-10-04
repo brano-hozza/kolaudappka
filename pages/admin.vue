@@ -1,5 +1,7 @@
 <template>
     <h1 class="text-white text-xl my-2">Admin panel</h1>
+
+    <loader-component v-if="loading" long />
     <div class="flex flex-col md:flex-row justify-evenly w-full px-2 md:px-0">
         <div
             class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
@@ -7,6 +9,7 @@
             <h2 class="text-white text-center">Drinks</h2>
             <button
                 class="text-red-500 border-red-500 border-2"
+                :class="{ grayscale: loading }"
                 @click="clearAll(EntityType.DrinkOrder)"
             >
                 Clear all
@@ -20,6 +23,7 @@
                     {{ DrinkType[drink.drinkType] }} [{{ drink.user }}]
                     <button
                         class="text-green-500 border-green-500 border-2"
+                        :class="{ grayscale: loading }"
                         @click="
                             () => resolveOrder(EntityType.DrinkOrder, drink.id)
                         "
@@ -35,6 +39,7 @@
             <h2 class="text-white text-center">Snacks</h2>
             <button
                 class="text-red-500 border-red-500 border-2"
+                :class="{ grayscale: loading }"
                 @click="clearAll(EntityType.SnackOrder)"
             >
                 Clear all
@@ -48,6 +53,7 @@
                     {{ SnackType[snack.snackType] }} [{{ snack.user }}]
                     <button
                         class="text-green-500 border-green-500 border-2"
+                        :class="{ grayscale: loading }"
                         @click="
                             () => resolveOrder(EntityType.SnackOrder, snack.id)
                         "
@@ -63,6 +69,7 @@
             <h2 class="text-white text-center">Games</h2>
             <button
                 class="text-yellow-500 border-yellow-500 border-2"
+                :class="{ grayscale: loading }"
                 @click="finishVoting"
             >
                 Finish voting
@@ -81,6 +88,8 @@
 </template>
 <script lang="ts" setup>
 import { DrinkType, EntityType, GameType, SnackType } from '~/types'
+
+const loading = ref(false)
 
 // Load drinks
 const { data: drinks, refresh: refreshDrinks } = await useFetch('/api/drink', {
@@ -119,10 +128,14 @@ const countedGameVotes = computed(
 )
 
 const resolveOrder = async (entityType: EntityType, id: number) => {
+    if (loading.value) return
+    loading.value = true
     await useFetch(`/api/${entityType}/${id}`, {
         method: 'DELETE',
     })
-    await refreshDrinks()
+    if (entityType === EntityType.SnackOrder) await refreshSnacks()
+    if (entityType === EntityType.DrinkOrder) await refreshDrinks()
+    loading.value = false
 }
 
 const getGameName = (gameType: GameType) => {
@@ -151,17 +164,23 @@ const getGameName = (gameType: GameType) => {
 }
 
 const finishVoting = async () => {
+    if (loading.value) return
+    loading.value = true
     await useFetch(`/api/game`, {
         method: 'DELETE',
     })
     await refreshGameVotes()
+    loading.value = false
 }
 
 const clearAll = async (entityType: EntityType) => {
+    if (loading.value) return
+    loading.value = true
     await useFetch(`/api/${entityType}`, {
         method: 'DELETE',
     })
     if (entityType === EntityType.SnackOrder) await refreshSnacks()
     if (entityType === EntityType.DrinkOrder) await refreshDrinks()
+    loading.value = false
 }
 </script>
