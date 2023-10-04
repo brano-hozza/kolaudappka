@@ -1,6 +1,7 @@
 <template>
     <img src="/img/titles/vote.png" />
-    <div class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4">
+    <loader-component v-if="loading" />
+    <div v-else class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="game in games"
             :key="game.type"
@@ -9,21 +10,28 @@
             <CircleImageButton
                 :image-url="game.image"
                 :background-color="game.backgroundColor"
-                :selected="gameVote?.gameType === game.type"
+                :selected="selectedGame === game.type"
+                :selected-color="changedVote ? 'yellow' : 'green'"
                 size="lg"
-                @click="vote(game.type)"
+                @click="selectGame(game.type)"
             />
         </div>
+        <CircleImageButton
+            v-if="selectedGame != undefined && changedVote"
+            floating
+            icon="ic:outline-how-to-vote"
+            size="sm"
+            background-color="bg-green-500"
+            @click="vote(selectedGame)"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { GameVote } from '~/server/models'
 import { GameType } from '~/types'
 import { VoteForGameDTO } from '~/types/dtos'
 
 const name = ref('')
-const gameVote = ref<GameVote | null>(null)
 const loading = ref(false)
 const games = [
     {
@@ -84,16 +92,28 @@ const games = [
 onMounted(async () => {
     name.value = localStorage.getItem('name') ?? ''
     const data = await $fetch(`/api/game/${name.value}`)
-    gameVote.value = data
+    selectedGame.value = data?.gameType ?? null
     loading.value = false
 })
 
+const selectedGame = ref<GameType | null>(null)
+const changedVote = ref(false)
+const selectGame = (gameType: GameType) => {
+    if (selectedGame.value === gameType) {
+        return
+    }
+    selectedGame.value = gameType
+    changedVote.value = true
+}
+
 const vote = async (type: GameType) => {
-    gameVote.value = { ...gameVote.value!, gameType: type }
+    loading.value = true
     await useFetch(`/api/game`, {
         method: 'POST',
         body: { type, user: name.value } as VoteForGameDTO,
     })
+    changedVote.value = false
+    loading.value = false
 }
 </script>
 <style>

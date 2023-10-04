@@ -4,7 +4,7 @@
             class="rounded-full flex justify-center items-center mb-4 cursor-pointer"
             :class="{
                 [backgroundColor]: true,
-                'border-4 border-green-500': selected,
+                [`border-4 ${getBorderColor(selectedColor)}`]: selected,
                 'absolute right-5 bottom-5': floating,
                 [getSizeClass(size)]: true,
             }"
@@ -42,6 +42,10 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    selectedColor: {
+        type: String as PropType<'green' | 'yellow'>,
+        default: 'green',
+    },
     floating: {
         type: Boolean,
         default: false,
@@ -59,6 +63,15 @@ defineProps({
         default: 'md',
     },
 })
+
+const getBorderColor = (color: 'green' | 'yellow') => {
+    switch (color) {
+        case 'green':
+            return 'border-green-500'
+        case 'yellow':
+            return 'border-yellow-500'
+    }
+}
 
 const getSizeClass = (size: 'sm' | 'md' | 'lg') => {
     switch (size) {
