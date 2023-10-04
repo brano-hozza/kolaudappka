@@ -7,6 +7,7 @@
             <CircleImageButton
                 image-url="/img/menu/drinks.png"
                 background-color="bg-black"
+                size="lg"
                 @click="changeRoute('/drinks')"
             />
         </div>
@@ -16,6 +17,7 @@
             <CircleImageButton
                 image-url="/img/menu/games.png"
                 background-color="bg-black"
+                size="lg"
                 @click="changeRoute('/games')"
             />
         </div>
@@ -25,6 +27,7 @@
             <CircleImageButton
                 image-url="/img/menu/snacks.png"
                 background-color="bg-black"
+                size="lg"
                 @click="changeRoute('/snacks')"
             />
         </div>
@@ -37,6 +40,7 @@
             <CircleImageButton
                 image-url="/img/menu/music.png"
                 background-color="bg-black"
+                size="lg"
                 @click="openJam"
             />
         </div>
@@ -46,11 +50,11 @@
             <CircleImageButton
                 image-url="/img/menu/rating.png"
                 background-color="bg-black"
+                size="lg"
                 @click="changeRoute('/rating')"
             />
         </div>
     </div>
-    <NuxtLink to="/drinks">Drinks</NuxtLink>
 </template>
 <script setup lang="ts">
 const router = useRouter()

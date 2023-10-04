@@ -1,16 +1,26 @@
 <template>
     <div>
         <div
-            class="w-80 h-80 rounded-full flex justify-center items-center mb-4"
+            class="rounded-full flex justify-center items-center mb-4 cursor-pointer"
             :class="{
                 [backgroundColor]: true,
                 'border-4 border-green-500': selected,
+                'absolute right-5 bottom-5': floating,
+                [getSizeClass(size)]: true,
             }"
         >
             <img
+                v-if="!icon"
                 class="mx-auto"
                 :src="imageUrl"
                 alt="image"
+                @click="$emit('click')"
+            />
+            <Icon
+                v-else
+                size="80%"
+                :name="icon"
+                :color="iconColor"
                 @click="$emit('click')"
             />
         </div>
@@ -22,15 +32,42 @@ defineEmits(['click'])
 defineProps({
     imageUrl: {
         type: String,
-        required: true,
+        default: null,
     },
     backgroundColor: {
         type: String,
-        required: true,
+        default: 'bg-transparent',
     },
     selected: {
         type: Boolean,
         default: false,
     },
+    floating: {
+        type: Boolean,
+        default: false,
+    },
+    icon: {
+        type: String,
+        default: null,
+    },
+    iconColor: {
+        type: String,
+        default: 'white',
+    },
+    size: {
+        type: String as PropType<'sm' | 'md' | 'lg'>,
+        default: 'md',
+    },
 })
+
+const getSizeClass = (size: 'sm' | 'md' | 'lg') => {
+    switch (size) {
+        case 'sm':
+            return 'w-20 h-20'
+        case 'md':
+            return 'w-40 h-40'
+        case 'lg':
+            return 'w-80 h-80'
+    }
+}
 </script>

@@ -15,10 +15,19 @@
             <CircleImageButton
                 :image-url="drink.image"
                 :background-color="drink.backgroundColor"
-                :selected="drink.ordered"
-                @click="orderDrink(drink.type)"
+                :selected="drink.ordered || selectedDrink === drink.type"
+                size="lg"
+                @click="selectDrink(drink.type)"
             />
         </div>
+        <CircleImageButton
+            v-if="!hasOrder && selectedDrink != undefined"
+            floating
+            icon="ri:shopping-basket-2-line"
+            size="sm"
+            background-color="bg-green-500"
+            @click="orderDrink(selectedDrink)"
+        />
     </div>
 </template>
 
@@ -119,12 +128,15 @@ const loading = ref(false)
 const hasOrder = computed(() => {
     return drinks.value.some((d) => d.ordered)
 })
-
-const orderDrink = async (drinkType: DrinkType) => {
-    if (loading.value) return
+const selectedDrink = ref<DrinkType | null>(null)
+const selectDrink = (drinkType: DrinkType) => {
     if (hasOrder.value) {
         return confirm('Už máš objednaný nápoj. Musis pockat')
     }
+    selectedDrink.value = drinkType
+}
+
+const orderDrink = async (drinkType: DrinkType) => {
     loading.value = true
     const drink: DrinkType =
         drinkType === DrinkType.Random ? getRandomDrink() : drinkType

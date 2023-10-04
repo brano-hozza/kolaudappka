@@ -10,6 +10,7 @@
                 :image-url="game.image"
                 :background-color="game.backgroundColor"
                 :selected="gameVote?.gameType === game.type"
+                size="lg"
                 @click="vote(game.type)"
             />
         </div>

@@ -15,10 +15,19 @@
             <CircleImageButton
                 :image-url="snack.image"
                 :background-color="snack.backgroundColor"
-                :selected="snack.ordered"
-                @click="orderSnack(snack.type)"
+                :selected="snack.ordered || selectedSnack === snack.type"
+                size="lg"
+                @click="selectSnack(snack.type)"
             />
         </div>
+        <CircleImageButton
+            v-if="!hasOrder && selectedSnack != undefined"
+            floating
+            icon="ri:shopping-basket-2-line"
+            size="sm"
+            background-color="bg-green-500"
+            @click="orderSnack(selectedSnack)"
+        />
     </div>
 </template>
 
@@ -90,11 +99,15 @@ const hasOrder = computed(() => {
     return snacks.value.some((s) => s.ordered)
 })
 
-const orderSnack = async (snackType: SnackType) => {
-    if (loading.value) return
+const selectedSnack = ref<SnackType | null>(null)
+const selectSnack = (snackType: SnackType) => {
     if (hasOrder.value) {
         return confirm('Objednaný snack sa chystá. Musíš počkať.')
     }
+    selectedSnack.value = snackType
+}
+
+const orderSnack = async (snackType: SnackType) => {
     loading.value = true
     const snack: SnackType = snackType
 

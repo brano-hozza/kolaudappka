@@ -12,5 +12,8 @@ export default {
         'text-yellow-500',
         'text-pink-500',
         'text-purple-500',
+        {
+            pattern: /text-\[.*\]/,
+        },
     ],
 }
