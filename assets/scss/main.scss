@@ -8,19 +8,26 @@ body {
 }
 
 $colors: (
-    yellow: #f1c40f,
-    light-yellow: #f39c12,
-    red: #e74c3c,
-    light-red: #c0392b,
-    blue: #3498db,
-    green: #2ecc71,
-    light-green: #27ae60,
-    dark-purple: #8e44ad,
-    purple: #9b59b6,
     white: #fff,
-    light-gray: #ecf0f1,
-    orange: #f39c12,
-    light-orange: #f1c40f,
+    red: #bb0d0f,
+    orange: #fb691a,
+    light-orange: #f39e5c,
+    peach: #ff935f,
+    salmon: #f5a161,
+    yellow: #feee3e,
+    light-yellow: #ffde59,
+    limoncello-yellow: #feee3f,
+    vibrant-yellow: #ffd602,
+    turquoise: #00feca,
+    light-green: #8ae0bf,
+    blue: #3cd8fc,
+    purple: #b07de6,
+    pink: #f752e0,
+    blush-pink: #ff8888,
+    light-nude: #ffe4b7,
+    nude: #fee5b7,
+    beige: #e9cf8d,
+    light-brown: #ccb29d,
 );
 
 @each $color, $value in $colors {

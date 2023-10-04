@@ -1,14 +1,14 @@
 <template>
-    <p class="font-basic font-glow-dark-purple text-center text-7xl my-20">
-        Nieco ti na<br />
-        stole chyba?
+    <p class="font-basic font-glow-pink text-center text-7xl my-10">
+        Niečo ti na<br />
+        stole chýba?
     </p>
     <loader-component v-if="loading" />
     <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="snack in snacks"
             :key="snack.type"
-            class="flex flex-col items-center justify-between gap-4"
+            class="flex flex-col items-center justify-between gap-8 my-4"
             :class="{
                 'grayscale cursor-not-allowed':
                     !snack.available || (hasOrder && !snack.ordered),
@@ -85,7 +85,7 @@ const snacks = ref<Snack[]>([
         titles: [
             {
                 text: 'Sushi',
-                color: 'red',
+                color: 'salmon',
             },
         ],
         backgroundColor: 'bg-black',
@@ -95,8 +95,8 @@ const snacks = ref<Snack[]>([
         image: '/img/snacks/chips.png',
         titles: [
             {
-                text: 'Cipsiky',
-                color: 'red',
+                text: 'Čipsiky',
+                color: 'vibrant-yellow',
             },
         ],
         backgroundColor: 'bg-black',
@@ -106,8 +106,8 @@ const snacks = ref<Snack[]>([
         image: '/img/snacks/nachos.png',
         titles: [
             {
-                text: 'Nachosky',
-                color: 'red',
+                text: 'Načosky',
+                color: 'nude',
             },
         ],
         backgroundColor: 'bg-black',
@@ -117,8 +117,8 @@ const snacks = ref<Snack[]>([
         image: '/img/snacks/peanuts.png',
         titles: [
             {
-                text: 'Oriesky',
-                color: 'red',
+                text: 'Oriešky',
+                color: 'light-brown',
             },
         ],
         backgroundColor: 'bg-black',
@@ -128,8 +128,8 @@ const snacks = ref<Snack[]>([
         image: '/img/snacks/macarons.png',
         titles: [
             {
-                text: 'Makronky',
-                color: 'red',
+                text: 'Makrónky',
+                color: 'blush-pink',
             },
         ],
         backgroundColor: 'bg-black',

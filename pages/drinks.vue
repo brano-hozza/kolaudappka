@@ -1,5 +1,5 @@
 <template>
-    <p class="font-basic font-glow-dark-purple text-7xl my-20 text-center">
+    <p class="font-basic font-glow-pink text-7xl my-10 text-center">
         Objednaj si drink!
     </p>
     <loader-component v-if="loading" />
@@ -7,7 +7,7 @@
         <div
             v-for="drink in drinks"
             :key="drink.type"
-            class="flex flex-col items-center justify-between gap-4"
+            class="flex flex-col items-center justify-between gap-8 my-4"
             :class="{
                 'grayscale cursor-not-allowed':
                     !drink.available || (hasOrder && !drink.ordered),
@@ -99,7 +99,7 @@ const drinks = ref<Drink[]>([
         titles: [
             {
                 text: 'Mojito',
-                color: 'green',
+                color: 'turquoise',
             },
         ],
         backgroundColor: 'bg-black',
@@ -110,7 +110,7 @@ const drinks = ref<Drink[]>([
         titles: [
             {
                 text: 'Daiquiri',
-                color: 'yellow',
+                color: 'red',
             },
         ],
         backgroundColor: 'bg-black',
@@ -121,7 +121,7 @@ const drinks = ref<Drink[]>([
         titles: [
             {
                 text: 'Hugo',
-                color: 'green',
+                color: 'light-yellow',
             },
             {
                 text: 'Spritz',
@@ -140,7 +140,7 @@ const drinks = ref<Drink[]>([
             },
             {
                 text: 'Tonic',
-                color: 'light-gray',
+                color: 'light-nude',
             },
         ],
         backgroundColor: 'bg-black',
@@ -151,11 +151,11 @@ const drinks = ref<Drink[]>([
         titles: [
             {
                 text: 'Limoncello',
-                color: 'yellow',
+                color: 'limoncello-yellow',
             },
             {
                 text: 'Prosecco',
-                color: 'light-yellow',
+                color: 'nude',
             },
         ],
         backgroundColor: 'bg-black',
@@ -166,7 +166,7 @@ const drinks = ref<Drink[]>([
         titles: [
             {
                 text: 'Mimosa',
-                color: 'orange',
+                color: 'peach',
             },
         ],
         backgroundColor: 'bg-black',
@@ -177,11 +177,11 @@ const drinks = ref<Drink[]>([
         titles: [
             {
                 text: 'Biele',
-                color: 'white',
+                color: 'beige',
             },
             {
-                text: 'Vino',
-                color: 'light-gray',
+                text: 'Víno',
+                color: 'white',
             },
         ],
         backgroundColor: 'bg-black',
@@ -191,12 +191,12 @@ const drinks = ref<Drink[]>([
         image: '/img/drinks/redwine.png',
         titles: [
             {
-                text: 'Cervene',
+                text: 'Červené',
                 color: 'red',
             },
             {
-                text: 'Vino',
-                color: 'light-red',
+                text: 'Víno',
+                color: 'white',
             },
         ],
         backgroundColor: 'bg-black',
@@ -206,7 +206,11 @@ const drinks = ref<Drink[]>([
         image: '/img/drinks/random.png',
         titles: [
             {
-                text: 'Nahodne',
+                text: 'Náhodný',
+                color: 'white',
+            },
+            {
+                text: 'Drink',
                 color: 'white',
             },
         ],
