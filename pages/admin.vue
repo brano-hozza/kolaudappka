@@ -2,9 +2,9 @@
     <h1 class="text-white text-xl my-2 text-center">Admin panel</h1>
 
     <loader-component v-if="loading" long />
-    <div class="flex flex-col md:flex-row justify-evenly w-full px-2 md:px-0">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2 md:px-0">
         <div
-            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Drinky</h2>
             <button
@@ -34,7 +34,7 @@
             </ul>
         </div>
         <div
-            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Sneky</h2>
             <button
@@ -64,7 +64,7 @@
             </ul>
         </div>
         <div
-            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Hlasovanie o hry</h2>
             <button
@@ -85,7 +85,7 @@
             </ul>
         </div>
         <div
-            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Hodnotenia</h2>
             <ul>
@@ -102,7 +102,7 @@
             </ul>
         </div>
         <div
-            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
+            class="flex flex-col content-start w-full md:mx-2 mb-2 bg-white bg-opacity-10"
         >
             <h2 class="text-white text-center">Dostupnost drinkov</h2>
             <button
@@ -133,7 +133,50 @@
                                 ? 'border-red-500 text-red-500 '
                                 : 'border-gray-500 text-gray-500 ',
                         ]"
-                        @click="status.available && setUnavailable(status.id)"
+                        @click="
+                            status.available && setUnavailableDrink(status.id)
+                        "
+                    >
+                        Nedostupne
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div
+            class="flex flex-col content-start w-full md:mx-2 mb-2 bg-white bg-opacity-10"
+        >
+            <h2 class="text-white text-center">Dostupnost snekov</h2>
+            <button
+                class="text-yellow-500 border-yellow-500 border-2"
+                :class="{ grayscale: loading }"
+                @click="resetSnacks"
+            >
+                Reset snekov
+            </button>
+            <ul>
+                <li
+                    v-for="status in snackStatuses"
+                    :key="status.id"
+                    class="border-white border-opacity-20 border-t-2 flex justify-between px-2"
+                    :class="[
+                        status.available
+                            ? 'text-green-500'
+                            : 'text-gray-400 line-through',
+                    ]"
+                >
+                    <p>
+                        {{ SnackType[status.snackType] }}
+                    </p>
+                    <button
+                        class="border-2"
+                        :class="[
+                            status.available
+                                ? 'border-red-500 text-red-500 '
+                                : 'border-gray-500 text-gray-500 ',
+                        ]"
+                        @click="
+                            status.available && setUnavailableSnack(status.id)
+                        "
                     >
                         Nedostupne
                     </button>
@@ -149,6 +192,14 @@ const loading = ref(false)
 
 const { data: drinkStatuses, refresh: refreshDrinkStatuses } = await useFetch(
     '/api/drink-status',
+    {
+        lazy: true,
+        server: false,
+    }
+)
+
+const { data: snackStatuses, refresh: refreshSnackStatuses } = await useFetch(
+    '/api/snack-status',
     {
         lazy: true,
         server: false,
@@ -269,12 +320,30 @@ const resetDrinks = async () => {
     loading.value = false
 }
 
-const setUnavailable = async (id: number) => {
+const resetSnacks = async () => {
+    loading.value = true
+    await useFetch('/api/snack-status', {
+        method: 'PUT',
+    })
+    await refreshSnackStatuses()
+    loading.value = false
+}
+
+const setUnavailableDrink = async (id: number) => {
     loading.value = true
     await useFetch(`api/drink-status/${id}`, {
         method: 'PUT',
     })
     await refreshDrinkStatuses()
+    loading.value = false
+}
+
+const setUnavailableSnack = async (id: number) => {
+    loading.value = true
+    await useFetch(`api/snack-status/${id}`, {
+        method: 'PUT',
+    })
+    await refreshSnackStatuses()
     loading.value = false
 }
 </script>

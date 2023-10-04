@@ -30,7 +30,6 @@ export const useDrinkService = () => {
                 drinkType: drinkType as DrinkType,
                 available: true,
             }))
-        console.log(drinks)
         await drinkStatusRepository.deleteAll()
         for (const drink of drinks) {
             await drinkStatusRepository.create(drink)

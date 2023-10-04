@@ -1,4 +1,4 @@
-import { EntityType } from '@/types'
+import { EntityType, SnackType } from '@/types'
 import { useRepository } from '~/server/data/db'
 import { CreateSnackOrderDTO } from '~/types/dtos'
 
@@ -21,6 +21,19 @@ export const useSnackService = () => {
 
     const getAllSnacks = async () => {
         return await snackStatusRepository.getAll()
+    }
+
+    const resetSnacks = async () => {
+        const snacks = Object.values(SnackType)
+            .filter((x) => typeof x === 'number')
+            .map((snackType) => ({
+                snackType: snackType as SnackType,
+                available: true,
+            }))
+        await snackStatusRepository.deleteAll()
+        for (const snack of snacks) {
+            await snackStatusRepository.create(snack)
+        }
     }
 
     const updateSnackStatus = async (id: number) => {
@@ -61,5 +74,6 @@ export const useSnackService = () => {
         clearOrders,
         getAllSnacks,
         updateSnackStatus,
+        resetSnacks,
     }
 }
