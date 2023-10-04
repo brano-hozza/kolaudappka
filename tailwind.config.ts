@@ -2,7 +2,11 @@
 export default {
     content: [],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                pinky: '#F752E0',
+            },
+        },
     },
     plugins: [],
     safelist: [

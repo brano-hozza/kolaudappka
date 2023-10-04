@@ -32,7 +32,7 @@ const canContinue = computed(() => name.value.length < 3)
 const buttonBorderColor = computed(() =>
     canContinue.value
         ? 'border-2 border-black bg-gray-500 opacity-30 cursor-not-allowed'
-        : 'border-2 border-[#F752E0] bg-black cursor-pointer'
+        : 'border-2 border-pinky bg-black cursor-pointer'
 )
 const router = useRouter()
 const continueToMenu = () => {
