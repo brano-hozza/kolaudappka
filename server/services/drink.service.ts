@@ -1,4 +1,4 @@
-import { EntityType } from '@/types'
+import { DrinkType, EntityType } from '@/types'
 import { CreateDrinkOrderDTO } from '@/types/dtos'
 import { useRepository } from '~/server/data/db'
 
@@ -21,6 +21,20 @@ export const useDrinkService = () => {
 
     const getAllDrinks = async () => {
         return await drinkStatusRepository.getAll()
+    }
+
+    const resetDrinks = async () => {
+        const drinks = Object.values(DrinkType)
+            .filter((x) => typeof x === 'number')
+            .map((drinkType) => ({
+                drinkType: drinkType as DrinkType,
+                available: true,
+            }))
+        console.log(drinks)
+        await drinkStatusRepository.deleteAll()
+        for (const drink of drinks) {
+            await drinkStatusRepository.create(drink)
+        }
     }
 
     const updateDrinkStatus = async (id: number) => {
@@ -61,5 +75,6 @@ export const useDrinkService = () => {
         clearOrders,
         getAllDrinks,
         updateDrinkStatus,
+        resetDrinks,
     }
 }

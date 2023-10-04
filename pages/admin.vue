@@ -16,7 +16,7 @@
             </button>
             <ul>
                 <li
-                    v-for="drink in drinks"
+                    v-for="drink in drinkOrders"
                     :key="drink.id"
                     class="flex justify-between text-white border-white border-opacity-20 border-t-2 p-2"
                 >
@@ -46,7 +46,7 @@
             </button>
             <ul>
                 <li
-                    v-for="snack in snacks"
+                    v-for="snack in snackOrders"
                     :key="snack.id"
                     class="flex justify-between text-white border-white border-opacity-20 border-t-2 p-2"
                 >
@@ -101,6 +101,45 @@
                 </li>
             </ul>
         </div>
+        <div
+            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
+        >
+            <h2 class="text-white text-center">Dostupnost drinkov</h2>
+            <button
+                class="text-yellow-500 border-yellow-500 border-2"
+                :class="{ grayscale: loading }"
+                @click="resetDrinks"
+            >
+                Reset drinkov
+            </button>
+            <ul>
+                <li
+                    v-for="status in drinkStatuses"
+                    :key="status.id"
+                    class="border-white border-opacity-20 border-t-2 flex justify-between px-2"
+                    :class="[
+                        status.available
+                            ? 'text-green-500'
+                            : 'text-gray-400 line-through',
+                    ]"
+                >
+                    <p>
+                        {{ DrinkType[status.drinkType] }}
+                    </p>
+                    <button
+                        class="border-2"
+                        :class="[
+                            status.available
+                                ? 'border-red-500 text-red-500 '
+                                : 'border-gray-500 text-gray-500 ',
+                        ]"
+                        @click="status.available && setUnavailable(status.id)"
+                    >
+                        Nedostupne
+                    </button>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 <script lang="ts" setup>
@@ -108,17 +147,31 @@ import { DrinkType, EntityType, GameType, SnackType } from '~/types'
 
 const loading = ref(false)
 
+const { data: drinkStatuses, refresh: refreshDrinkStatuses } = await useFetch(
+    '/api/drink-status',
+    {
+        lazy: true,
+        server: false,
+    }
+)
+
 // Load drinks
-const { data: drinks, refresh: refreshDrinks } = await useFetch('/api/drink', {
-    lazy: true,
-    server: false,
-})
+const { data: drinkOrders, refresh: refreshDrinks } = await useFetch(
+    '/api/drink',
+    {
+        lazy: true,
+        server: false,
+    }
+)
 
 // Load snacks
-const { data: snacks, refresh: refreshSnacks } = await useFetch('/api/snack', {
-    lazy: true,
-    server: false,
-})
+const { data: snackOrders, refresh: refreshSnacks } = await useFetch(
+    '/api/snack',
+    {
+        lazy: true,
+        server: false,
+    }
+)
 
 // Load game votes
 const { data: gameVotes, refresh: refreshGameVotes } = await useFetch(
@@ -204,6 +257,24 @@ const clearAll = async (entityType: EntityType) => {
     })
     if (entityType === EntityType.SnackOrder) await refreshSnacks()
     if (entityType === EntityType.DrinkOrder) await refreshDrinks()
+    loading.value = false
+}
+
+const resetDrinks = async () => {
+    loading.value = true
+    await useFetch('/api/drink-status', {
+        method: 'PUT',
+    })
+    await refreshDrinkStatuses()
+    loading.value = false
+}
+
+const setUnavailable = async (id: number) => {
+    loading.value = true
+    await useFetch(`api/drink-status/${id}`, {
+        method: 'PUT',
+    })
+    await refreshDrinkStatuses()
     loading.value = false
 }
 </script>
