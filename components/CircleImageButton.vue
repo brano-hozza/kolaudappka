@@ -1,29 +1,27 @@
 <template>
-    <div>
-        <div
-            class="rounded-full flex justify-center items-center mb-4 cursor-pointer"
-            :class="{
-                [backgroundColor]: true,
-                [`border-4 ${getBorderColor(selectedColor)}`]: selected,
-                'absolute right-5 bottom-5': floating,
-                [getSizeClass(size)]: true,
-            }"
-        >
-            <img
-                v-if="!icon"
-                class="mx-auto"
-                :src="imageUrl"
-                alt="image"
-                @click="$emit('click')"
-            />
-            <Icon
-                v-else
-                size="80%"
-                :name="icon"
-                :color="iconColor"
-                @click="$emit('click')"
-            />
-        </div>
+    <div
+        class="rounded-full flex justify-center items-center mb-4 cursor-pointer"
+        :class="{
+            [backgroundColor]: true,
+            [`border-4 ${getBorderColor(selectedColor)}`]: selected,
+            'fixed right-5 bottom-5': floating,
+            [getSizeClass(size)]: true,
+        }"
+    >
+        <img
+            v-if="!icon"
+            class="mx-auto"
+            :src="imageUrl"
+            alt="image"
+            @click="$emit('click')"
+        />
+        <Icon
+            v-else
+            size="80%"
+            :name="icon"
+            :color="iconColor"
+            @click="$emit('click')"
+        />
     </div>
 </template>
 

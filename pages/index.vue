@@ -6,7 +6,7 @@
         >
             <pretty-input @change="name = $event" />
             <button
-                class="w-full md:w-1/2 rounded p-1 m-4"
+                class="w-full md:w-1/2 rounded p-1 m-4 text-white"
                 :class="buttonBorderColor"
                 :disabled="canContinue"
                 @click="continueToMenu"
