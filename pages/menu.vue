@@ -23,7 +23,7 @@
         </div>
 
         <div class="flex flex-col items-center gap-4">
-            <p class="font-basic font-glow-green text-7xl">Sneky</p>
+            <p class="font-basic font-glow-turquoise text-7xl">Sneky</p>
             <CircleImageButton
                 image-url="/img/menu/snacks.png"
                 background-color="bg-black"
@@ -36,7 +36,7 @@
         class="w-full flex flex-col md:flex-row items-center md:justify-evenly md:items-stretch"
     >
         <div class="flex flex-col items-center gap-4">
-            <p class="font-basic font-glow-red text-7xl">Muzika</p>
+            <p class="font-basic font-glow-red text-7xl">Hudba</p>
             <CircleImageButton
                 image-url="/img/menu/music.png"
                 background-color="bg-black"

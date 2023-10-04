@@ -1,8 +1,9 @@
 <template>
     <!-- TODO: title 'Ohodnot dnesnu akciu' -->
-    <div class="flex justify-center items-center">
-        <img src="/img/titles/order.png" />
-    </div>
+    <p class="font-basic font-glow-pink text-center text-7xl my-10">
+        Čo môžeme<br />
+        zlepšiť?
+    </p>
     <loader-component v-if="loading" />
     <div v-else>
         <div class="grid grid-cols-5 mx-4 gap-1">

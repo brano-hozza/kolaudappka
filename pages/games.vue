@@ -1,5 +1,5 @@
 <template>
-    <p class="font-basic font-glow-dark-purple text-7xl my-20 text-center">
+    <p class="font-basic font-glow-pink text-7xl my-10 text-center">
         Zahlasuj<br />
         za hru!
     </p>
