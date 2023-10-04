@@ -1,5 +1,7 @@
 <template>
-    <img src="/img/titles/snack.png" />
+    <div class="flex justify-center items-center">
+        <img src="/img/titles/snack.png" />
+    </div>
     <loader-component v-if="loading" />
     <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
