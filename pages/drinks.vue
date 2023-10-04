@@ -1,5 +1,5 @@
 <template>
-    <p class="font-basic font-glow-dark-purple text-7xl my-20">
+    <p class="font-basic font-glow-dark-purple text-7xl my-20 text-center">
         Objednaj si drink!
     </p>
     <loader-component v-if="loading" />

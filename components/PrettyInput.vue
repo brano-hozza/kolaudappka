@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full md:w-1/2 rounded p-1 bg-white flex flex-row justify-center outline-blue-500"
+        class="w-full md:w-1/2 rounded p-1 bg-black flex flex-row justify-center outline-blue-500 font-basic text-xl"
         placeholder="Zadaj svoje meno"
         contenteditable
         @input="handleInput"
