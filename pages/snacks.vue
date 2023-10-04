@@ -1,17 +1,28 @@
 <template>
-    <img src="/img/titles/snack.png" />
+    <p class="font-basic font-glow-dark-purple text-7xl my-20">
+        Nieco ti na <br />stole chyba?
+    </p>
     <loader-component v-if="loading" />
     <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="snack in snacks"
             :key="snack.type"
-            class="flex flex-col items-center justify-between"
+            class="flex flex-col items-center justify-between gap-4"
             :class="{
                 'grayscale cursor-not-allowed':
                     !snack.available || (hasOrder && !snack.ordered),
             }"
         >
-            <img :src="snack.title" />
+            <span class="flex flex-col justify-center items-center gap-4">
+                <p
+                    v-for="title in snack.titles"
+                    :key="title.text"
+                    class="font-basic text-7xl"
+                    :class="[`font-glow-${title.color}`]"
+                >
+                    {{ title.text }}
+                </p>
+            </span>
             <CircleImageButton
                 :image-url="snack.image"
                 :background-color="snack.backgroundColor"
@@ -52,10 +63,16 @@ onMounted(() => {
         return snack
     })
 })
+
+type Title = {
+    text: string
+    color: string
+}
+
 type Snack = {
     type: SnackType
     image: string
-    title: string
+    titles: Title[]
     backgroundColor: string
     available?: boolean
     ordered?: boolean
@@ -64,31 +81,56 @@ const snacks = ref<Snack[]>([
     {
         type: SnackType.Sushi,
         image: '/img/snacks/sushi.png',
-        title: '/img/titles/sushi.png',
+        titles: [
+            {
+                text: 'Sushi',
+                color: 'red',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: SnackType.Chips,
         image: '/img/snacks/chips.png',
-        title: '/img/titles/chips.png',
+        titles: [
+            {
+                text: 'Cipsiky',
+                color: 'red',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: SnackType.Nachos,
         image: '/img/snacks/nachos.png',
-        title: '/img/titles/nachos.png',
+        titles: [
+            {
+                text: 'Nachosky',
+                color: 'red',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: SnackType.Peanuts,
         image: '/img/snacks/peanuts.png',
-        title: '/img/titles/peanuts.png',
+        titles: [
+            {
+                text: 'Oriesky',
+                color: 'red',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: SnackType.Macarons,
         image: '/img/snacks/macarons.png',
-        title: '/img/titles/macarons.png',
+        titles: [
+            {
+                text: 'Makronky',
+                color: 'red',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
 ])
