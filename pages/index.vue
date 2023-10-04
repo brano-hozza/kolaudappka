@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-screen flex flex-col justify-center items-center">
-        <img src="/img/titles/kolaudappka.png" />
+        <p class="font-basic font-glow-yellow text-7xl">Kolaudappka</p>
         <div
             class="w-3/4 md: md:w-1/2 flex flex-col justify-center items-center p-2"
         >

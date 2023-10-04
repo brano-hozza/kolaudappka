@@ -1,17 +1,29 @@
 <template>
-    <img src="/img/titles/order.png" />
+    <p class="font-basic font-glow-dark-purple text-7xl my-20">
+        Objednaj si drink!
+    </p>
     <loader-component v-if="loading" />
     <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="drink in drinks"
             :key="drink.type"
-            class="flex flex-col items-center justify-between"
+            class="flex flex-col items-center justify-between gap-4"
             :class="{
                 'grayscale cursor-not-allowed':
                     !drink.available || (hasOrder && !drink.ordered),
             }"
         >
-            <img :src="drink.title" />
+            <span class="flex flex-col justify-center items-center gap-4">
+                <p
+                    v-for="title in drink.titles"
+                    :key="title.text"
+                    class="font-basic text-7xl"
+                    :class="[`font-glow-${title.color}`]"
+                >
+                    {{ title.text }}
+                </p>
+            </span>
+
             <CircleImageButton
                 :image-url="drink.image"
                 :background-color="drink.backgroundColor"
@@ -52,10 +64,15 @@ onMounted(() => {
         return drink
     })
 })
+
+type Title = {
+    text: string
+    color: string
+}
 type Drink = {
     type: DrinkType
     image: string
-    title: string
+    titles: Title[]
     backgroundColor: string
     available?: boolean
     ordered?: boolean
@@ -64,61 +81,135 @@ const drinks = ref<Drink[]>([
     {
         type: DrinkType.AperolSpritz,
         image: '/img/drinks/aperol.png',
-        title: '/img/titles/aperol.png',
+        titles: [
+            {
+                text: 'Aperol',
+                color: 'orange',
+            },
+            {
+                text: 'Spritz',
+                color: 'light-orange',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.Mojito,
         image: '/img/drinks/mojito.png',
-        title: '/img/titles/mojito.png',
+        titles: [
+            {
+                text: 'Mojito',
+                color: 'green',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.Daiquiri,
         image: '/img/drinks/daiquiri.png',
-        title: '/img/titles/daiquiri.png',
+        titles: [
+            {
+                text: 'Daiquiri',
+                color: 'yellow',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.HugoSpritz,
         image: '/img/drinks/hugospritz.png',
-        title: '/img/titles/hugo.png',
+        titles: [
+            {
+                text: 'Hugo',
+                color: 'green',
+            },
+            {
+                text: 'Spritz',
+                color: 'light-green',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.GinTonic,
         image: '/img/drinks/gintonic.png',
-        title: '/img/titles/gin.png',
+        titles: [
+            {
+                text: 'Gin',
+                color: 'white',
+            },
+            {
+                text: 'Tonic',
+                color: 'light-gray',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.LimoncelloProsecco,
         image: '/img/drinks/limoncelloprosecco.png',
-        title: '/img/titles/limoncelloprosecco.png',
+        titles: [
+            {
+                text: 'Limoncello',
+                color: 'yellow',
+            },
+            {
+                text: 'Prosecco',
+                color: 'light-yellow',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.Mimosa,
         image: '/img/drinks/mimosa.png',
-        title: '/img/titles/mimosa.png',
+        titles: [
+            {
+                text: 'Mimosa',
+                color: 'orange',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.WhiteWine,
         image: '/img/drinks/whitewine.png',
-        title: '/img/titles/whitewine.png',
+        titles: [
+            {
+                text: 'Biele',
+                color: 'white',
+            },
+            {
+                text: 'Vino',
+                color: 'light-gray',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.RedWine,
         image: '/img/drinks/redwine.png',
-        title: '/img/titles/redwine.png',
+        titles: [
+            {
+                text: 'Cervene',
+                color: 'red',
+            },
+            {
+                text: 'Vino',
+                color: 'light-red',
+            },
+        ],
         backgroundColor: 'bg-black',
     },
     {
         type: DrinkType.Random,
         image: '/img/drinks/random.png',
-        title: '/img/titles/random.png',
+        titles: [
+            {
+                text: 'Nahodne',
+                color: 'white',
+            },
+        ],
         backgroundColor: 'bg-white',
     },
 ])
