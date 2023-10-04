@@ -59,9 +59,16 @@
 <script setup lang="ts">
 const router = useRouter()
 const changeRoute = (pathUrl: string) => {
+    if (pathUrl === '/rating' && !isRatingOpen.value)
+        return confirm('Hodnotenie bude spustené o 23:00.')
     router.push(pathUrl)
 }
 const openJam = () => {
     window.open('https://spotify.link/KoxTv1vGzDb', '_blank')
 }
+const isRatingOpen = computed(() => {
+    const now = new Date()
+    const ratingStart = new Date('2023-10-14T23:00:00')
+    return now > ratingStart
+})
 </script>

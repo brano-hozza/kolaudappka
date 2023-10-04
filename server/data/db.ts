@@ -5,6 +5,7 @@ import {
     GameVote,
     SnackOrder,
     SnackStatus,
+    Rating,
 } from '~/server/models'
 import { EntityType } from '~/types'
 
@@ -14,6 +15,7 @@ interface EntityLookup {
     [EntityType.SnackStatus]: SnackStatus
     [EntityType.DrinkOrder]: DrinkOrder
     [EntityType.DrinkStatus]: DrinkStatus
+    [EntityType.Rating]: Rating
 }
 
 export function useRepository<T extends EntityType>(entityType: T) {

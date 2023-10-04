@@ -27,7 +27,7 @@
             floating
             icon="ri:shopping-basket-2-line"
             size="sm"
-            background-color="bg-green-500"
+            background-color="bg-pinky"
             @click="orderDrink(selectedDrink)"
         />
     </div>

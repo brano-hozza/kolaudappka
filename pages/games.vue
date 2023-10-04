@@ -23,7 +23,7 @@
             floating
             icon="ic:outline-how-to-vote"
             size="sm"
-            background-color="bg-green-500"
+            background-color="bg-pinky"
             @click="vote(selectedGame)"
         />
     </div>

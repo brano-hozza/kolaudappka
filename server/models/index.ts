@@ -26,3 +26,8 @@ export interface SnackStatus extends Entity {
 export interface GameVote extends Entity {
     gameType: GameType
 }
+
+export interface Rating extends Entity {
+    stars: number
+    text: string
+}

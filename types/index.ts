@@ -25,6 +25,7 @@ export enum EntityType {
     SnackOrder = 'snack',
     SnackStatus = 'snack-status',
     GameVote = 'game',
+    Rating = 'rating',
 }
 
 export enum GameType {
