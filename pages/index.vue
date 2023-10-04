@@ -2,7 +2,7 @@
     <div
         class="w-full h-screen flex flex-col justify-center items-center gap-4"
     >
-        <p class="font-basic font-glow-yellow text-7xl">Kolaudappka</p>
+        <p class="font-basic font-glow-pink text-6xl">Kolaudappka🎉</p>
         <div
             class="w-3/4 md: md:w-1/2 flex flex-col justify-center items-center p-2"
         >

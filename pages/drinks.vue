@@ -226,7 +226,7 @@ const hasOrder = computed(() => {
 const selectedDrink = ref<DrinkType | null>(null)
 const selectDrink = (drinkType: DrinkType) => {
     if (hasOrder.value) {
-        return confirm('Už máš objednaný nápoj. Musis pockat')
+        return confirm('Objednaný nápoj sa chystá. Musíš počkať.')
     }
     selectedDrink.value = drinkType
 }
