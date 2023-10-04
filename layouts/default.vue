@@ -9,7 +9,16 @@
                     :class="{ [iconColor]: true }"
                 >
                     <Icon size="20%" name="material-symbols:home-outline" />
-                    <p>{{ name }}</p>
+                    <p
+                        class="font-basic text-xl"
+                        :class="[
+                            iconColor === 'text-white'
+                                ? 'font-glow-white'
+                                : 'font-glow-green',
+                        ]"
+                    >
+                        {{ name }}
+                    </p>
                 </span>
             </NuxtLink>
             <button class="w-1/3" @click="logout">
@@ -19,7 +28,7 @@
                         name="fluent:sign-out-20-regular"
                         color="white"
                     />
-                    <p class="text-white">Logout</p>
+                    <p class="font-basic font-glow-white text-xl">Logout</p>
                 </span>
             </button>
         </nav>

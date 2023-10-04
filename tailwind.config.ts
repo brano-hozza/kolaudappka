@@ -3,6 +3,9 @@ export default {
     content: [],
     theme: {
         extend: {},
+        fontFamily: {
+            basic: ['Nickainley'],
+        },
     },
     plugins: [],
     safelist: [

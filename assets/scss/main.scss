@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'Nickainley';
+    src: local('Nickainley'), url('/fonts/Nickainley-Normal.otf');
+}
+
 body {
     background-image: url('/img/background.jpg');
+}
+
+$colors: (
+    yellow: #f1c40f,
+    red: #e74c3c,
+    blue: #3498db,
+    green: #2ecc71,
+    purple: #9b59b6,
+    white: #fff,
+);
+
+@each $color, $value in $colors {
+    .font-glow-#{$color} {
+        color: $value;
+        text-shadow:
+            0 0 10px $value,
+            0 0 20px $value,
+            0 0 30px $value;
+    }
 }
