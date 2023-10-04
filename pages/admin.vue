@@ -1,18 +1,18 @@
 <template>
-    <h1 class="text-white text-xl my-2">Admin panel</h1>
+    <h1 class="text-white text-xl my-2 text-center">Admin panel</h1>
 
     <loader-component v-if="loading" long />
     <div class="flex flex-col md:flex-row justify-evenly w-full px-2 md:px-0">
         <div
             class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
         >
-            <h2 class="text-white text-center">Drinks</h2>
+            <h2 class="text-white text-center">Drinky</h2>
             <button
                 class="text-red-500 border-red-500 border-2"
                 :class="{ grayscale: loading }"
                 @click="clearAll(EntityType.DrinkOrder)"
             >
-                Clear all
+                Vycistit
             </button>
             <ul>
                 <li
@@ -28,7 +28,7 @@
                             () => resolveOrder(EntityType.DrinkOrder, drink.id)
                         "
                     >
-                        Finish order
+                        Hotovo
                     </button>
                 </li>
             </ul>
@@ -36,13 +36,13 @@
         <div
             class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
         >
-            <h2 class="text-white text-center">Snacks</h2>
+            <h2 class="text-white text-center">Sneky</h2>
             <button
                 class="text-red-500 border-red-500 border-2"
                 :class="{ grayscale: loading }"
                 @click="clearAll(EntityType.SnackOrder)"
             >
-                Clear all
+                Vycistit
             </button>
             <ul>
                 <li
@@ -58,7 +58,7 @@
                             () => resolveOrder(EntityType.SnackOrder, snack.id)
                         "
                     >
-                        Finish order
+                        Hotovo
                     </button>
                 </li>
             </ul>
@@ -66,13 +66,13 @@
         <div
             class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
         >
-            <h2 class="text-white text-center">Games</h2>
+            <h2 class="text-white text-center">Hlasovanie o hry</h2>
             <button
                 class="text-yellow-500 border-yellow-500 border-2"
                 :class="{ grayscale: loading }"
                 @click="finishVoting"
             >
-                Finish voting
+                Ukoncit hlasovanie
             </button>
             <ul>
                 <li
@@ -80,7 +80,24 @@
                     :key="key"
                     class="text-white border-white border-opacity-20 border-t-2"
                 >
-                    {{ getGameName(Number(key)) }} [{{ value }} votes]
+                    {{ getGameName(Number(key)) }} [{{ value }} hlasov]
+                </li>
+            </ul>
+        </div>
+        <div
+            class="flex flex-col content-start w-full md:w-1/3 md:mx-2 mb-2 bg-white bg-opacity-10"
+        >
+            <h2 class="text-white text-center">Hodnotenia</h2>
+            <ul>
+                <li
+                    v-for="rating in ratings"
+                    :key="rating.id"
+                    class="text-white border-white border-opacity-20 border-t-2"
+                >
+                    <span class="text-green-300">
+                        [ {{ rating.user }} - {{ rating.stars }}x ⭐ ]
+                    </span>
+                    {{ rating.text }}
                 </li>
             </ul>
         </div>
@@ -111,6 +128,12 @@ const { data: gameVotes, refresh: refreshGameVotes } = await useFetch(
         server: false,
     }
 )
+
+// Load ratings
+const { data: ratings } = await useFetch('/api/rating', {
+    lazy: true,
+    server: false,
+})
 
 const countedGameVotes = computed(
     () =>

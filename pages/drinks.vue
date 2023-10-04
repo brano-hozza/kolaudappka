@@ -258,10 +258,10 @@ const orderDrink = async (drinkType: DrinkType) => {
 }
 
 const getRandomDrink = () => {
-    const values = Object.keys(DrinkType) as Array<keyof typeof DrinkType>
-    let enumKey = values[Math.floor(Math.random() * values.length)]
-    while (enumKey === 'Random')
-        enumKey = values[Math.floor(Math.random() * values.length)]
+    const values = Object.keys(DrinkType).filter(
+        (val) => val !== 'Random'
+    ) as Array<keyof typeof DrinkType>
+    const enumKey = values[Math.floor(Math.random() * values.length)]
     return DrinkType[enumKey]
 }
 </script>
