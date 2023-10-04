@@ -1,6 +1,7 @@
 <template>
-    <p class="font-basic font-glow-dark-purple text-7xl my-20">
-        Nieco ti na <br />stole chyba?
+    <p class="font-basic font-glow-dark-purple text-center text-7xl my-20">
+        Nieco ti na<br />
+        stole chyba?
     </p>
     <loader-component v-if="loading" />
     <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
