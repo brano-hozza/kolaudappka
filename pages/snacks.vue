@@ -1,13 +1,14 @@
 <template>
     <img src="/img/titles/snack.png" />
-    <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
+    <loader-component v-if="loading" />
+    <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="snack in snacks"
             :key="snack.type"
             class="flex flex-col items-center justify-between"
             :class="{
                 'grayscale cursor-not-allowed':
-                    !snack.available || loading || (hasOrder && !snack.ordered),
+                    !snack.available || (hasOrder && !snack.ordered),
             }"
         >
             <img :src="snack.title" />

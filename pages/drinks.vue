@@ -1,13 +1,14 @@
 <template>
     <img src="/img/titles/order.png" />
-    <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
+    <loader-component v-if="loading" />
+    <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
         <div
             v-for="drink in drinks"
             :key="drink.type"
             class="flex flex-col items-center justify-between"
             :class="{
                 'grayscale cursor-not-allowed':
-                    !drink.available || loading || (hasOrder && !drink.ordered),
+                    !drink.available || (hasOrder && !drink.ordered),
             }"
         >
             <img :src="drink.title" />
@@ -22,6 +23,8 @@
 </template>
 
 <script lang="ts" setup>
+import LoaderComponent from '~/components/LoaderComponent.vue'
+
 import { DrinkType } from '@/types'
 import { CreateDrinkOrderDTO } from '~/types/dtos'
 
