@@ -1,32 +1,36 @@
 <template>
-    <p class="font-basic font-glow-pink text-7xl my-10 text-center">
-        Zahlasuj<br />
-        za hru!
-    </p>
-    <loader-component v-if="loading" />
-    <div v-else class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4">
-        <div
-            v-for="game in games"
-            :key="game.type"
-            class="flex flex-col items-center justify-between"
-        >
-            <CircleImageButton
-                :image-url="game.image"
-                :background-color="game.backgroundColor"
-                :selected="selectedGame === game.type"
-                :selected-color="changedVote ? 'yellow' : 'green'"
-                size="lg"
-                @click="selectGame(game.type)"
-            />
+    <div class="relative overflow-scroll h-[100vh]">
+        <loader-component v-if="loading" />
+        <div class="overflow-auto h-full">
+            <p class="font-basic font-glow-pink text-7xl my-10 text-center">
+                Zahlasuj<br />
+                za hru!
+            </p>
+            <div class="grid grid-cols-1 gap-y-10 md:gap-x-10 md:grid-cols-4">
+                <div
+                    v-for="game in games"
+                    :key="game.type"
+                    class="flex flex-col items-center justify-between"
+                >
+                    <CircleImageButton
+                        :image-url="game.image"
+                        :background-color="game.backgroundColor"
+                        :selected="selectedGame === game.type"
+                        :selected-color="changedVote ? 'yellow' : 'green'"
+                        size="lg"
+                        @click="selectGame(game.type)"
+                    />
+                </div>
+                <CircleImageButton
+                    v-if="selectedGame != undefined && changedVote"
+                    floating
+                    icon="ic:outline-how-to-vote"
+                    size="sm"
+                    background-color="bg-pinky"
+                    @click="vote(selectedGame)"
+                />
+            </div>
         </div>
-        <CircleImageButton
-            v-if="selectedGame != undefined && changedVote"
-            floating
-            icon="ic:outline-how-to-vote"
-            size="sm"
-            background-color="bg-pinky"
-            @click="vote(selectedGame)"
-        />
     </div>
 </template>
 
@@ -35,7 +39,7 @@ import { GameType } from '~/types'
 import { VoteForGameDTO } from '~/types/dtos'
 
 const name = ref('')
-const loading = ref(false)
+const loading = ref(true)
 const games = [
     {
         name: 'Výbušné Koťátka',
@@ -92,6 +96,7 @@ const games = [
         backgroundColor: 'bg-white',
     },
 ] as const
+
 onMounted(async () => {
     name.value = localStorage.getItem('name') ?? ''
     const data = await $fetch(`/api/game/${name.value}`)
@@ -108,7 +113,6 @@ const selectGame = (gameType: GameType) => {
     selectedGame.value = gameType
     changedVote.value = true
 }
-
 const vote = async (type: GameType) => {
     loading.value = true
     await useFetch(`/api/game`, {

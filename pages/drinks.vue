@@ -1,52 +1,61 @@
 <template>
-    <p class="font-basic font-glow-pink text-7xl my-10 text-center">
-        Objednaj si drink!
-    </p>
-    <loader-component v-if="loading" />
-    <div v-else class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
-        <div
-            v-for="drink in drinks"
-            :key="drink.type"
-            class="flex flex-col items-center justify-between gap-8 my-4"
-            :class="{
-                'grayscale cursor-not-allowed': hasOrder && !drink.ordered,
-            }"
-        >
-            <span class="flex flex-col justify-center items-center gap-4">
-                <p
-                    v-for="title in drink.titles"
-                    :key="title.text"
-                    class="font-basic text-7xl"
-                    :class="[`font-glow-${title.color}`]"
+    <div class="relative overflow-scroll h-[100vh]">
+        <loader-component v-if="loading" />
+        <div class="overflow-auto h-full">
+            <p class="font-basic font-glow-pink text-7xl my-10 text-center">
+                Objednaj si drink!
+            </p>
+            <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
+                <div
+                    v-for="drink in drinks"
+                    :key="drink.type"
+                    class="flex flex-col items-center justify-between gap-8 my-4"
+                    :class="{
+                        'grayscale cursor-not-allowed':
+                            hasOrder && !drink.ordered,
+                    }"
                 >
-                    {{ title.text }}
-                </p>
-            </span>
+                    <span
+                        class="flex flex-col justify-center items-center gap-4"
+                    >
+                        <p
+                            v-for="title in drink.titles"
+                            :key="title.text"
+                            class="font-basic text-7xl"
+                            :class="[`font-glow-${title.color}`]"
+                        >
+                            {{ title.text }}
+                        </p>
+                    </span>
 
-            <CircleImageButton
-                :image-url="drink.image"
-                :background-color="drink.backgroundColor"
-                :selected="drink.ordered || selectedDrink === drink.type"
-                :disabled="!drink.available"
-                size="lg"
-                @click="drink.available && selectDrink(drink.type)"
-            >
-                <span
-                    v-if="!drink.available"
-                    class="absolute rotate-45 w-[120%] h-20 bg-white flex flex-row justify-center items-center font-bold"
-                >
-                    <p class="text-red-500 text-xl">Nedostupne 😔</p>
-                </span>
-            </CircleImageButton>
+                    <CircleImageButton
+                        :image-url="drink.image"
+                        :background-color="drink.backgroundColor"
+                        :selected="
+                            drink.ordered || selectedDrink === drink.type
+                        "
+                        :disabled="!drink.available"
+                        size="lg"
+                        @click="drink.available && selectDrink(drink.type)"
+                    >
+                        <span
+                            v-if="!drink.available"
+                            class="absolute rotate-45 w-[120%] h-20 bg-white flex flex-row justify-center items-center font-bold"
+                        >
+                            <p class="text-red-500 text-xl">Nedostupne 😔</p>
+                        </span>
+                    </CircleImageButton>
+                </div>
+                <CircleImageButton
+                    v-if="!hasOrder && selectedDrink != undefined"
+                    floating
+                    icon="ri:shopping-basket-2-line"
+                    size="sm"
+                    background-color="bg-pinky"
+                    @click="orderDrink(selectedDrink)"
+                />
+            </div>
         </div>
-        <CircleImageButton
-            v-if="!hasOrder && selectedDrink != undefined"
-            floating
-            icon="ri:shopping-basket-2-line"
-            size="sm"
-            background-color="bg-pinky"
-            @click="orderDrink(selectedDrink)"
-        />
     </div>
 </template>
 
@@ -70,6 +79,7 @@ onMounted(() => {
         drink.ordered = isOrdered(drink.type)
         return drink
     })
+    loading.value = false
 })
 
 type Title = {
@@ -225,7 +235,7 @@ const drinks = ref<Drink[]>([
     },
 ])
 
-const loading = ref(false)
+const loading = ref(true)
 
 const hasOrder = computed(() => {
     return drinks.value.some((d) => d.ordered)

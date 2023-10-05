@@ -1,4 +1,13 @@
-<template><span :class="[long ? 'long-loader' : 'loader']" /></template>
+<template>
+    <div
+        :class="{
+            'w-full h-[100%] absolute flex justify-center items-center bg-black opacity-80 z-10':
+                !long,
+        }"
+    >
+        <span :class="[long ? 'long-loader' : 'loader']" />
+    </div>
+</template>
 
 <script setup lang="ts">
 defineProps({

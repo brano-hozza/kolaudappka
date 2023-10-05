@@ -1,36 +1,39 @@
 <template>
-    <!-- TODO: title 'Ohodnot dnesnu akciu' -->
-    <p class="font-basic font-glow-pink text-center text-7xl my-10">
-        Čo môžeme<br />
-        zlepšiť?
-    </p>
-    <loader-component v-if="loading" />
-    <div v-else>
-        <div class="grid grid-cols-5 mx-4 gap-1">
-            <div
-                v-for="star in [1, 2, 3, 4, 5]"
-                :key="star"
-                @click="selectStar(star)"
-            >
-                <img :src="getImage(selectedStar >= star)" />
+    <div class="relative overflow-scroll h-[100vh]">
+        <loader-component v-if="loading" />
+        <div class="overflow-auto h-full">
+            <p class="font-basic font-glow-pink text-center text-7xl my-10">
+                Čo môžeme<br />
+                zlepšiť?
+            </p>
+            <div>
+                <div class="grid grid-cols-5 mx-4 gap-1">
+                    <div
+                        v-for="star in [1, 2, 3, 4, 5]"
+                        :key="star"
+                        @click="selectStar(star)"
+                    >
+                        <img :src="getImage(selectedStar >= star)" />
+                    </div>
+                </div>
+                <div class="w-full flex items-center justify-center mt-10">
+                    <textarea
+                        v-model="message"
+                        placeholder="Aspoň 5 slovíčok, v dobrom či v zlom 🥺👉🏻👈🏻"
+                        class="w-full h-32 p-4 border-2 border-pinky rounded-xl mx-4"
+                        :disabled="alreadyVoted"
+                    ></textarea>
+                </div>
+                <CircleImageButton
+                    v-if="isRatingComplete && !alreadyVoted"
+                    floating
+                    icon="ic:outline-how-to-vote"
+                    size="sm"
+                    background-color="bg-pinky"
+                    @click="vote"
+                />
             </div>
         </div>
-        <div class="w-full flex items-center justify-center mt-10">
-            <textarea
-                v-model="message"
-                placeholder="Aspoň 5 slovíčok, v dobrom či v zlom 🥺👉🏻👈🏻"
-                class="w-full h-32 p-4 border-2 border-pinky rounded-xl mx-4"
-                :disabled="alreadyVoted"
-            ></textarea>
-        </div>
-        <CircleImageButton
-            v-if="isRatingComplete && !alreadyVoted"
-            floating
-            icon="ic:outline-how-to-vote"
-            size="sm"
-            background-color="bg-pinky"
-            @click="vote"
-        />
     </div>
 </template>
 
