@@ -10,8 +10,7 @@
             :key="snack.type"
             class="flex flex-col items-center justify-between gap-8 my-4"
             :class="{
-                'grayscale cursor-not-allowed':
-                    !snack.available || (hasOrder && !snack.ordered),
+                'grayscale cursor-not-allowed': hasOrder && !snack.ordered,
             }"
         >
             <span class="flex flex-col justify-center items-center gap-4">
@@ -28,9 +27,17 @@
                 :image-url="snack.image"
                 :background-color="snack.backgroundColor"
                 :selected="snack.ordered || selectedSnack === snack.type"
+                :disabled="!snack.available"
                 size="lg"
-                @click="selectSnack(snack.type)"
-            />
+                @click="snack.available && selectSnack(snack.type)"
+            >
+                <span
+                    v-if="!snack.available"
+                    class="absolute rotate-45 w-[120%] h-20 bg-white flex flex-row justify-center items-center font-bold"
+                >
+                    <p class="text-red-500 text-xl">Nedostupne 😔</p>
+                </span>
+            </CircleImageButton>
         </div>
         <CircleImageButton
             v-if="!hasOrder && selectedSnack != undefined"

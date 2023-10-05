@@ -1,11 +1,13 @@
 <template>
     <div
-        class="rounded-full flex justify-center items-center mb-4 cursor-pointer"
+        class="rounded-full flex justify-center items-center mb-4 cursor-pointer overflow-hidden"
         :class="{
             [backgroundColor]: true,
             [`border-4 ${getBorderColor(selectedColor)}`]: selected,
             'fixed right-5 bottom-5': floating,
+            relative: !floating,
             [getSizeClass(size)]: true,
+            'opacity-50 cursor-not-allowed': disabled,
         }"
     >
         <img
@@ -22,6 +24,7 @@
             :color="iconColor"
             @click="$emit('click')"
         />
+        <slot></slot>
     </div>
 </template>
 
@@ -59,6 +62,10 @@ defineProps({
     size: {
         type: String as PropType<'sm' | 'md' | 'lg'>,
         default: 'md',
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
     },
 })
 

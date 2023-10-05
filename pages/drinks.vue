@@ -9,8 +9,7 @@
             :key="drink.type"
             class="flex flex-col items-center justify-between gap-8 my-4"
             :class="{
-                'grayscale cursor-not-allowed':
-                    !drink.available || (hasOrder && !drink.ordered),
+                'grayscale cursor-not-allowed': hasOrder && !drink.ordered,
             }"
         >
             <span class="flex flex-col justify-center items-center gap-4">
@@ -28,9 +27,17 @@
                 :image-url="drink.image"
                 :background-color="drink.backgroundColor"
                 :selected="drink.ordered || selectedDrink === drink.type"
+                :disabled="!drink.available"
                 size="lg"
-                @click="selectDrink(drink.type)"
-            />
+                @click="drink.available && selectDrink(drink.type)"
+            >
+                <span
+                    v-if="!drink.available"
+                    class="absolute rotate-45 w-[120%] h-20 bg-white flex flex-row justify-center items-center font-bold"
+                >
+                    <p class="text-red-500 text-xl">Nedostupne 😔</p>
+                </span>
+            </CircleImageButton>
         </div>
         <CircleImageButton
             v-if="!hasOrder && selectedDrink != undefined"
@@ -257,11 +264,11 @@ const orderDrink = async (drinkType: DrinkType) => {
     loading.value = false
 }
 
-const getRandomDrink = () => {
-    const values = Object.keys(DrinkType).filter(
-        (val) => val !== 'Random'
-    ) as Array<keyof typeof DrinkType>
-    const enumKey = values[Math.floor(Math.random() * values.length)]
-    return DrinkType[enumKey]
+const getRandomDrink = (): DrinkType => {
+    const values = drinks.value.filter(
+        (val) => DrinkType[val.type] !== 'Random' && val.available
+    )
+    const drink = values[Math.floor(Math.random() * values.length)]
+    return drink.type
 }
 </script>
