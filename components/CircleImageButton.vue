@@ -9,21 +9,10 @@
             [getSizeClass(size)]: true,
             'opacity-50 cursor-not-allowed': disabled,
         }"
+        @click="$emit('click')"
     >
-        <img
-            v-if="!icon"
-            class="mx-auto"
-            :src="imageUrl"
-            alt="image"
-            @click="$emit('click')"
-        />
-        <Icon
-            v-else
-            size="80%"
-            :name="icon"
-            :color="iconColor"
-            @click="$emit('click')"
-        />
+        <img v-if="!icon" class="mx-auto" :src="imageUrl" alt="image" />
+        <Icon v-else size="80%" :name="icon" :color="iconColor" />
         <slot></slot>
     </div>
 </template>
