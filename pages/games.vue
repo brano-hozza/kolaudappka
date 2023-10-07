@@ -15,19 +15,24 @@
                     <CircleImageButton
                         :image-url="game.image"
                         :background-color="game.backgroundColor"
-                        :selected="selectedGame === game.type"
-                        :selected-color="changedVote ? 'yellow' : 'green'"
+                        :selected="
+                            selectedGame === game.type ||
+                            votedGame === game.type
+                        "
+                        :selected-color="
+                            votedGame === game.type ? 'green' : 'yellow'
+                        "
                         size="lg"
                         @click="selectGame(game.type)"
                     />
                 </div>
                 <CircleImageButton
-                    v-if="selectedGame != undefined && changedVote"
+                    v-if="canSubmit"
                     floating
                     icon="ic:outline-how-to-vote"
                     size="sm"
                     background-color="bg-pinky"
-                    @click="vote(selectedGame)"
+                    @click="vote(selectedGame!)"
                 />
             </div>
         </div>
@@ -97,10 +102,12 @@ const games = [
     },
 ] as const
 
+const votedGame = ref<GameType | null>(null)
+
 onMounted(async () => {
     name.value = localStorage.getItem('name') ?? ''
     const data = await $fetch(`/api/game/${name.value}`)
-    selectedGame.value = data?.gameType ?? null
+    votedGame.value = data?.gameType ?? null
     loading.value = false
 })
 
@@ -119,9 +126,14 @@ const vote = async (type: GameType) => {
         method: 'POST',
         body: { type, user: name.value } as VoteForGameDTO,
     })
-    changedVote.value = false
+    selectedGame.value = null
+    votedGame.value = type
     loading.value = false
 }
+
+const canSubmit = computed(
+    () => selectedGame.value !== null && selectedGame.value !== votedGame.value
+)
 </script>
 <style>
 button {
