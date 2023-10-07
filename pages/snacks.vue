@@ -1,7 +1,7 @@
 <template>
-    <div class="relative overflow-scroll h-[100vh]">
+    <div class="relative overflow-scroll scrollbar-hide h-[100vh]">
         <loader-component v-if="loading" />
-        <div class="overflow-auto h-full">
+        <div class="overflow-auto scrollbar-hide h-full">
             <p class="font-basic font-glow-pink text-center text-7xl my-10">
                 Niečo ti na<br />
                 stole chýba?

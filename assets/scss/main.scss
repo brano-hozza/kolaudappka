@@ -6,6 +6,14 @@
 body {
     background-image: url('/img/background.jpg');
     background-color: #18181b;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }
 
 $colors: (
