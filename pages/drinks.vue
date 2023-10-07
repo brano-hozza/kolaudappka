@@ -9,6 +9,7 @@
                 <div
                     v-for="drink in drinks"
                     :key="drink.type"
+                    :ref="(e) => (refs[drink.type] = e as HTMLDivElement)"
                     class="flex flex-col items-center justify-between gap-8 my-4"
                     :class="{
                         'grayscale cursor-not-allowed':
@@ -65,6 +66,8 @@ import { CreateDrinkOrderDTO } from '~/types/dtos'
 
 const { data: statuses } = await useFetch('/api/drink-status')
 const { data: orders } = await useFetch('/api/drink')
+
+const refs = ref<Record<string, HTMLDivElement>>({})
 
 const isAvailable = (drinkType: DrinkType) =>
     statuses.value?.find((s) => s.drinkType === drinkType)?.available ?? true
@@ -272,6 +275,10 @@ const orderDrink = async (drinkType: DrinkType) => {
         ]
     }
     loading.value = false
+    refs.value[drink].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+    })
 }
 
 const getRandomDrink = (): DrinkType => {
