@@ -43,8 +43,8 @@
 import { GameType } from '~/types'
 import { VoteForGameDTO } from '~/types/dtos'
 
-const name = ref('')
-const loading = ref(true)
+const user = useState('user', () => '')
+const loading = ref(false)
 const games = [
     {
         name: 'Výbušné Koťátka',
@@ -104,12 +104,8 @@ const games = [
 
 const votedGame = ref<GameType | null>(null)
 
-onMounted(async () => {
-    name.value = localStorage.getItem('name') ?? ''
-    const data = await $fetch(`/api/game/${name.value}`)
-    votedGame.value = data?.gameType ?? null
-    loading.value = false
-})
+const data = await $fetch(`/api/game/${user.value}`)
+votedGame.value = data?.gameType ?? null
 
 const selectedGame = ref<GameType | null>(null)
 const changedVote = ref(false)
@@ -124,7 +120,7 @@ const vote = async (type: GameType) => {
     loading.value = true
     await useFetch(`/api/game`, {
         method: 'POST',
-        body: { type, user: name.value } as VoteForGameDTO,
+        body: { type, user: user.value } as VoteForGameDTO,
     })
     selectedGame.value = null
     votedGame.value = type

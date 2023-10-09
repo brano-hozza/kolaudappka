@@ -188,6 +188,10 @@
 <script lang="ts" setup>
 import { DrinkType, EntityType, GameType, SnackType } from '~/types'
 
+definePageMeta({
+    layout: false,
+})
+
 const loading = ref(false)
 
 const { data: drinkStatuses, refresh: refreshDrinkStatuses } = await useFetch(

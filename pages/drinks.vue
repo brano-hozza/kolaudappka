@@ -64,6 +64,8 @@
 import { DrinkType } from '@/types'
 import { CreateDrinkOrderDTO } from '~/types/dtos'
 
+const user = useState('user', () => '')
+
 const { data: statuses } = await useFetch('/api/drink-status')
 const { data: orders } = await useFetch('/api/drink')
 
@@ -73,17 +75,7 @@ const isAvailable = (drinkType: DrinkType) =>
     statuses.value?.find((s) => s.drinkType === drinkType)?.available ?? true
 
 const isOrdered = (drinkType: DrinkType) =>
-    orders.value?.find((s) => s.drinkType === drinkType)?.user ===
-    localStorage.getItem('name')
-
-onMounted(() => {
-    drinks.value = drinks.value.map((drink) => {
-        drink.available = isAvailable(drink.type)
-        drink.ordered = isOrdered(drink.type)
-        return drink
-    })
-    loading.value = false
-})
+    orders.value?.find((s) => s.drinkType === drinkType)?.user === user.value
 
 type Title = {
     text: string
@@ -238,6 +230,12 @@ const drinks = ref<Drink[]>([
     },
 ])
 
+drinks.value = drinks.value.map((drink) => {
+    drink.available = isAvailable(drink.type)
+    drink.ordered = isOrdered(drink.type)
+    return drink
+})
+
 const loading = ref(true)
 
 const hasOrder = computed(() => {
@@ -260,7 +258,7 @@ const orderDrink = async (drinkType: DrinkType) => {
         method: 'POST',
         body: {
             type: drink,
-            user: localStorage.getItem('name'),
+            user: user.value,
         } as CreateDrinkOrderDTO,
     })
     if (!error.value) {

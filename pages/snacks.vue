@@ -63,6 +63,8 @@
 import { SnackType } from '@/types'
 import { CreateSnackOrderDTO } from '~/types/dtos'
 
+const user = useState('user', () => '')
+
 const { data: statuses } = await useFetch('/api/snack-status')
 const { data: orders } = await useFetch('/api/snack')
 
@@ -70,17 +72,7 @@ const isAvailable = (snackType: SnackType) =>
     statuses.value?.find((s) => s.snackType === snackType)?.available ?? true
 
 const isOrdered = (snackType: SnackType) =>
-    orders.value?.find((s) => s.snackType === snackType)?.user ===
-    localStorage.getItem('name')
-
-onMounted(() => {
-    snacks.value = snacks.value.map((snack) => {
-        snack.available = isAvailable(snack.type)
-        snack.ordered = isOrdered(snack.type)
-        return snack
-    })
-    loading.value = false
-})
+    orders.value?.find((s) => s.snackType === snackType)?.user === user.value
 
 type Title = {
     text: string
@@ -153,6 +145,12 @@ const snacks = ref<Snack[]>([
     },
 ])
 
+snacks.value = snacks.value.map((snack) => {
+    snack.available = isAvailable(snack.type)
+    snack.ordered = isOrdered(snack.type)
+    return snack
+})
+
 const loading = ref(true)
 
 const hasOrder = computed(() => {
@@ -175,7 +173,7 @@ const orderSnack = async (snackType: SnackType) => {
         method: 'POST',
         body: {
             type: snack,
-            user: localStorage.getItem('name'),
+            user: user.value,
         } as CreateSnackOrderDTO,
     })
     if (!error.value) {

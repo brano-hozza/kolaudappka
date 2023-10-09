@@ -6,7 +6,7 @@
                 :class="{ [iconColor]: true }"
             >
                 <Icon size="20%" name="material-symbols:home-outline" />
-                <p>{{ name }}</p>
+                <p>{{ user }}</p>
             </span>
         </NuxtLink>
         <button class="w-1/3" @click="logout">
@@ -23,15 +23,13 @@
     <slot></slot>
 </template>
 <script lang="ts" setup>
-const name = ref('')
+const user = useState('user', () => '')
 const router = useRouter()
-onMounted(() => {
-    name.value = localStorage.getItem('name') || ''
-    if (!name.value) router.push('/')
-})
+if (user.value === '') router.push('/')
 
 const logout = () => {
-    localStorage.removeItem('name')
+    user.value = ''
+    localStorage.clear()
     router.push('/')
 }
 

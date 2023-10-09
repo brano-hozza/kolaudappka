@@ -40,22 +40,19 @@
 <script lang="ts" setup>
 import { RateDTO } from '~/types/dtos'
 const message = ref('')
-const name = ref('')
+const user = useState('user', () => '')
 const loading = ref(false)
 const alreadyVoted = ref(false)
 const selectedStar = ref(0)
-onMounted(async () => {
-    name.value = localStorage.getItem('name') ?? ''
-    const data = await $fetch(`/api/rating/${name.value}`)
-    if (data) {
-        selectedStar.value = data.stars
-        message.value = data.text
-        alreadyVoted.value = true
-    }
-    loading.value = false
-})
+const data = await $fetch(`/api/rating/${user.value}`)
+if (data) {
+    selectedStar.value = data.stars
+    message.value = data.text
+    alreadyVoted.value = true
+}
 const getImage = (isFilled: boolean) =>
     isFilled ? '/img/rating/star_full.png' : '/img/rating/star_blank.png'
+
 const selectStar = (star: number) => {
     if (alreadyVoted.value) return
     selectedStar.value = star
@@ -74,7 +71,7 @@ const vote = async () => {
     await useFetch(`/api/rating`, {
         method: 'POST',
         body: {
-            user: name.value,
+            user: user.value,
             stars: selectedStar.value,
             text: message.value,
         } as RateDTO,
