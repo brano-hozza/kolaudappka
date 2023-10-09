@@ -11,7 +11,13 @@
         }"
         @click="$emit('click')"
     >
-        <NuxtImg v-if="!icon" sizes="200px" :src="imageUrl" alt="image" />
+        <NuxtImg
+            v-if="!icon"
+            class="mx-auto h-[60%]"
+            :sizes="imgSize + 'px'"
+            :src="imageUrl"
+            alt="image"
+        />
         <Icon v-else size="80%" :name="icon" :color="iconColor" />
         <slot></slot>
     </div>
@@ -23,6 +29,10 @@ defineProps({
     imageUrl: {
         type: String,
         default: null,
+    },
+    imgSize: {
+        type: String,
+        default: '200',
     },
     backgroundColor: {
         type: String,

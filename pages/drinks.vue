@@ -80,6 +80,7 @@
 
                     <CircleImageButton
                         :image-url="drink.image"
+                        :image-size="drink.imageSize"
                         :background-color="drink.backgroundColor"
                         :selected="
                             drink.ordered || selectedDrink === drink.type
@@ -133,6 +134,7 @@ type Title = {
 type Drink = {
     type: DrinkType
     image: string
+    imageSize?: string
     titles: Title[]
     backgroundColor: string
     available: boolean
@@ -220,6 +222,7 @@ const cocktails = ref<Drink[]>([
     {
         type: DrinkType.LimoncelloProsecco,
         image: '/img/drinks/limoncelloprosecco.png',
+        imageSize: '100',
         titles: [
             {
                 text: 'Limoncello',
@@ -237,6 +240,7 @@ const cocktails = ref<Drink[]>([
     {
         type: DrinkType.Mimosa,
         image: '/img/drinks/mimosa.png',
+        imageSize: '100',
         titles: [
             {
                 text: 'Mimosa',
@@ -320,14 +324,14 @@ const mocktails = ref<Drink[]>([
     },
     {
         type: DrinkType.SunriseNonTequila,
-        image: '/img/drinks/sunriseNonTequila.png',
+        image: '/img/drinks/nonTequilaSunrise.png',
         titles: [
             {
-                text: 'Sunrise',
-                color: 'peach',
+                text: 'Non Tequila',
+                color: 'light-orange',
             },
             {
-                text: 'Non Tequila',
+                text: 'Sunrise',
                 color: 'red',
             },
         ],
@@ -337,7 +341,7 @@ const mocktails = ref<Drink[]>([
     },
     {
         type: DrinkType.VirginMimosa,
-        image: '/img/drinks/virginMimosa.png',
+        image: '/img/drinks/mimosa.png',
         titles: [
             {
                 text: 'Virgin',
@@ -354,7 +358,7 @@ const mocktails = ref<Drink[]>([
     },
     {
         type: DrinkType.GinTonicWithoutGin,
-        image: '/img/drinks/ginTonicWithoutGin.png',
+        image: '/img/drinks/gintonic.png',
         titles: [
             {
                 text: 'Gin Tonic',

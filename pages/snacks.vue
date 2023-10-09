@@ -84,8 +84,8 @@ type Snack = {
     image: string
     titles: Title[]
     backgroundColor: string
-    available?: boolean
-    ordered?: boolean
+    available: boolean
+    ordered: boolean
 }
 const snacks = ref<Snack[]>([
     {
@@ -98,6 +98,8 @@ const snacks = ref<Snack[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(SnackType.Sushi),
+        ordered: isOrdered(SnackType.Sushi),
     },
     {
         type: SnackType.Chips,
@@ -109,6 +111,8 @@ const snacks = ref<Snack[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(SnackType.Chips),
+        ordered: isOrdered(SnackType.Chips),
     },
     {
         type: SnackType.Nachos,
@@ -120,6 +124,8 @@ const snacks = ref<Snack[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(SnackType.Nachos),
+        ordered: isOrdered(SnackType.Nachos),
     },
     {
         type: SnackType.Peanuts,
@@ -131,6 +137,8 @@ const snacks = ref<Snack[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(SnackType.Peanuts),
+        ordered: isOrdered(SnackType.Peanuts),
     },
     {
         type: SnackType.Macarons,
@@ -142,14 +150,10 @@ const snacks = ref<Snack[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(SnackType.Macarons),
+        ordered: isOrdered(SnackType.Macarons),
     },
 ])
-
-snacks.value = snacks.value.map((snack) => {
-    snack.available = isAvailable(snack.type)
-    snack.ordered = isOrdered(snack.type)
-    return snack
-})
 
 const loading = ref(false)
 

@@ -14,6 +14,7 @@
                 >
                     <CircleImageButton
                         :image-url="game.image"
+                        :img-size="game.imageSize"
                         :background-color="game.backgroundColor"
                         :selected="
                             selectedGame === game.type ||
@@ -45,12 +46,21 @@ import { VoteForGameDTO } from '~/types/dtos'
 
 const user = useState('user', () => '')
 const loading = ref(false)
-const games = [
+
+type Game = {
+    name: string
+    type: GameType
+    image: string
+    backgroundColor: string
+    imageSize?: string
+}
+const games = ref<Game[]>([
     {
         name: 'Výbušné Koťátka',
         type: GameType.Kotatka,
         image: '/img/games/kotatka.png',
         backgroundColor: 'bg-white',
+        imageSize: '100',
     },
     {
         name: 'Cards against humanity',
@@ -100,8 +110,7 @@ const games = [
         image: '/img/games/doodle.png',
         backgroundColor: 'bg-white',
     },
-] as const
-
+])
 const votedGame = ref<GameType | null>(null)
 
 const data = await $fetch(`/api/game/${user.value}`)

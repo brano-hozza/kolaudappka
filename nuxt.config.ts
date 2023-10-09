@@ -8,4 +8,7 @@ export default defineNuxtConfig({
         'nuxt-icon',
         '@nuxt/image',
     ],
+    image: {
+        screens: [200, 400],
+    },
 })
