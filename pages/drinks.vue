@@ -5,9 +5,12 @@
             <p class="font-basic font-glow-pink text-7xl my-10 text-center">
                 Objednaj si drink!
             </p>
+            <p class="font-basic font-glow-pink text-7xl my-10 text-center">
+                Koktejly
+            </p>
             <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
                 <div
-                    v-for="drink in drinks"
+                    v-for="drink in cocktails"
                     :key="drink.type"
                     :ref="(e) => (refs[drink.type] = e as HTMLDivElement)"
                     class="flex flex-col items-center justify-between gap-8 my-4"
@@ -47,15 +50,61 @@
                         </span>
                     </CircleImageButton>
                 </div>
-                <CircleImageButton
-                    v-if="!hasOrder && selectedDrink != undefined"
-                    floating
-                    icon="ri:shopping-basket-2-line"
-                    size="sm"
-                    background-color="bg-pinky"
-                    @click="orderDrink(selectedDrink)"
-                />
             </div>
+            <p class="font-basic font-glow-pink text-7xl my-10 text-center">
+                Moktejly
+            </p>
+            <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
+                <div
+                    v-for="drink in mocktails"
+                    :key="drink.type"
+                    :ref="(e) => (refs[drink.type] = e as HTMLDivElement)"
+                    class="flex flex-col items-center justify-between gap-8 my-4"
+                    :class="{
+                        'grayscale cursor-not-allowed':
+                            hasOrder && !drink.ordered,
+                    }"
+                >
+                    <span
+                        class="flex flex-col justify-center items-center gap-4"
+                    >
+                        <p
+                            v-for="title in drink.titles"
+                            :key="title.text"
+                            class="font-basic text-7xl"
+                            :class="[`font-glow-${title.color}`]"
+                        >
+                            {{ title.text }}
+                        </p>
+                    </span>
+
+                    <CircleImageButton
+                        :image-url="drink.image"
+                        :background-color="drink.backgroundColor"
+                        :selected="
+                            drink.ordered || selectedDrink === drink.type
+                        "
+                        :disabled="!drink.available"
+                        size="lg"
+                        @click="drink.available && selectDrink(drink.type)"
+                    >
+                        <span
+                            v-if="!drink.available"
+                            class="absolute rotate-45 w-[120%] h-20 bg-white flex flex-row justify-center items-center font-bold"
+                        >
+                            <p class="text-red-500 text-xl">Nedostupne 😔</p>
+                        </span>
+                    </CircleImageButton>
+                </div>
+            </div>
+            <CircleImageButton
+                v-if="!hasOrder && selectedDrink != undefined"
+                floating
+                icon="ri:shopping-basket-2-line"
+                size="sm"
+                background-color="bg-pinky"
+                @click="orderDrink(selectedDrink)"
+            />
         </div>
     </div>
 </template>
@@ -86,10 +135,11 @@ type Drink = {
     image: string
     titles: Title[]
     backgroundColor: string
-    available?: boolean
-    ordered?: boolean
+    available: boolean
+    ordered: boolean
 }
-const drinks = ref<Drink[]>([
+
+const cocktails = ref<Drink[]>([
     {
         type: DrinkType.AperolSpritz,
         image: '/img/drinks/aperol.png',
@@ -104,6 +154,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.AperolSpritz),
+        ordered: isOrdered(DrinkType.AperolSpritz),
     },
     {
         type: DrinkType.Mojito,
@@ -115,6 +167,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.Mojito),
+        ordered: isOrdered(DrinkType.Mojito),
     },
     {
         type: DrinkType.Daiquiri,
@@ -126,6 +180,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.Daiquiri),
+        ordered: isOrdered(DrinkType.Daiquiri),
     },
     {
         type: DrinkType.HugoSpritz,
@@ -141,6 +197,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.HugoSpritz),
+        ordered: isOrdered(DrinkType.HugoSpritz),
     },
     {
         type: DrinkType.GinTonic,
@@ -156,6 +214,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.GinTonic),
+        ordered: isOrdered(DrinkType.GinTonic),
     },
     {
         type: DrinkType.LimoncelloProsecco,
@@ -171,6 +231,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.LimoncelloProsecco),
+        ordered: isOrdered(DrinkType.LimoncelloProsecco),
     },
     {
         type: DrinkType.Mimosa,
@@ -182,6 +244,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.Mimosa),
+        ordered: isOrdered(DrinkType.Mimosa),
     },
     {
         type: DrinkType.WhiteWine,
@@ -197,6 +261,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.WhiteWine),
+        ordered: isOrdered(DrinkType.WhiteWine),
     },
     {
         type: DrinkType.RedWine,
@@ -212,6 +278,8 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.RedWine),
+        ordered: isOrdered(DrinkType.RedWine),
     },
     {
         type: DrinkType.Random,
@@ -227,19 +295,86 @@ const drinks = ref<Drink[]>([
             },
         ],
         backgroundColor: 'bg-white',
+        available: true,
+        ordered: false,
     },
 ])
 
-drinks.value = drinks.value.map((drink) => {
-    drink.available = isAvailable(drink.type)
-    drink.ordered = isOrdered(drink.type)
-    return drink
-})
+const mocktails = ref<Drink[]>([
+    {
+        type: DrinkType.VirginMojito,
+        image: '/img/drinks/mojito.png',
+        titles: [
+            {
+                text: 'Virgin',
+                color: 'white',
+            },
+            {
+                text: 'Mojito',
+                color: 'turquoise',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.VirginMojito),
+        ordered: isOrdered(DrinkType.VirginMojito),
+    },
+    {
+        type: DrinkType.SunriseNonTequila,
+        image: '/img/drinks/sunriseNonTequila.png',
+        titles: [
+            {
+                text: 'Sunrise',
+                color: 'peach',
+            },
+            {
+                text: 'Non Tequila',
+                color: 'red',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.SunriseNonTequila),
+        ordered: isOrdered(DrinkType.SunriseNonTequila),
+    },
+    {
+        type: DrinkType.VirginMimosa,
+        image: '/img/drinks/virginMimosa.png',
+        titles: [
+            {
+                text: 'Virgin',
+                color: 'white',
+            },
+            {
+                text: 'Mimosa',
+                color: 'orange',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.VirginMimosa),
+        ordered: isOrdered(DrinkType.VirginMimosa),
+    },
+    {
+        type: DrinkType.GinTonicWithoutGin,
+        image: '/img/drinks/ginTonicWithoutGin.png',
+        titles: [
+            {
+                text: 'Gin Tonic',
+                color: 'white',
+            },
+            {
+                text: 'Without Gin',
+                color: 'light-nude',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.GinTonicWithoutGin),
+        ordered: isOrdered(DrinkType.GinTonicWithoutGin),
+    },
+])
 
 const loading = ref(false)
 
 const hasOrder = computed(() => {
-    return drinks.value.some((d) => d.ordered)
+    return [...cocktails.value, ...mocktails.value].some((c) => c.ordered)
 })
 const selectedDrink = ref<DrinkType | null>(null)
 const selectDrink = (drinkType: DrinkType) => {
@@ -262,13 +397,22 @@ const orderDrink = async (drinkType: DrinkType) => {
         } as CreateDrinkOrderDTO,
     })
     if (!error.value) {
-        drinks.value = [
-            ...drinks.value.map((d) => {
-                d.ordered = false
-                if (d.type === drink) {
-                    d.ordered = true
+        cocktails.value = [
+            ...cocktails.value.map((c) => {
+                c.ordered = false
+                if (c.type === drink) {
+                    c.ordered = true
                 }
-                return d
+                return c
+            }),
+        ]
+        mocktails.value = [
+            ...mocktails.value.map((m) => {
+                m.ordered = false
+                if (m.type === drink) {
+                    m.ordered = true
+                }
+                return m
             }),
         ]
     }
@@ -280,7 +424,7 @@ const orderDrink = async (drinkType: DrinkType) => {
 }
 
 const getRandomDrink = (): DrinkType => {
-    const values = drinks.value.filter(
+    const values = cocktails.value.filter(
         (val) => DrinkType[val.type] !== 'Random' && val.available
     )
     const drink = values[Math.floor(Math.random() * values.length)]

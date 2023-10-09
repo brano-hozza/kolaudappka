@@ -8,7 +8,12 @@ export enum DrinkType {
     WhiteWine,
     LimoncelloProsecco,
     Mimosa,
+    TequilaSunrise,
     Random,
+    VirginMojito,
+    SunriseNonTequila,
+    VirginMimosa,
+    GinTonicWithoutGin,
 }
 
 export enum SnackType {
