@@ -11,7 +11,7 @@
         }"
         @click="$emit('click')"
     >
-        <img v-if="!icon" class="mx-auto" :src="imageUrl" alt="image" />
+        <NuxtImg v-if="!icon" sizes="200px" :src="imageUrl" alt="image" />
         <Icon v-else size="80%" :name="icon" :color="iconColor" />
         <slot></slot>
     </div>

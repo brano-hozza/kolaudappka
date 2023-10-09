@@ -25,7 +25,7 @@ definePageMeta({
     layout: false,
 })
 
-const user = useState<string>('user', () => '')
+const user = useState('user', () => '')
 onMounted(() => {
     user.value = localStorage.getItem('name') || ''
     if (user.value) continueToMenu()

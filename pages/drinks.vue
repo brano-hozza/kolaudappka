@@ -236,7 +236,7 @@ drinks.value = drinks.value.map((drink) => {
     return drink
 })
 
-const loading = ref(true)
+const loading = ref(false)
 
 const hasOrder = computed(() => {
     return drinks.value.some((d) => d.ordered)

@@ -25,8 +25,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@nuxt/image": "^1.0.0-rc.3",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "@vercel/kv": "^0.2.3",
-    "slonik": "^34.1.1"
+    "@vercel/kv": "^0.2.3"
   }
 }

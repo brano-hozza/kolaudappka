@@ -151,7 +151,7 @@ snacks.value = snacks.value.map((snack) => {
     return snack
 })
 
-const loading = ref(true)
+const loading = ref(false)
 
 const hasOrder = computed(() => {
     return snacks.value.some((s) => s.ordered)
