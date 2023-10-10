@@ -1,7 +1,10 @@
 {
-  "name": "nuxt-app",
+  "name": "kolaudappka",
   "private": true,
   "type": "module",
+  "author": {
+    "name": "Branislav Hozza & Lucia Mandova"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
