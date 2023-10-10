@@ -7,6 +7,7 @@ export default defineNuxtConfig({
         '@nuxtjs/eslint-module',
         'nuxt-icon',
         '@nuxt/image',
+        '@kevinmarrec/nuxt-pwa',
     ],
     image: {
         screens: [200, 400],
