@@ -37,6 +37,7 @@ $colors: (
     nude: #fee5b7,
     beige: #e9cf8d,
     light-brown: #ccb29d,
+    brown: #f071087b,
 );
 
 @each $color, $value in $colors {

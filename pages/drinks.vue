@@ -122,10 +122,12 @@ const { data: orders } = await useFetch('/api/drink')
 const refs = ref<Record<string, HTMLDivElement>>({})
 
 const isAvailable = (drinkType: DrinkType) =>
-    statuses.value?.find((s) => s.drinkType === drinkType)?.available ?? true
+    statuses.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
+        ?.available ?? true
 
 const isOrdered = (drinkType: DrinkType) =>
-    orders.value?.find((s) => s.drinkType === drinkType)?.user === user.value
+    orders.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
+        ?.user === user.value
 
 type Title = {
     text: string
@@ -286,7 +288,7 @@ const cocktails = ref<Drink[]>([
         ordered: isOrdered(DrinkType.RedWine),
     },
     {
-        type: DrinkType.Random,
+        type: DrinkType.RandomAlco,
         image: '/img/drinks/random.png',
         titles: [
             {
@@ -373,6 +375,57 @@ const mocktails = ref<Drink[]>([
         available: isAvailable(DrinkType.GinTonicWithoutGin),
         ordered: isOrdered(DrinkType.GinTonicWithoutGin),
     },
+    {
+        type: DrinkType.JazzyApple,
+        image: '/img/drinks/jazzyapple.png',
+        titles: [
+            {
+                text: 'Jazzy',
+                color: 'white',
+            },
+            {
+                text: 'Apple',
+                color: 'blush-pink',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.JazzyApple),
+        ordered: isOrdered(DrinkType.JazzyApple),
+    },
+    {
+        type: DrinkType.RoyRogers,
+        image: '/img/drinks/royrogers.png',
+        titles: [
+            {
+                text: 'Roy',
+                color: 'brown',
+            },
+            {
+                text: 'Rogers',
+                color: 'red',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(DrinkType.RoyRogers),
+        ordered: isOrdered(DrinkType.RoyRogers),
+    },
+    {
+        type: DrinkType.RandomNonAlco,
+        image: '/img/drinks/random.png',
+        titles: [
+            {
+                text: 'Náhodný',
+                color: 'white',
+            },
+            {
+                text: 'Drink',
+                color: 'white',
+            },
+        ],
+        backgroundColor: 'bg-white',
+        available: true,
+        ordered: false,
+    },
 ])
 
 const loading = ref(false)
@@ -391,7 +444,10 @@ const selectDrink = (drinkType: DrinkType) => {
 const orderDrink = async (drinkType: DrinkType) => {
     loading.value = true
     const drink: DrinkType =
-        drinkType === DrinkType.Random ? getRandomDrink() : drinkType
+        drinkType === DrinkType.RandomAlco ||
+        drinkType === DrinkType.RandomNonAlco
+            ? getRandomDrink()
+            : drinkType
 
     const { error } = await useFetch('/api/drink', {
         method: 'POST',
@@ -428,10 +484,14 @@ const orderDrink = async (drinkType: DrinkType) => {
 }
 
 const getRandomDrink = (): DrinkType => {
-    const values = cocktails.value.filter(
-        (val) => DrinkType[val.type] !== 'Random' && val.available
+    const drinkGroup =
+        selectedDrink.value === DrinkType.RandomAlco ? cocktails : mocktails
+    const values = drinkGroup.value.filter(
+        (val) =>
+            DrinkType[val.type] !== 'RandomAlco' &&
+            DrinkType[val.type] !== 'RandomNonAlco' &&
+            val.available
     )
-    const drink = values[Math.floor(Math.random() * values.length)]
-    return drink.type
+    return values[Math.floor(Math.random() * values.length)].type
 }
 </script>
