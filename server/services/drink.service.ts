@@ -44,7 +44,7 @@ export const useDrinkService = () => {
                 statusMessage: 'Invalid data',
             })
         }
-        drinkStatus.available = false
+        drinkStatus.available = !drinkStatus.available
         await drinkStatusRepository.update(id, drinkStatus)
     }
 

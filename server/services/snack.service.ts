@@ -44,7 +44,7 @@ export const useSnackService = () => {
                 statusMessage: 'Invalid data',
             })
         }
-        drinkStatus.available = false
+        drinkStatus.available = !drinkStatus.available
         await snackStatusRepository.update(id, drinkStatus)
     }
 

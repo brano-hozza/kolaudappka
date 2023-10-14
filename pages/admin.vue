@@ -129,15 +129,13 @@
                     <button
                         class="border-2"
                         :class="[
-                            status.available
-                                ? 'border-red-500 text-red-500 '
+                            !loading
+                                ? 'border-yellow-500 text-yellow-500 '
                                 : 'border-gray-500 text-gray-500 ',
                         ]"
-                        @click="
-                            status.available && setUnavailableDrink(status.id)
-                        "
+                        @click="toggleDrinkStatus(status.id)"
                     >
-                        Nedostupne
+                        Zmen stav
                     </button>
                 </li>
             </ul>
@@ -170,15 +168,13 @@
                     <button
                         class="border-2"
                         :class="[
-                            status.available
-                                ? 'border-red-500 text-red-500 '
+                            !loading
+                                ? 'border-yellow-500 text-yellow-500 '
                                 : 'border-gray-500 text-gray-500 ',
                         ]"
-                        @click="
-                            status.available && setUnavailableSnack(status.id)
-                        "
+                        @click="toggleSnackStatus(status.id)"
                     >
-                        Nedostupne
+                        Zmen stav
                     </button>
                 </li>
             </ul>
@@ -316,6 +312,7 @@ const clearAll = async (entityType: EntityType) => {
 }
 
 const resetDrinks = async () => {
+    if (loading.value) return
     loading.value = true
     await useFetch('/api/drink-status', {
         method: 'PUT',
@@ -325,6 +322,7 @@ const resetDrinks = async () => {
 }
 
 const resetSnacks = async () => {
+    if (loading.value) return
     loading.value = true
     await useFetch('/api/snack-status', {
         method: 'PUT',
@@ -333,7 +331,8 @@ const resetSnacks = async () => {
     loading.value = false
 }
 
-const setUnavailableDrink = async (id: number) => {
+const toggleDrinkStatus = async (id: number) => {
+    if (loading.value) return
     loading.value = true
     await useFetch(`api/drink-status/${id}`, {
         method: 'PUT',
@@ -342,7 +341,8 @@ const setUnavailableDrink = async (id: number) => {
     loading.value = false
 }
 
-const setUnavailableSnack = async (id: number) => {
+const toggleSnackStatus = async (id: number) => {
+    if (loading.value) return
     loading.value = true
     await useFetch(`api/snack-status/${id}`, {
         method: 'PUT',
