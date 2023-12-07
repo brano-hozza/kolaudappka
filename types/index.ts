@@ -54,3 +54,20 @@ export enum PartyFormType {
     Snacks,
     Games,
 }
+
+export type Title = {
+    text: string
+    color: string
+}
+
+export type Drink = {
+    type: DrinkType
+    image: string
+    imageSize?: string
+    titles: Title[]
+    backgroundColor: string
+    available: boolean
+    ordered: boolean
+}
+
+export type RawDrink = Omit<Drink, 'available' | 'ordered'>

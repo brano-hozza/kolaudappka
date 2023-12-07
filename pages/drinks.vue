@@ -111,13 +111,35 @@
 </template>
 
 <script lang="ts" setup>
-import { cocktails, mocktails } from '../data/drinks'
+import { rawCocktails, rawMocktails } from '../data/drinks'
 import { DrinkType } from '@/types'
 import { CreateDrinkOrderDTO } from '~/types/dtos'
 
+const refs = ref<Record<string, HTMLDivElement>>({})
+
+const { data: statuses } = await useFetch('/api/drink-status')
+const { data: orders } = await useFetch('/api/drink')
 const user = useState('user', () => '')
 
-const refs = ref<Record<string, HTMLDivElement>>({})
+let cocktails = rawCocktails.map((c) => ({
+    ...c,
+    available: isAvailable(c.type),
+    ordered: isOrdered(c.type),
+}))
+
+let mocktails = rawMocktails.map((m) => ({
+    ...m,
+    available: isAvailable(m.type),
+    ordered: isOrdered(m.type),
+}))
+
+const isAvailable = (drinkType: DrinkType) =>
+    statuses.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
+        ?.available ?? true
+
+const isOrdered = (drinkType: DrinkType) =>
+    orders.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
+        ?.user === user.value
 
 const loading = ref(false)
 

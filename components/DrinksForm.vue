@@ -8,7 +8,7 @@
         </p>
         <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
             <div
-                v-for="drink in cocktails"
+                v-for="drink in rawCocktails"
                 :key="drink.type"
                 :ref="(e) => (refs[drink.type] = e as HTMLDivElement)"
                 class="flex flex-col items-center justify-between gap-8 my-4"
@@ -39,7 +39,7 @@
         </p>
         <div class="grid grid-cols-1 md:gap-x-10 md:grid-cols-4">
             <div
-                v-for="drink in mocktails"
+                v-for="drink in rawMocktails"
                 :key="drink.type"
                 :ref="(e) => (refs[drink.type] = e as HTMLDivElement)"
                 class="flex flex-col items-center justify-between gap-8 my-4"
@@ -60,7 +60,6 @@
                     :image-size="drink.imageSize"
                     :background-color="drink.backgroundColor"
                     :selected="selectedDrink === drink.type"
-                    :disabled="!drink.available"
                     size="lg"
                     @click="selectDrink(drink.type)"
                 >
@@ -78,26 +77,8 @@
 </template>
 
 <script setup lang="ts">
-import { mocktails, rawCocktails } from '~/data/drinks'
+import { rawMocktails, rawCocktails } from '~/data/drinks'
 import { DrinkType } from '~/types'
-
-const { data: statuses } = await useFetch('/api/drink-status')
-const { data: orders } = await useFetch('/api/drink')
-const user = useState('user', () => '')
-
-const isAvailable = (drinkType: DrinkType) =>
-    statuses.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
-        ?.available ?? true
-
-const isOrdered = (drinkType: DrinkType) =>
-    orders.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
-        ?.user === user.value
-
-const cocktails = rawCocktails.map((c) => ({
-    ...c,
-    available: isAvailable(c.type),
-    ordered: isOrdered(c.type),
-}))
 
 defineEmits(['click'])
 

@@ -9,8 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import InfoForm from './InfoForm.vue'
-import DrinksForm from './DrinksForm.vue'
 import { PartyFormType } from '@/types'
 definePageMeta({
     layout: false,

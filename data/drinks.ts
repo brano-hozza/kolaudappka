@@ -1,21 +1,4 @@
-import { DrinkType } from '@/types'
-
-type Title = {
-    text: string
-    color: string
-}
-type Drink = {
-    type: DrinkType
-    image: string
-    imageSize?: string
-    titles: Title[]
-    backgroundColor: string
-    available: boolean
-    ordered: boolean
-}
-
-type RawDrink = Omit<Drink, 'available' | 'ordered'>
-// Toto ti odstrani z typu fieldy
+import { DrinkType, RawDrink } from '@/types'
 
 export const rawCocktails: RawDrink[] = [
     {
@@ -43,8 +26,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.Mojito),
-        ordered: isOrdered(DrinkType.Mojito),
     },
     {
         type: DrinkType.Daiquiri,
@@ -56,8 +37,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.Daiquiri),
-        ordered: isOrdered(DrinkType.Daiquiri),
     },
     {
         type: DrinkType.HugoSpritz,
@@ -73,8 +52,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.HugoSpritz),
-        ordered: isOrdered(DrinkType.HugoSpritz),
     },
     {
         type: DrinkType.GinTonic,
@@ -90,8 +67,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.GinTonic),
-        ordered: isOrdered(DrinkType.GinTonic),
     },
     {
         type: DrinkType.LimoncelloProsecco,
@@ -108,8 +83,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.LimoncelloProsecco),
-        ordered: isOrdered(DrinkType.LimoncelloProsecco),
     },
     {
         type: DrinkType.Mimosa,
@@ -122,8 +95,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.Mimosa),
-        ordered: isOrdered(DrinkType.Mimosa),
     },
     {
         type: DrinkType.WhiteWine,
@@ -139,8 +110,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.WhiteWine),
-        ordered: isOrdered(DrinkType.WhiteWine),
     },
     {
         type: DrinkType.RedWine,
@@ -156,8 +125,6 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.RedWine),
-        ordered: isOrdered(DrinkType.RedWine),
     },
     {
         type: DrinkType.RandomAlco,
@@ -173,12 +140,10 @@ export const rawCocktails: RawDrink[] = [
             },
         ],
         backgroundColor: 'bg-white',
-        available: true,
-        ordered: false,
     },
 ]
 
-export const mocktails: Drink[] = [
+export const rawMocktails: RawDrink[] = [
     {
         type: DrinkType.VirginMojito,
         image: '/img/drinks/mojito.png',
@@ -193,8 +158,6 @@ export const mocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.VirginMojito),
-        ordered: isOrdered(DrinkType.VirginMojito),
     },
     {
         type: DrinkType.SunriseNonTequila,
@@ -210,8 +173,6 @@ export const mocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.SunriseNonTequila),
-        ordered: isOrdered(DrinkType.SunriseNonTequila),
     },
     {
         type: DrinkType.VirginMimosa,
@@ -227,8 +188,6 @@ export const mocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.VirginMimosa),
-        ordered: isOrdered(DrinkType.VirginMimosa),
     },
     {
         type: DrinkType.GinTonicWithoutGin,
@@ -244,8 +203,6 @@ export const mocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.GinTonicWithoutGin),
-        ordered: isOrdered(DrinkType.GinTonicWithoutGin),
     },
     {
         type: DrinkType.JazzyApple,
@@ -261,8 +218,6 @@ export const mocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.JazzyApple),
-        ordered: isOrdered(DrinkType.JazzyApple),
     },
     {
         type: DrinkType.RoyRogers,
@@ -278,8 +233,6 @@ export const mocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.RoyRogers),
-        ordered: isOrdered(DrinkType.RoyRogers),
     },
     {
         type: DrinkType.RandomNonAlco,
@@ -295,7 +248,5 @@ export const mocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-white',
-        available: true,
-        ordered: false,
     },
 ]
