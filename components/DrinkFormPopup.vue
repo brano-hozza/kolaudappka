@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import { titleCase } from '~/utils/utils'
 type DrinkData = {
     imageUrl: string
     titles: {
@@ -79,7 +80,7 @@ const drinkData = computed<DrinkData>(() => ({
     imageUrl: image.value,
     titles: [
         {
-            text: name.value,
+            text: titleCase(name.value),
             color: titleColor.value,
         },
     ],
