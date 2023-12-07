@@ -10,6 +10,6 @@ export default defineNuxtConfig({
         '@kevinmarrec/nuxt-pwa',
     ],
     image: {
-        screens: [200, 400],
+        screens: { sm: 200, md: 400 } as Record<string, number>,
     },
 })
