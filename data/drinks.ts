@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { DrinkType } from '@/types'
+import { isAvailable, isOrdered } from '@/utils/drinksUtils'
 
 type Title = {
     text: string
