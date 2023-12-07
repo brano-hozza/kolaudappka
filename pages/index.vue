@@ -1,46 +1,52 @@
+<!-- First screen - user picks if he wants to create a new party or join existing one -->
 <template>
-    <div
-        class="w-full h-screen flex flex-col justify-center items-center gap-4"
-    >
-        <p class="font-basic font-glow-pink text-6xl">Kolaudappka🎉</p>
-        <div
-            class="w-3/4 md: md:w-1/2 flex flex-col justify-center items-center p-2"
+    <div class="w-full mt-10 items-center md:flex md:flex-col">
+        <p
+            class="font-basic text-center font-glow-pink text-6xl mb-10 md:mb-0 md:text-8xl"
         >
-            <pretty-input @change="user = $event" />
-            <button
-                class="w-full md:w-1/2 rounded p-1 m-4 text-white"
-                :class="buttonBorderColor"
-                :disabled="canContinue"
-                @click="continueToMenu"
-            >
-                START
-            </button>
+            Kolaudappka🎉
+        </p>
+        <div
+            class="h-screen flex flex-col md:flex-row items-center gap-10 md:gap-20"
+        >
+            <div class="flex flex-col items-center gap-4">
+                <p
+                    class="font-basic font-glow-light-turguoise text-7xl text-center"
+                >
+                    Vytvoriť <br />
+                    párty
+                </p>
+                <CircleImageButton
+                    image-url="/img/create.png"
+                    background-color="bg-black"
+                    size="lg"
+                    @click="changeRoute('/create')"
+                >
+                </CircleImageButton>
+            </div>
+            <div class="flex flex-col items-center gap-4">
+                <p class="font-basic font-glow-pink2 text-7xl text-center">
+                    Pripojiť sa <br />
+                    k párty
+                </p>
+                <CircleImageButton
+                    image-url="/img/join.png"
+                    background-color="bg-black"
+                    size="lg"
+                    @click="changeRoute('/join')"
+                >
+                </CircleImageButton>
+            </div>
         </div>
     </div>
 </template>
 
-<script lang="ts" setup>
-import PrettyInput from '@/components/PrettyInput.vue'
+<script setup lang="ts">
+const router = useRouter()
 definePageMeta({
     layout: false,
 })
-
-const user = useState('user', () => '')
-onMounted(() => {
-    user.value = localStorage.getItem('name') || ''
-    if (user.value) continueToMenu()
-})
-
-const canContinue = computed(() => user.value.length < 3)
-const buttonBorderColor = computed(() =>
-    canContinue.value
-        ? 'border-2 border-black bg-gray-500 opacity-30 cursor-not-allowed'
-        : 'border-2 border-pinky bg-black cursor-pointer'
-)
-const router = useRouter()
-const continueToMenu = () => {
-    if (canContinue.value) return
-    localStorage.setItem('name', user.value)
-    router.push('/menu')
+const changeRoute = (pathUrl: string) => {
+    router.push(pathUrl)
 }
 </script>
