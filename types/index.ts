@@ -17,6 +17,8 @@ export enum DrinkType {
     JazzyApple,
     RoyRogers,
     RandomNonAlco,
+    CustomAlco,
+    CustomNonAlco,
 }
 
 export enum SnackType {
