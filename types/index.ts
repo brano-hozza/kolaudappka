@@ -47,3 +47,10 @@ export enum GameType {
     Savana,
     DoodleDungeon,
 }
+
+export enum PartyFormType {
+    Info,
+    Drinks,
+    Snacks,
+    Games,
+}
