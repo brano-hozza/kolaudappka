@@ -42,6 +42,12 @@ $colors: (
     brown: #f071087b,
 );
 
+$glow-intensity: (
+    xs: 0.5,
+    md: 1.5,
+    lg: 2,
+);
+
 @each $color, $value in $colors {
     .font-glow-#{'' + $color} {
         color: $value;
@@ -49,5 +55,22 @@ $colors: (
             0 0 10px $value,
             0 0 20px $value,
             0 0 30px $value;
+    }
+
+    @each $intensity, $level in $glow-intensity {
+        .font-glow-#{$intensity}-#{'' + $color} {
+            color: $value;
+
+            $computed-level: if(
+                map-has-key($glow-intensity, $intensity),
+                map-get($glow-intensity, $intensity),
+                1
+            );
+            $shadow-color: rgba($value, $computed-level);
+            text-shadow:
+                0 0 10px $shadow-color,
+                0 0 20px $shadow-color,
+                0 0 30px $shadow-color;
+        }
     }
 }
