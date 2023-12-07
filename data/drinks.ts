@@ -1,5 +1,4 @@
 import { DrinkType } from '@/types'
-import { isAvailable, isOrdered } from '@/utils/drinksUtils'
 
 type Title = {
     text: string
@@ -15,7 +14,10 @@ type Drink = {
     ordered: boolean
 }
 
-export const cocktails: Drink[] = [
+type RawDrink = Omit<Drink, 'available' | 'ordered'>
+// Toto ti odstrani z typu fieldy
+
+export const rawCocktails: RawDrink[] = [
     {
         type: DrinkType.AperolSpritz,
         image: '/img/drinks/aperol.png',
@@ -30,8 +32,6 @@ export const cocktails: Drink[] = [
             },
         ],
         backgroundColor: 'bg-black',
-        available: isAvailable(DrinkType.AperolSpritz),
-        ordered: isOrdered(DrinkType.AperolSpritz),
     },
     {
         type: DrinkType.Mojito,
