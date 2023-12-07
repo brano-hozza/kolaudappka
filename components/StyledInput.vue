@@ -5,12 +5,23 @@
             :type="type"
             :placeholder="placeholder"
             class="p-5 rounded-lg text-white bg-gray-900 outline-pink-500"
+            @input="
+                $emit(
+                    'update:modelValue',
+                    ($event.target as HTMLInputElement).value
+                )
+            "
         />
     </div>
 </template>
 
 <script setup lang="ts">
+defineEmits(['update:modelValue'])
 defineProps({
+    modelValue: {
+        type: String,
+        required: true,
+    },
     type: {
         type: String,
         required: true,

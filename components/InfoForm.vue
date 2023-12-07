@@ -37,6 +37,7 @@
     </div>
     <div class="mt-10">
         <CircleImageButton
+            v-if="hasValidData"
             floating
             icon="charm:arrow-right"
             size="sm"
@@ -48,6 +49,13 @@
 
 <script setup lang="ts">
 defineEmits(['click'])
+type FormData = {
+    organizerName: string
+    partyName: string
+    partyDateTime: string
+    evalStartTime: string
+    jamLink: string
+}
 
 const organizerName = ref('')
 const partyName = ref('')
@@ -55,19 +63,22 @@ const partyDateTime = ref('')
 const evalStartTime = ref('')
 const jamLink = ref('')
 
-// TODO: fix this - not reaactive
-// const hasValidData = computed(() => {
-//     console.log('HAS VALID DATA')
-//     return (
-//         organizerName.value &&
-//         partyName.value &&
-//         partyDateTime.value &&
-//         evalStartTime.value
-//     )
-// })
+const hasValidData = computed(
+    () =>
+        !!(
+            organizerName.value &&
+            partyName.value &&
+            partyDateTime.value &&
+            evalStartTime.value
+        )
+)
 
-// watch([organizerName, partyName, partyDateTime, evalStartTime], () => {
-//     console.log('Input changed')
-//     // Additional logic on input change if needed
-// })
+// TODO: Save data to store
+const data = computed<FormData>(() => ({
+    organizerName: organizerName.value,
+    partyName: partyName.value,
+    partyDateTime: partyDateTime.value,
+    evalStartTime: evalStartTime.value,
+    jamLink: jamLink.value,
+}))
 </script>

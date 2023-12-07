@@ -37,7 +37,16 @@
 </template>
 
 <script setup lang="ts">
-defineEmits(['addDrink'])
+type DrinkData = {
+    imageUrl: string
+    titles: {
+        text: string
+        color: string
+    }[]
+}
+defineEmits<{
+    (e: 'addDrink', drinkData: DrinkData): void
+}>()
 const colors = [
     'white',
     'red',
@@ -66,7 +75,7 @@ const colors = [
 const name = ref('')
 const image = ref('')
 const titleColor = ref(colors[0])
-const drinkData = {
+const drinkData = computed<DrinkData>(() => ({
     imageUrl: image.value,
     titles: [
         {
@@ -74,5 +83,5 @@ const drinkData = {
             color: titleColor.value,
         },
     ],
-}
+}))
 </script>
