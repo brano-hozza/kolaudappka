@@ -2,7 +2,6 @@
     <div class="w-full mt-10 items-center flex flex-col">
         <!-- TODO: validation -->
         <p
-            ref="title"
             class="font-basic text-center font-glow-pink mb-5 text-6xl md:text-8xl"
         >
             Nová párty 🎉
