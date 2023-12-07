@@ -49,9 +49,26 @@
 
 <script setup lang="ts">
 defineEmits(['click'])
+
 const organizerName = ref('')
 const partyName = ref('')
 const partyDateTime = ref('')
 const evalStartTime = ref('')
 const jamLink = ref('')
+
+// TODO: fix this - not reaactive
+// const hasValidData = computed(() => {
+//     console.log('HAS VALID DATA')
+//     return (
+//         organizerName.value &&
+//         partyName.value &&
+//         partyDateTime.value &&
+//         evalStartTime.value
+//     )
+// })
+
+// watch([organizerName, partyName, partyDateTime, evalStartTime], () => {
+//     console.log('Input changed')
+//     // Additional logic on input change if needed
+// })
 </script>
