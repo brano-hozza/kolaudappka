@@ -122,7 +122,7 @@ const refs = ref<Record<string, HTMLDivElement>>({})
 const loading = ref(false)
 
 const hasOrder = computed(() => {
-    return [...cocktails.value, ...mocktails.value].some((c) => c.ordered)
+    return [...cocktails, ...mocktails].some((c) => c.ordered)
 })
 const selectedDrink = ref<DrinkType | null>(null)
 const selectDrink = (drinkType: DrinkType) => {
@@ -148,8 +148,8 @@ const orderDrink = async (drinkType: DrinkType) => {
         } as CreateDrinkOrderDTO,
     })
     if (!error.value) {
-        cocktails.value = [
-            ...cocktails.value.map((c) => {
+        cocktails = [
+            ...cocktails.map((c) => {
                 c.ordered = false
                 if (c.type === drink) {
                     c.ordered = true
@@ -157,8 +157,8 @@ const orderDrink = async (drinkType: DrinkType) => {
                 return c
             }),
         ]
-        mocktails.value = [
-            ...mocktails.value.map((m) => {
+        mocktails = [
+            ...mocktails.map((m) => {
                 m.ordered = false
                 if (m.type === drink) {
                     m.ordered = true
@@ -177,7 +177,7 @@ const orderDrink = async (drinkType: DrinkType) => {
 const getRandomDrink = (): DrinkType => {
     const drinkGroup =
         selectedDrink.value === DrinkType.RandomAlco ? cocktails : mocktails
-    const values = drinkGroup.value.filter(
+    const values = drinkGroup.filter(
         (val) =>
             DrinkType[val.type] !== 'RandomAlco' &&
             DrinkType[val.type] !== 'RandomNonAlco' &&

@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import { DrinkType } from '@/types'
 import { isAvailable, isOrdered } from '@/utils/drinksUtils'
 
@@ -6,7 +5,6 @@ type Title = {
     text: string
     color: string
 }
-
 type Drink = {
     type: DrinkType
     image: string
@@ -17,7 +15,7 @@ type Drink = {
     ordered: boolean
 }
 
-export const cocktails = ref<Drink[]>([
+export const cocktails: Drink[] = [
     {
         type: DrinkType.AperolSpritz,
         image: '/img/drinks/aperol.png',
@@ -178,9 +176,9 @@ export const cocktails = ref<Drink[]>([
         available: true,
         ordered: false,
     },
-])
+]
 
-export const mocktails = ref<Drink[]>([
+export const mocktails: Drink[] = [
     {
         type: DrinkType.VirginMojito,
         image: '/img/drinks/mojito.png',
@@ -300,4 +298,4 @@ export const mocktails = ref<Drink[]>([
         available: true,
         ordered: false,
     },
-])
+]
