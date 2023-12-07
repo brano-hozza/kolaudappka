@@ -18,7 +18,7 @@
             :src="imageUrl"
             alt="image"
         />
-        <Icon v-else size="80%" :name="icon" :color="iconColor" />
+        <Icon v-else :size="iconSize" :name="icon" :color="iconColor" />
         <slot></slot>
     </div>
 </template>
@@ -57,6 +57,10 @@ defineProps({
     iconColor: {
         type: String,
         default: 'white',
+    },
+    iconSize: {
+        type: String,
+        default: '80%',
     },
     size: {
         type: String as PropType<'sm' | 'md' | 'lg'>,
