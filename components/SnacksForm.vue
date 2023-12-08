@@ -34,7 +34,7 @@
                 >
                 </CircleImageButton>
             </div>
-            <!-- Add snack button -->
+            <!-- Add new snack button -->
             <div class="flex flex-col items-center justify-between gap-8 my-4">
                 <span class="flex flex-col justify-center items-center gap-4"
                     ><p class="font-basic text-7xl font-glow-white">
