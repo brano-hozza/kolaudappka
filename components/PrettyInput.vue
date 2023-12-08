@@ -1,7 +1,7 @@
 <template>
     <div
-        class="w-full md:w-1/2 rounded p-1 bg-black flex flex-row justify-center outline-blue-500 font-basic text-xl"
-        placeholder="Zadaj svoje meno"
+        class="w-full md:w-1/2 rounded p-1 bg-black flex flex-row justify-center outline-blue-500 font-basic text-xl md:text-3xl"
+        :placeholder="placeholder"
         contenteditable
         @input="handleInput"
     />
@@ -9,6 +9,12 @@
 
 <script setup lang="ts">
 const emit = defineEmits(['change'])
+defineProps({
+    placeholder: {
+        type: String,
+        default: 'Zadaj hodnotu',
+    },
+})
 const getRandomColor = () => {
     const colors = ['red', 'green', 'blue', 'yellow', 'pink', 'purple']
     return colors[Math.floor(Math.random() * colors.length)]
