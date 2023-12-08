@@ -8,7 +8,7 @@
             <p
                 class="mx-auto font-basic text-center font-glow-pink mb-5 text-6xl md:text-8xl"
             >
-                Nový drink
+                {{ title }}
             </p>
 
             <div class="mr-5">
@@ -25,8 +25,8 @@
         <StyledInput
             v-model="name"
             type="text"
-            label="*Názov drinku"
-            placeholder="Názov drinku"
+            :label="titleInputLabel"
+            :placeholder="titleInputPlaceholder"
         />
         <StyledSelect
             v-model="firstTitleColor"
@@ -55,22 +55,22 @@
             size="sm"
             background-color="bg-pinky"
             class="mt-10"
-            @click="$emit('addDrink', drinkData)"
+            @click="$emit('addItem', data)"
         />
     </div>
 </template>
 
 <script setup lang="ts">
 import { titleCase } from '~/utils/utils'
-type DrinkData = {
-    imageUrl: string
-    titles: {
-        text: string
-        color: string
-    }[]
-}
+import { NewItemData } from '~/types'
+defineProps<{
+    title: string
+    titleInputLabel: string
+    titleInputPlaceholder: string
+}>()
+
 defineEmits<{
-    (e: 'addDrink', drinkData: DrinkData): void
+    (e: 'addItem', data: NewItemData): void
     (e: 'close'): void
 }>()
 const colors = [
@@ -102,7 +102,7 @@ const name = ref('')
 const image = ref('')
 const firstTitleColor = ref(colors[0])
 const secondTitleColor = ref(colors[0])
-const drinkData = computed<DrinkData>(() => ({
+const data = computed<NewItemData>(() => ({
     imageUrl: image.value,
     titles:
         name.value.split(' ').length === 1
