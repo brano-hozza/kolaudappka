@@ -10,10 +10,10 @@
         <SnacksForm @next-page="showNextPage" />
     </div>
     <div v-else-if="currentForm === PartyFormType.Games">
-        <GamesForm />
+        <GamesForm @next-page="showNextPage" />
     </div>
     <div v-else-if="currentForm === PartyFormType.Summary">
-        <SummaryForm />
+        <SummaryForm @show-admin-page="changeRoute('/admin')" />
     </div>
 </template>
 
@@ -22,6 +22,10 @@ import { PartyFormType } from '@/types'
 definePageMeta({
     layout: false,
 })
+const router = useRouter()
+const changeRoute = (pathUrl: string) => {
+    router.push(pathUrl)
+}
 
 const currentForm = ref<PartyFormType>(PartyFormType.Info)
 const currentPageIndex = computed(() =>
