@@ -69,18 +69,17 @@ const user = useState('user', () => '')
 const { data: statuses } = await useFetch('/api/snack-status')
 const { data: orders } = await useFetch('/api/snack')
 
-let snacks = rawSnacks.map((s) => ({
-    ...s,
-    available: isAvailable(s.type),
-    ordered: isOrdered(s.type),
-}))
-
 const isAvailable = (snackType: SnackType) =>
     statuses.value?.find((s) => s.snackType === snackType)?.available ?? true
 
 const isOrdered = (snackType: SnackType) =>
     orders.value?.find((s) => s.snackType === snackType)?.user === user.value
 
+let snacks = rawSnacks.map((s) => ({
+    ...s,
+    available: isAvailable(s.type),
+    ordered: isOrdered(s.type),
+}))
 const loading = ref(false)
 
 const hasOrder = computed(() => {

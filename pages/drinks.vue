@@ -121,6 +121,14 @@ const { data: statuses } = await useFetch('/api/drink-status')
 const { data: orders } = await useFetch('/api/drink')
 const user = useState('user', () => '')
 
+const isAvailable = (drinkType: DrinkType) =>
+    statuses.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
+        ?.available ?? true
+
+const isOrdered = (drinkType: DrinkType) =>
+    orders.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
+        ?.user === user.value
+
 let cocktails = rawCocktails.map((c) => ({
     ...c,
     available: isAvailable(c.type),
@@ -132,14 +140,6 @@ let mocktails = rawMocktails.map((m) => ({
     available: isAvailable(m.type),
     ordered: isOrdered(m.type),
 }))
-
-const isAvailable = (drinkType: DrinkType) =>
-    statuses.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
-        ?.available ?? true
-
-const isOrdered = (drinkType: DrinkType) =>
-    orders.value?.find((s: { drinkType: any }) => s.drinkType === drinkType)
-        ?.user === user.value
 
 const loading = ref(false)
 
