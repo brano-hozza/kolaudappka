@@ -57,6 +57,7 @@ export enum PartyFormType {
     Drinks,
     Snacks,
     Games,
+    Summary,
 }
 
 export type Title = {
