@@ -41,76 +41,14 @@
 </template>
 
 <script lang="ts" setup>
-import { GameType } from '~/types'
+import { GameType, Game } from '~/types'
+import { rawGames } from '~/data/games'
 import { VoteForGameDTO } from '~/types/dtos'
 
 const user = useState('user', () => '')
 const loading = ref(false)
+const games = ref<Game[]>(rawGames)
 
-type Game = {
-    name: string
-    type: GameType
-    image: string
-    backgroundColor: string
-    imageSize?: string
-}
-const games = ref<Game[]>([
-    {
-        name: 'Výbušné Koťátka',
-        type: GameType.Kotatka,
-        image: '/img/games/kotatka.png',
-        backgroundColor: 'bg-white',
-        imageSize: '100',
-    },
-    {
-        name: 'Cards against humanity',
-        type: GameType.CardsAgainstHumanity,
-        image: '/img/games/cards.png',
-        backgroundColor: 'bg-white',
-    },
-    {
-        name: 'Bang',
-        type: GameType.Bang,
-        image: '/img/games/bang.png',
-        backgroundColor: 'bg-white',
-    },
-    {
-        name: 'Shit Happens',
-        type: GameType.ShitHappens,
-        image: '/img/games/shithappens.png',
-        backgroundColor: 'bg-white',
-    },
-    {
-        name: 'Uno Flip',
-        type: GameType.UnoFlip,
-        image: '/img/games/unoflip.png',
-        backgroundColor: 'bg-white',
-    },
-    {
-        name: 'Krycie Mená',
-        type: GameType.KrycieMena,
-        image: '/img/games/kryciemena.png',
-        backgroundColor: 'bg-white',
-    },
-    {
-        name: 'Piškvorky',
-        type: GameType.Piskvorky,
-        image: '/img/games/piskvorky.png',
-        backgroundColor: 'bg-white',
-    },
-    {
-        name: 'Savana',
-        type: GameType.Savana,
-        image: '/img/games/savana.png',
-        backgroundColor: 'bg-white',
-    },
-    {
-        name: 'Doodle Dungeon',
-        type: GameType.DoodleDungeon,
-        image: '/img/games/doodle.png',
-        backgroundColor: 'bg-white',
-    },
-])
 const votedGame = ref<GameType | null>(null)
 
 const data = await $fetch(`/api/game/${user.value}`)

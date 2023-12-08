@@ -49,6 +49,7 @@ export enum GameType {
     Piskvorky,
     Savana,
     DoodleDungeon,
+    CustomGame,
 }
 
 export enum PartyFormType {
@@ -86,10 +87,18 @@ export type Snack = {
 
 export type RawSnack = Omit<Snack, 'available' | 'ordered'>
 
+export type Game = {
+    type: GameType
+    image: string
+    backgroundColor: string
+    imageSize?: string
+}
+
 export type NewItemData = {
     imageUrl: string
-    titles: {
+    titles?: {
         text: string
         color: string
     }[]
+    imageSize?: string
 }
