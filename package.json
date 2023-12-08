@@ -31,6 +31,8 @@
   "dependencies": {
     "@nuxt/image": "rc",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "@vercel/kv": "^0.2.3"
+    "@pinia/nuxt": "^0.5.1",
+    "@vercel/kv": "^0.2.3",
+    "pinia": "^2.1.7"
   }
 }

@@ -8,6 +8,7 @@ export default defineNuxtConfig({
         'nuxt-icon',
         '@nuxt/image',
         '@kevinmarrec/nuxt-pwa',
+        '@pinia/nuxt',
     ],
     image: {
         screens: { sm: 200, md: 400 } as Record<string, number>,
