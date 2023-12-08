@@ -5,7 +5,7 @@ interface State {
     name: string
     code: string
     startDateTime: Date
-    evalStartTime: Date
+    evalStartDateTime: Date
     jamLink: string
     drinkMenu: DrinkType[]
     snackMenu: SnackType[]
@@ -17,7 +17,7 @@ export const usePartyStore = defineStore('party', {
         name: '',
         code: '',
         startDateTime: new Date(),
-        evalStartTime: new Date(),
+        evalStartDateTime: new Date(),
         jamLink: '',
         drinkMenu: [],
         snackMenu: [],
@@ -33,8 +33,8 @@ export const usePartyStore = defineStore('party', {
         getStartDateTime(): Date {
             return this.startDateTime
         },
-        getEvalStartTime(): Date {
-            return this.evalStartTime
+        getEvalStartDateTime(): Date {
+            return this.evalStartDateTime
         },
         getJamLink(): string {
             return this.jamLink
@@ -59,8 +59,8 @@ export const usePartyStore = defineStore('party', {
         setStartDateTime(startDateTime: Date): void {
             this.startDateTime = startDateTime
         },
-        setEvalStartTime(evalStartTime: Date): void {
-            this.evalStartTime = evalStartTime
+        setEvalStartDateTime(evalStartDateTime: Date): void {
+            this.evalStartDateTime = evalStartDateTime
         },
         setJamLink(jamLink: string): void {
             this.jamLink = jamLink

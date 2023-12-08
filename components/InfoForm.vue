@@ -19,7 +19,7 @@
             placeholder="Názov párty"
         />
         <StyledInput
-            v-model="partyDateTime"
+            v-model="startDateTime"
             type="datetime-local"
             label="*Dátum a čas začiatku"
         />
@@ -36,32 +36,32 @@
         />
     </div>
     <div class="mt-10">
-        <!-- TODO: add v-if="hasValidData" -->
         <CircleImageButton
+            v-if="hasValidData"
             floating
             icon="charm:arrow-right"
             size="sm"
             background-color="bg-pinky"
-            @click="$emit('nextPage')"
+            @click="
+                () => {
+                    addParty()
+                    $emit('nextPage')
+                }
+            "
         />
     </div>
 </template>
 
 <script setup lang="ts">
+import { usePartyStore } from '~/stores/party'
+import { useUserStore } from '~/stores/user'
 defineEmits<{
     (e: 'nextPage'): void
 }>()
-// type FormData = {
-//     organizerName: string
-//     partyName: string
-//     partyDateTime: string
-//     evalStartTime: string
-//     jamLink: string
-// }
 
 const organizerName = ref('')
 const partyName = ref('')
-const partyDateTime = ref('')
+const startDateTime = ref('')
 const evalStartTime = ref('')
 const jamLink = ref('')
 
@@ -70,17 +70,22 @@ const hasValidData = computed(
         !!(
             organizerName.value &&
             partyName.value &&
-            partyDateTime.value &&
+            startDateTime.value &&
             evalStartTime.value
         )
 )
 
-// TODO: Save data to store
-// const data = computed<FormData>(() => ({
-//     organizerName: organizerName.value,
-//     partyName: partyName.value,
-//     partyDateTime: partyDateTime.value,
-//     evalStartTime: evalStartTime.value,
-//     jamLink: jamLink.value,
-// }))
+const partyStore = usePartyStore()
+const userStore = useUserStore()
+const addParty = () => {
+    userStore.setName(organizerName.value)
+    userStore.setIsAdmin(true)
+    partyStore.setName(partyName.value)
+    partyStore.setStartDateTime(new Date(startDateTime.value))
+    partyStore.setEvalStartDateTime(
+        parseTimeStringToDateTime(startDateTime.value, evalStartTime.value)
+    )
+    partyStore.setJamLink(jamLink.value)
+    partyStore.setJamLink(jamLink.value)
+}
 </script>
