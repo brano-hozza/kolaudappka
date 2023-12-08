@@ -36,8 +36,8 @@
         />
     </div>
     <div class="mt-10">
+        <!-- TODO: add v-if="hasValidData" -->
         <CircleImageButton
-            v-if="hasValidData"
             floating
             icon="charm:arrow-right"
             size="sm"
@@ -48,7 +48,9 @@
 </template>
 
 <script setup lang="ts">
-defineEmits(['click'])
+defineEmits<{
+    (e: 'click'): void
+}>()
 type FormData = {
     organizerName: string
     partyName: string

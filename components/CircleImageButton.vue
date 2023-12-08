@@ -24,7 +24,9 @@
 </template>
 
 <script setup lang="ts">
-defineEmits(['click'])
+defineEmits<{
+    (e: 'click'): void
+}>()
 defineProps({
     imageUrl: {
         type: String,
