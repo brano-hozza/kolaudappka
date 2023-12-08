@@ -23,12 +23,14 @@
         </div>
         <!-- TODO: validate the name - limit to two words -->
         <StyledInput
+            v-if="!isGame"
             v-model="name"
             type="text"
-            :label="titleInputLabel"
+            :label="titleInputLabel!"
             :placeholder="titleInputPlaceholder"
         />
         <StyledSelect
+            v-if="!isGame"
             v-model="firstTitleColor"
             :options="colors"
             :label="
@@ -65,8 +67,9 @@ import { titleCase } from '~/utils/utils'
 import { NewItemData } from '~/types'
 defineProps<{
     title: string
-    titleInputLabel: string
-    titleInputPlaceholder: string
+    titleInputLabel?: string
+    titleInputPlaceholder?: string
+    isGame: boolean
 }>()
 
 defineEmits<{
