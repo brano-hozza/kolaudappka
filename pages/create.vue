@@ -12,6 +12,9 @@
     <div v-else-if="currentForm === PartyFormType.Games">
         <GamesForm />
     </div>
+    <div v-else-if="currentForm === PartyFormType.Summary">
+        <SummaryForm />
+    </div>
 </template>
 
 <script setup lang="ts">
