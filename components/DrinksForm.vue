@@ -4,7 +4,7 @@
             ref="title"
             class="font-basic text-center font-glow-pink mb-5 text-6xl md:text-8xl"
         >
-            Výber drinkov
+            Menu drinkov 🍹
         </p>
         <p class="font-basic font-glow-pink text-7xl my-10 text-center">
             Koktejly
@@ -111,9 +111,16 @@
             background-color="bg-pinky"
             @click="$emit('nextPage')"
         />
-        <DrinkFormPopup
+        <NewItemModal
             v-if="addingCocktail || addingMocktail"
-            @add-drink="addDrink"
+            :title="addingCocktail ? 'Nový koktejl' : 'Nový moktejl'"
+            :title-input-label="
+                addingCocktail ? '*Názov koktejlu' : '*Názov moktejlu'
+            "
+            :title-input-placeholder="
+                addingCocktail ? 'Názov koktejlu' : 'Názov moktejlu'
+            "
+            @add-item="addDrink"
             @close="
                 () => {
                     addingCocktail = false
@@ -126,7 +133,7 @@
 
 <script setup lang="ts">
 import { rawMocktails, rawCocktails } from '~/data/drinks'
-import { DrinkType } from '~/types'
+import { DrinkType, NewItemData } from '~/types'
 
 defineEmits<{
     (e: 'addDrink'): void
@@ -153,7 +160,8 @@ const selectDrink = (drinkType: DrinkType) => {
 const addingCocktail = ref(false)
 const addingMocktail = ref(false)
 
-const addDrink = (drinkData: any) => {
+const addDrink = (drinkData: NewItemData) => {
+    console.log('add drink')
     const newDrink = {
         type: DrinkType.CustomAlco,
         // TODO: image: drinkData.imageUrl,
