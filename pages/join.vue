@@ -6,7 +6,15 @@
         <div
             class="w-3/4 md: md:w-1/2 flex flex-col justify-center items-center p-2"
         >
-            <pretty-input @change="user = $event" />
+            <pretty-input
+                placeholder="Zadaj svoje meno"
+                @change="user = $event"
+            />
+            <pretty-input
+                placeholder="Zadaj heslo párty"
+                class="mt-10"
+                @change="partyCode = $event"
+            />
             <button
                 class="w-full md:w-1/2 rounded p-1 m-4 text-white"
                 :class="buttonBorderColor"
@@ -26,12 +34,16 @@ definePageMeta({
 })
 
 const user = useState('user', () => '')
+const partyCode = useState('partyCode', () => '')
 onMounted(() => {
     user.value = localStorage.getItem('name') || ''
-    if (user.value) continueToMenu()
+    partyCode.value = localStorage.getItem('partyCode') || ''
+    if (user.value && partyCode.value) continueToMenu()
 })
 
-const canContinue = computed(() => user.value.length < 3)
+const canContinue = computed(
+    () => user.value.length < 3 || partyCode.value.length < 3
+)
 const buttonBorderColor = computed(() =>
     canContinue.value
         ? 'border-2 border-black bg-gray-500 opacity-30 cursor-not-allowed'
