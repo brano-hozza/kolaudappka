@@ -69,7 +69,7 @@ defineProps<{
     title: string
     titleInputLabel?: string
     titleInputPlaceholder?: string
-    isGame: boolean
+    isGame?: boolean
 }>()
 
 defineEmits<{

@@ -75,7 +75,7 @@ import { rawSnacks } from '~/data/snacks'
 import { NewItemData, SnackType } from '~/types'
 
 defineEmits<{
-    (e: 'addDrink'): void
+    (e: 'addItem'): void
     (e: 'close'): void
     (e: 'nextPage'): void
 }>()
@@ -102,7 +102,7 @@ const addSnack = (snackData: NewItemData) => {
         type: SnackType.CustomSnack,
         // TODO: image: drinkData.imageUrl,
         image: '/img/drinks/newdrink.png',
-        titles: snackData.titles,
+        titles: snackData.titles!,
         backgroundColor: 'bg-black',
     }
     if (addingSnack.value) {

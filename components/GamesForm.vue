@@ -57,7 +57,7 @@ import { rawGames } from '~/data/games'
 import { NewItemData, GameType } from '~/types'
 
 defineEmits<{
-    (e: 'addDrink'): void
+    (e: 'addItem'): void
     (e: 'close'): void
     (e: 'nextPage'): void
 }>()
@@ -86,7 +86,6 @@ const addGame = (gameData: NewItemData) => {
         image: '/img/drinks/newdrink.png',
         backgroundColor: 'bg-black',
         // TODO: take from gameData
-        imageSize: '100',
     }
     if (addingGame.value) {
         games.value.push(newGame)

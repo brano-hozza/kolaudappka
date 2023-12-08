@@ -136,7 +136,7 @@ import { rawMocktails, rawCocktails } from '~/data/drinks'
 import { DrinkType, NewItemData } from '~/types'
 
 defineEmits<{
-    (e: 'addDrink'): void
+    (e: 'addItem'): void
     (e: 'close'): void
     (e: 'nextPage'): void
 }>()
@@ -161,12 +161,11 @@ const addingCocktail = ref(false)
 const addingMocktail = ref(false)
 
 const addDrink = (drinkData: NewItemData) => {
-    console.log('add drink')
     const newDrink = {
         type: DrinkType.CustomAlco,
         // TODO: image: drinkData.imageUrl,
         image: '/img/drinks/newdrink.png',
-        titles: drinkData.titles,
+        titles: drinkData.titles!,
         backgroundColor: 'bg-black',
     }
     if (addingCocktail.value) {

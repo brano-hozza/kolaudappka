@@ -51,13 +51,13 @@
 defineEmits<{
     (e: 'nextPage'): void
 }>()
-type FormData = {
-    organizerName: string
-    partyName: string
-    partyDateTime: string
-    evalStartTime: string
-    jamLink: string
-}
+// type FormData = {
+//     organizerName: string
+//     partyName: string
+//     partyDateTime: string
+//     evalStartTime: string
+//     jamLink: string
+// }
 
 const organizerName = ref('')
 const partyName = ref('')
@@ -76,11 +76,11 @@ const hasValidData = computed(
 )
 
 // TODO: Save data to store
-const data = computed<FormData>(() => ({
-    organizerName: organizerName.value,
-    partyName: partyName.value,
-    partyDateTime: partyDateTime.value,
-    evalStartTime: evalStartTime.value,
-    jamLink: jamLink.value,
-}))
+// const data = computed<FormData>(() => ({
+//     organizerName: organizerName.value,
+//     partyName: partyName.value,
+//     partyDateTime: partyDateTime.value,
+//     evalStartTime: evalStartTime.value,
+//     jamLink: jamLink.value,
+// }))
 </script>
