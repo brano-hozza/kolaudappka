@@ -109,7 +109,7 @@
             icon="charm:arrow-right"
             size="sm"
             background-color="bg-pinky"
-            @click="$emit('click')"
+            @click="$emit('nextPage')"
         />
         <DrinkFormPopup
             v-if="addingCocktail || addingMocktail"
@@ -129,7 +129,9 @@ import { rawMocktails, rawCocktails } from '~/data/drinks'
 import { DrinkType } from '~/types'
 
 defineEmits<{
-    (e: 'click'): void
+    (e: 'addDrink'): void
+    (e: 'close'): void
+    (e: 'nextPage'): void
 }>()
 
 const cocktails = ref(rawCocktails)
@@ -152,7 +154,6 @@ const addingCocktail = ref(false)
 const addingMocktail = ref(false)
 
 const addDrink = (drinkData: any) => {
-    console.log(drinkData.titles)
     const newDrink = {
         type: DrinkType.CustomAlco,
         // TODO: image: drinkData.imageUrl,
@@ -160,10 +161,10 @@ const addDrink = (drinkData: any) => {
         titles: drinkData.titles,
         backgroundColor: 'bg-black',
     }
-    if (addingCocktail) {
+    if (addingCocktail.value) {
         cocktails.value.push(newDrink)
         addingCocktail.value = false
-    } else if (addingMocktail) {
+    } else if (addingMocktail.value) {
         mocktails.value.push(newDrink)
         addingMocktail.value = false
     }
