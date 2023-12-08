@@ -27,6 +27,7 @@ export enum SnackType {
     Nachos,
     Peanuts,
     Macarons,
+    CustomSnack,
 }
 
 export enum EntityType {
@@ -73,3 +74,22 @@ export type Drink = {
 }
 
 export type RawDrink = Omit<Drink, 'available' | 'ordered'>
+
+export type Snack = {
+    type: SnackType
+    image: string
+    titles: Title[]
+    backgroundColor: string
+    available: boolean
+    ordered: boolean
+}
+
+export type RawSnack = Omit<Snack, 'available' | 'ordered'>
+
+export type NewItemData = {
+    imageUrl: string
+    titles: {
+        text: string
+        color: string
+    }[]
+}

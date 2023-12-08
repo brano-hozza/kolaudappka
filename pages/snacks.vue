@@ -61,6 +61,7 @@
 
 <script lang="ts" setup>
 import { SnackType } from '@/types'
+import { rawSnacks } from '~/data/snacks'
 import { CreateSnackOrderDTO } from '~/types/dtos'
 
 const user = useState('user', () => '')
@@ -68,97 +69,22 @@ const user = useState('user', () => '')
 const { data: statuses } = await useFetch('/api/snack-status')
 const { data: orders } = await useFetch('/api/snack')
 
+let snacks = rawSnacks.map((s) => ({
+    ...s,
+    available: isAvailable(s.type),
+    ordered: isOrdered(s.type),
+}))
+
 const isAvailable = (snackType: SnackType) =>
     statuses.value?.find((s) => s.snackType === snackType)?.available ?? true
 
 const isOrdered = (snackType: SnackType) =>
     orders.value?.find((s) => s.snackType === snackType)?.user === user.value
 
-type Title = {
-    text: string
-    color: string
-}
-
-type Snack = {
-    type: SnackType
-    image: string
-    titles: Title[]
-    backgroundColor: string
-    available: boolean
-    ordered: boolean
-}
-const snacks = ref<Snack[]>([
-    {
-        type: SnackType.Sushi,
-        image: '/img/snacks/sushi.png',
-        titles: [
-            {
-                text: 'Sushi',
-                color: 'salmon',
-            },
-        ],
-        backgroundColor: 'bg-black',
-        available: isAvailable(SnackType.Sushi),
-        ordered: isOrdered(SnackType.Sushi),
-    },
-    {
-        type: SnackType.Chips,
-        image: '/img/snacks/chips.png',
-        titles: [
-            {
-                text: 'Čipsiky',
-                color: 'vibrant-yellow',
-            },
-        ],
-        backgroundColor: 'bg-black',
-        available: isAvailable(SnackType.Chips),
-        ordered: isOrdered(SnackType.Chips),
-    },
-    {
-        type: SnackType.Nachos,
-        image: '/img/snacks/nachos.png',
-        titles: [
-            {
-                text: 'Načosky',
-                color: 'nude',
-            },
-        ],
-        backgroundColor: 'bg-black',
-        available: isAvailable(SnackType.Nachos),
-        ordered: isOrdered(SnackType.Nachos),
-    },
-    {
-        type: SnackType.Peanuts,
-        image: '/img/snacks/peanuts.png',
-        titles: [
-            {
-                text: 'Oriešky',
-                color: 'light-brown',
-            },
-        ],
-        backgroundColor: 'bg-black',
-        available: isAvailable(SnackType.Peanuts),
-        ordered: isOrdered(SnackType.Peanuts),
-    },
-    {
-        type: SnackType.Macarons,
-        image: '/img/snacks/macarons.png',
-        titles: [
-            {
-                text: 'Makrónky',
-                color: 'blush-pink',
-            },
-        ],
-        backgroundColor: 'bg-black',
-        available: isAvailable(SnackType.Macarons),
-        ordered: isOrdered(SnackType.Macarons),
-    },
-])
-
 const loading = ref(false)
 
 const hasOrder = computed(() => {
-    return snacks.value.some((s) => s.ordered)
+    return snacks.some((s) => s.ordered)
 })
 
 const selectedSnack = ref<SnackType | null>(null)
@@ -181,8 +107,8 @@ const orderSnack = async (snackType: SnackType) => {
         } as CreateSnackOrderDTO,
     })
     if (!error.value) {
-        snacks.value = [
-            ...snacks.value.map((s) => {
+        snacks = [
+            ...snacks.map((s) => {
                 s.ordered = false
                 if (s.type === snack) {
                     s.ordered = true
