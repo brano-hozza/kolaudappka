@@ -5,6 +5,7 @@ export default {
         extend: {
             colors: {
                 pinky: '#F752E0',
+                delete: '#ff3a4e',
             },
         },
         fontFamily: {

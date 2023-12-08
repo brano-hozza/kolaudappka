@@ -27,15 +27,29 @@
                         {{ title.text }}
                     </p>
                 </span>
-
-                <CircleImageButton
-                    :image-url="drink.image"
-                    :background-color="drink.backgroundColor"
-                    :selected="selectedDrinks.includes(drink.type)"
-                    size="lg"
-                    @click="selectDrink(drink.type)"
-                >
-                </CircleImageButton>
+                <div class="relative">
+                    <CircleImageButton
+                        :image-url="drink.image"
+                        :background-color="drink.backgroundColor"
+                        :selected="selectedDrinks.includes(drink.type)"
+                        size="lg"
+                        @click="selectDrink(drink.type)"
+                    >
+                    </CircleImageButton>
+                    <!-- Delete button for newly added drink type -->
+                    <div
+                        v-if="drink.type === DrinkType.CustomAlco"
+                        class="absolute top-0 right-0"
+                    >
+                        <CircleImageButton
+                            icon="charm:bin"
+                            icon-size="30%"
+                            size="sm"
+                            background-color="bg-delete"
+                            @click="removeNewDrink(drink.type)"
+                        />
+                    </div>
+                </div>
             </div>
             <!-- Add drink button -->
             <div class="flex flex-col items-center justify-between gap-8 my-4">
@@ -75,16 +89,29 @@
                         {{ title.text }}
                     </p>
                 </span>
-
-                <CircleImageButton
-                    :image-url="drink.image"
-                    :image-size="drink.imageSize"
-                    :background-color="drink.backgroundColor"
-                    :selected="selectedDrinks.includes(drink.type)"
-                    size="lg"
-                    @click="selectDrink(drink.type)"
-                >
-                </CircleImageButton>
+                <div class="relative">
+                    <CircleImageButton
+                        :image-url="drink.image"
+                        :background-color="drink.backgroundColor"
+                        :selected="selectedDrinks.includes(drink.type)"
+                        size="lg"
+                        @click="selectDrink(drink.type)"
+                    >
+                    </CircleImageButton>
+                    <!-- Delete button for newly added drink type -->
+                    <div
+                        v-if="drink.type === DrinkType.CustomNonAlco"
+                        class="absolute top-0 right-0"
+                    >
+                        <CircleImageButton
+                            icon="charm:bin"
+                            icon-size="30%"
+                            size="sm"
+                            background-color="bg-delete"
+                            @click="removeNewDrink(drink.type)"
+                        />
+                    </div>
+                </div>
             </div>
             <!-- Add drink button -->
             <div class="flex flex-col items-center justify-between gap-8 my-4">
@@ -163,7 +190,9 @@ const addingMocktail = ref(false)
 const addDrink = (drinkData: NewItemData) => {
     const newDrink = {
         // TODO: create new drinkType based on title
-        type: addingCocktail ? DrinkType.CustomAlco : DrinkType.CustomNonAlco,
+        type: addingCocktail.value
+            ? DrinkType.CustomAlco
+            : DrinkType.CustomNonAlco,
         // TODO: image: drinkData.imageUrl,
         image: '/img/drinks/newdrink.png',
         titles: drinkData.titles!,
@@ -175,6 +204,18 @@ const addDrink = (drinkData: NewItemData) => {
     } else if (addingMocktail.value) {
         mocktails.value.push(newDrink)
         addingMocktail.value = false
+    }
+}
+
+const removeNewDrink = (drinkType: DrinkType) => {
+    if (drinkType === DrinkType.CustomAlco) {
+        cocktails.value = cocktails.value.filter(
+            (drink) => drink.type !== drinkType
+        )
+    } else if (drinkType === DrinkType.CustomNonAlco) {
+        mocktails.value = mocktails.value.filter(
+            (drink) => drink.type !== drinkType
+        )
     }
 }
 </script>
