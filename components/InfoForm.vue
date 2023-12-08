@@ -42,14 +42,14 @@
             icon="charm:arrow-right"
             size="sm"
             background-color="bg-pinky"
-            @click="$emit('click')"
+            @click="$emit('nextPage')"
         />
     </div>
 </template>
 
 <script setup lang="ts">
 defineEmits<{
-    (e: 'click'): void
+    (e: 'nextPage'): void
 }>()
 type FormData = {
     organizerName: string
