@@ -114,6 +114,12 @@
         <DrinkFormPopup
             v-if="addingCocktail || addingMocktail"
             @add-drink="addDrink"
+            @close="
+                () => {
+                    addingCocktail = false
+                    addingMocktail = false
+                }
+            "
         />
     </div>
 </template>
@@ -122,7 +128,9 @@
 import { rawMocktails, rawCocktails } from '~/data/drinks'
 import { DrinkType } from '~/types'
 
-defineEmits(['click'])
+defineEmits<{
+    (e: 'click'): void
+}>()
 
 const cocktails = ref(rawCocktails)
 const mocktails = ref(rawMocktails)

@@ -1,13 +1,27 @@
 <template>
     <div
-        class="w-3/4 items-center flex flex-col bg-black fixed px-10 py-10 rounded-lg"
+        class="w-3/4 mt-0 items-center flex flex-col bg-black fixed py-10 rounded-lg"
     >
         <!-- TODO: validation -->
-        <p
-            class="font-basic text-center font-glow-pink mb-5 text-6xl md:text-8xl"
-        >
-            Nový drink
-        </p>
+        <div class="flex items-center w-full">
+            <div class="w-20"></div>
+            <p
+                class="mx-auto font-basic text-center font-glow-pink mb-5 text-6xl md:text-8xl"
+            >
+                Nový drink
+            </p>
+
+            <div class="mr-5">
+                <CircleImageButton
+                    icon="charm:cross"
+                    icon-size="50%"
+                    size="sm"
+                    background-color="bg-pinky"
+                    @click="$emit('close')"
+                />
+            </div>
+        </div>
+        <!-- TODO: validate the name - limit to two words -->
         <StyledInput
             v-model="name"
             type="text"
@@ -15,9 +29,19 @@
             placeholder="Názov drinku"
         />
         <StyledSelect
-            v-model="titleColor"
+            v-model="firstTitleColor"
             :options="colors"
-            label="*Farba názvu"
+            :label="
+                name.split(' ').length > 1
+                    ? '*Farba prvého slova názvu'
+                    : '*Farba názvu'
+            "
+        />
+        <StyledSelect
+            v-if="name.split(' ').length > 1"
+            v-model="secondTitleColor"
+            :options="colors"
+            label="*Farba druhého slova názvu"
         />
         <StyledInput
             v-model="image"
@@ -27,7 +51,7 @@
         />
         <CircleImageButton
             icon="charm:tick"
-            icon-size="30%"
+            icon-size="50%"
             size="sm"
             background-color="bg-pinky"
             class="mt-10"
@@ -47,6 +71,7 @@ type DrinkData = {
 }
 defineEmits<{
     (e: 'addDrink', drinkData: DrinkData): void
+    (e: 'close'): void
 }>()
 const colors = [
     'white',
@@ -75,14 +100,27 @@ const colors = [
 ]
 const name = ref('')
 const image = ref('')
-const titleColor = ref(colors[0])
+const firstTitleColor = ref(colors[0])
+const secondTitleColor = ref(colors[0])
 const drinkData = computed<DrinkData>(() => ({
     imageUrl: image.value,
-    titles: [
-        {
-            text: titleCase(name.value),
-            color: titleColor.value,
-        },
-    ],
+    titles:
+        name.value.split(' ').length === 1
+            ? [
+                  {
+                      text: titleCase(name.value),
+                      color: firstTitleColor.value,
+                  },
+              ]
+            : [
+                  {
+                      text: titleCase(name.value.split(' ')[0]),
+                      color: firstTitleColor.value,
+                  },
+                  {
+                      text: titleCase(name.value.split(' ')[1]),
+                      color: secondTitleColor.value,
+                  },
+              ],
 }))
 </script>
