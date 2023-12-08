@@ -162,7 +162,8 @@ const addingMocktail = ref(false)
 
 const addDrink = (drinkData: NewItemData) => {
     const newDrink = {
-        type: DrinkType.CustomAlco,
+        // TODO: create new drinkType based on title
+        type: addingCocktail ? DrinkType.CustomAlco : DrinkType.CustomNonAlco,
         // TODO: image: drinkData.imageUrl,
         image: '/img/drinks/newdrink.png',
         titles: drinkData.titles!,

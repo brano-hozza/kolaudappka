@@ -99,6 +99,7 @@ const addingSnack = ref(false)
 
 const addSnack = (snackData: NewItemData) => {
     const newSnack = {
+        // TODO: create new snackType based on title
         type: SnackType.CustomSnack,
         // TODO: image: drinkData.imageUrl,
         image: '/img/drinks/newdrink.png',

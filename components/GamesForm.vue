@@ -81,6 +81,7 @@ const addingGame = ref(false)
 
 const addGame = (gameData: NewItemData) => {
     const newGame = {
+        // TODO: create new gameType based on title
         type: GameType.CustomGame,
         // TODO: image: drinkData.imageUrl,
         image: '/img/drinks/newdrink.png',
