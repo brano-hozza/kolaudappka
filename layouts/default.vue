@@ -6,7 +6,7 @@
                 :class="{ [iconColor]: true }"
             >
                 <Icon size="20%" name="material-symbols:home-outline" />
-                <p>{{ user }}</p>
+                <p>{{ partyCode }}: {{ user }}</p>
             </span>
         </NuxtLink>
         <button class="w-1/3" @click="logout">
@@ -24,6 +24,7 @@
 </template>
 <script lang="ts" setup>
 const user = useState('user', () => '')
+const partyCode = useState('partyCode', () => '')
 const router = useRouter()
 if (user.value === '') router.push('/')
 
