@@ -64,7 +64,7 @@ const changeRoute = (pathUrl: string) => {
     router.push(pathUrl)
 }
 const openJam = () => {
-    window.open('https://spotify.link/ZmT3KQ0TYFb', '_blank')
+    window.open('https://spotify.link/bEWU6iH1YFb', '_blank')
 }
 const isRatingOpen = computed(() => {
     const now = new Date()
