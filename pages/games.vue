@@ -110,6 +110,36 @@ const games = ref<Game[]>([
         image: '/img/games/doodle.png',
         backgroundColor: 'bg-white',
     },
+    {
+        name: 'Cerne historky 2',
+        type: GameType.BlackStories2,
+        image: '/img/games/blackstories2.png',
+        backgroundColor: 'bg-white',
+    },
+    {
+        name: 'Black Skull Island',
+        type: GameType.BlackSkullIsland,
+        image: '/img/games/blackskullisland.png',
+        backgroundColor: 'bg-white',
+    },
+    {
+        name: 'Little Monster',
+        type: GameType.LittleMonster,
+        image: '/img/games/littlemonster.png',
+        backgroundColor: 'bg-white',
+    },
+    {
+        name: 'Skola Nindzu',
+        type: GameType.NinjaSchool,
+        image: '/img/games/ninjaschool.png',
+        backgroundColor: 'bg-white',
+    },
+    {
+        name: 'Playstation 5',
+        type: GameType.PS5,
+        image: '/img/games/playstation5.png',
+        backgroundColor: 'bg-white',
+    },
 ])
 const votedGame = ref<GameType | null>(null)
 

@@ -25,6 +25,8 @@ export enum SnackType {
     Nachos,
     Peanuts,
     Macarons,
+    Ocka,
+    Pie,
 }
 
 export enum EntityType {
@@ -46,4 +48,9 @@ export enum GameType {
     Piskvorky,
     Savana,
     DoodleDungeon,
+    BlackStories2,
+    BlackSkullIsland,
+    LittleMonster,
+    NinjaSchool,
+    PS5,
 }

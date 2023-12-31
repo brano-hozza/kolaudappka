@@ -153,6 +153,32 @@ const snacks = ref<Snack[]>([
         available: isAvailable(SnackType.Macarons),
         ordered: isOrdered(SnackType.Macarons),
     },
+    {
+        type: SnackType.Ocka,
+        image: '/img/snacks/ocka.png',
+        titles: [
+            {
+                text: 'Očká',
+                color: 'red',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(SnackType.Ocka),
+        ordered: isOrdered(SnackType.Ocka),
+    },
+    {
+        type: SnackType.Pie,
+        image: '/img/snacks/pie.png',
+        titles: [
+            {
+                text: 'Koláčik',
+                color: 'brown',
+            },
+        ],
+        backgroundColor: 'bg-black',
+        available: isAvailable(SnackType.Pie),
+        ordered: isOrdered(SnackType.Pie),
+    },
 ])
 
 const loading = ref(false)

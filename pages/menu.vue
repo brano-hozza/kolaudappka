@@ -60,15 +60,15 @@
 const router = useRouter()
 const changeRoute = (pathUrl: string) => {
     if (pathUrl === '/rating' && !isRatingOpen.value)
-        return confirm('Hodnotenie bude spustené o 20:00.')
+        return confirm('Hodnotenie bude spustené o 22:00.')
     router.push(pathUrl)
 }
 const openJam = () => {
-    window.open('https://spotify.link/F93jQGv4UDb', '_blank')
+    window.open('https://spotify.link/ZmT3KQ0TYFb', '_blank')
 }
 const isRatingOpen = computed(() => {
     const now = new Date()
-    const ratingStart = new Date('2023-10-15T20:00:00')
+    const ratingStart = new Date('2023-12-31T22:00:00')
     return now > ratingStart
 })
 </script>
