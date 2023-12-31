@@ -182,7 +182,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { DrinkType, EntityType, GameType, SnackType } from '~/types'
+import { DrinkType, EntityType, GameType, SnackType } from '~/types';
 
 definePageMeta({
     layout: false,
@@ -285,6 +285,16 @@ const getGameName = (gameType: GameType) => {
             return 'Shit happens'
         case GameType.UnoFlip:
             return 'Uno Flip'
+        case GameType.BlackSkullIsland:
+            return 'Black Skull Island'
+        case GameType.BlackStories2:
+            return 'Black Stories 2'
+        case GameType.LittleMonster:
+            return 'Little Monster'
+        case GameType.NinjaSchool:
+            return 'Ninja School'
+        case GameType.PS5:
+            return 'Playstation 5'
         default:
             return 'Unknown game'
     }
