@@ -16,29 +16,6 @@ body {
     display: none;
 }
 
-$colors: (
-    white: #fff,
-    red: #bb0d0f,
-    orange: #fb691a,
-    light-orange: #f39e5c,
-    peach: #ff935f,
-    salmon: #f5a161,
-    yellow: #feee3e,
-    light-yellow: #ffde59,
-    limoncello-yellow: #feee3f,
-    vibrant-yellow: #ffd602,
-    turquoise: #00feca,
-    light-green: #8ae0bf,
-    blue: #3cd8fc,
-    purple: #b07de6,
-    pink: #f752e0,
-    blush-pink: #ff8888,
-    light-nude: #ffe4b7,
-    nude: #fee5b7,
-    beige: #e9cf8d,
-    light-brown: #ccb29d,
-    brown: #f071087b,
-);
 
 @each $color, $value in $colors {
     .font-glow-#{'' + $color} {
