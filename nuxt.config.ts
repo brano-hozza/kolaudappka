@@ -1,27 +1,22 @@
-import { defineNuxtModule } from '@nuxt/kit'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    devtools: { enabled: true },
-    css: ['~/assets/scss/main.scss'],
+  compatibilityDate: "2024-07-16",
+  devtools: { enabled: true },
 
-    modules: [
-        '@kevinmarrec/nuxt-pwa',
-        defineNuxtModule({
-            setup(_, nuxt) {
-                nuxt.hook('prepare:types', ({ tsConfig }) => {
-                    // @ts-ignore
-                    tsConfig.compilerOptions.paths['#pwa'] = [
-                        './.nuxt/types/pwa',
-                    ]
-                })
-            },
-        }),
-        '@nuxtjs/tailwindcss',
-        '@nuxtjs/eslint-module',
-        'nuxt-icon',
-        '@nuxt/image',
-    ],
-    image: {
-        screens: [200, 400],
+  future: {
+    compatibilityVersion: 4,
+  },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/styles/_colors.scss" as *;',
+        },
+      },
     },
-})
+  },
+  css: ["~/assets/styles/main.scss"],
+
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/eslint", "@nuxt/icon", "@nuxt/image"],
+  buildModules: ["@nuxtjs/pwa"],
+});

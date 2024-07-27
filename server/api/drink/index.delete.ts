@@ -1,7 +1,7 @@
-import { useDrinkService } from '~/server/services'
+import { useDrinkService } from "~~/server/services";
 
 export default defineEventHandler(async () => {
-    const { clearOrders } = useDrinkService()
-    await clearOrders()
-    return 'Ok'
-})
+  const { clearOrders } = useDrinkService();
+  await clearOrders();
+  return "Ok";
+});

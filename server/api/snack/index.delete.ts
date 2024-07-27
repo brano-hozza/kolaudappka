@@ -1,7 +1,7 @@
-import { useSnackService } from '~/server/services'
+import { useSnackService } from "~~/server/services";
 
 export default defineEventHandler(async () => {
-    const { clearOrders } = useSnackService()
-    await clearOrders()
-    return 'Ok'
-})
+  const { clearOrders } = useSnackService();
+  await clearOrders();
+  return "Ok";
+});
