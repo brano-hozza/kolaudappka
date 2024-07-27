@@ -112,12 +112,11 @@ const { data: orders } = await useFetch("/api/drink");
 const refs = ref<Record<string, HTMLDivElement>>({});
 
 const isAvailable = (drinkType: DrinkType) =>
-  statuses.value?.find((s: { drinkType }) => s.drinkType === drinkType)
-    ?.available ?? true;
+  statuses.value?.find((stat) => stat.drinkType === drinkType)?.available ??
+  true;
 
 const isOrdered = (drinkType: DrinkType) =>
-  orders.value?.find((s: { drinkType }) => s.drinkType === drinkType)?.user ===
-  user.value;
+  orders.value?.find((ord) => ord.drinkType === drinkType)?.user === user.value;
 
 type Title = {
   text: string;
@@ -466,7 +465,7 @@ const orderDrink = async (drinkType: DrinkType) => {
     ];
   }
   loading.value = false;
-  refs.value[drink].scrollIntoView({
+  refs.value[drink]?.scrollIntoView({
     behavior: "smooth",
     block: "center",
   });
@@ -481,6 +480,6 @@ const getRandomDrink = (): DrinkType => {
       DrinkType[val.type] !== "RandomNonAlco" &&
       val.available,
   );
-  return values[Math.floor(Math.random() * values.length)].type;
+  return values[Math.floor(Math.random() * values.length)]!.type;
 };
 </script>
